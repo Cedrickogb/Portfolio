@@ -1,4 +1,3 @@
-import MyForm from "./Form"
 import React, { useRef } from 'react'
 import emailjs from "emailjs-com"
 import Link from "next/link";
