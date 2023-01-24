@@ -124,13 +124,13 @@ export default function Page() {
                         
                         <form ref={form} onSubmit={sendEmail} className="flex-col px-2 text-center">
                             <div className="py-2 text-center">
-                                <input type="text" id="fullName" name="name" className="pr-[60px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="nom et prenom..."/>
+                                <input type="text" id="fullName" name="name" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="nom et prenom..."/>
                             </div>
                             <div className="py-2 text-center">
-                                <input type="text" id="email_id" name="email" className="pr-[60px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="email..."/>
+                                <input type="text" id="email_id" name="email" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="email..."/>
                             </div>
                             <div className="py-2 text-center">
-                                <textarea type="text" id="message" name="message" className="bg-neutral-600  placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[110px]" placeholder="message..."/>
+                                <textarea type="text" id="message" name="message" className="bg-neutral-600  placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[100px]" placeholder="message..."/>
                             </div>
                             <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-green-900  hover:text-white transition duration-700" value="Send"/>
                         </form>
