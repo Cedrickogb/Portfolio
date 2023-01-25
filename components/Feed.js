@@ -23,7 +23,7 @@ export default function Page() {
         <div className="bg-cover bg-center bg-fixed bg-no-repeat  pl-2 pr-2 " style={{ backgroundImage: `url(/page-bg8.jpg)` }}>
             {/* Section About Me */}
             <div className="xl:ml-[250px] xl:pl-[120px] border-b border-gray-200  sm:ml-[230px] px-10 py-5 ">
-                <h1 className="text-center text-3xl font-semibold text-white pt-20 pb-6 " id="About me">About me</h1>
+                <h1 className="text-center text-3xl font-semibold text-white pt-20 pb-6 " id="About me">Qui suis-je ?</h1>
                 <p className="text-center text-white mt-2">Bienvenue, moi c'est OGOUBIYI Cédrick Gbemahonmédé j'ai 20ans, je suis étudiant en troisième année d'Architechture Logiciel à l'Ecole Supérieur de Gestion d'Informatique et des Sciences, je suis passionné d'informatique et de dessin. Très féru de manga de jeux-videos et de nouvelles technologies,  je suis aussi avide de connaissances et de nouvelles expérience donc j'aime me lancer de nouveaux défis.</p>
             </div>
 
