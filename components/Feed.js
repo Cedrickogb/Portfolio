@@ -138,9 +138,10 @@ export default function Page() {
 
                 <div className="grid grid-cols-2 gap-2 px-2 py-6">
                     <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700">
-                        <img src="/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2" />
+                        <img src="/weatherApp.png" width={500} height={25} className="px-2 py-2" />
                         <p className="transition duration-700 text-center text-white">
-                            <Link href=""> Projet 1</Link>
+                            <Link href="https://weather-app-cedrickogb.vercel.app/" target="blank" className=" font-medium hover:bg-green-700 transition duration-700 ">WeatherApp</Link> <br/>
+                            Petite application pour consulter la météo
                         </p>
                     </div>
 
@@ -197,7 +198,7 @@ export default function Page() {
                             <div className="py-2 text-center">
                                 <textarea type="text" id="message" name="message" className="bg-neutral-600  placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[100px]" placeholder="message..."/>
                             </div>
-                            <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-green-900  hover:text-white transition duration-700" value="Send"/>
+                            <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-green-700  hover:text-white transition duration-700" value="Send"/>
                         </form>
 
                     </div>
