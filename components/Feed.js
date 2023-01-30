@@ -188,15 +188,15 @@ export default function Page() {
                     <div className="px-2">
                         <h1 className="px-2 font-bold text-xl text-white text-center">Message</h1>
                         
-                        <form ref={form} onSubmit={sendEmail} className="flex-col px-2 text-center">
+                        <form ref={form} onSubmit={sendEmail} className="flex-col px-2 text-center container mx-auto">
                             <div className="py-2 text-center">
                                 <input type="text" id="fullName" name="name" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="nom et prenom..."/>
                             </div>
                             <div className="py-2 text-center">
                                 <input type="text" id="email_id" name="email" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="email..."/>
                             </div>
-                            <div className="py-2 text-center">
-                                <textarea type="text" id="message" name="message" className="bg-neutral-600  placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[100px]" placeholder="message..."/>
+                            <div className="py-2 text-center container mx-auto">
+                                <textarea type="text" id="message" name="message" className="bg-neutral-600 placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[100px] py-auto" placeholder="message..."/>
                             </div>
                             <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-green-700  hover:text-white transition duration-700" value="Send"/>
                         </form>
