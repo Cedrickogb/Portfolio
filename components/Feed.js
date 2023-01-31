@@ -20,7 +20,7 @@ export default function Page() {
 
 
     return (
-        <div className="bg-cover bg-center bg-fixed bg-no-repeat  pl-2 pr-2 " style={{ backgroundImage: `url(/page-bg8.jpg)` }}>
+        <div className="bg-cover bg-center bg-fixed bg-no-repeat  pl-2 pr-2 " style={{ backgroundImage: `url(/image/page-bg8.jpg)` }}>
             {/* Section About Me */}
             <div className="xl:ml-[250px] xl:pl-[120px] border-b border-gray-200  sm:ml-[230px] px-10 py-5 ">
                 <h1 className="text-center text-3xl font-semibold text-white pt-20 pb-6 " id="About me">Qui suis-je ?</h1>
@@ -138,7 +138,7 @@ export default function Page() {
 
                 <div className="grid grid-cols-2 gap-2 px-2 py-6">
                     <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700">
-                        <img src="/weatherApp.png" width={500} height={25} className="px-2 py-2" />
+                        <img src="/image/weatherApp.png" width={500} height={25} className="px-2 py-2" />
                         <p className="transition duration-700 text-center text-white">
                             <Link href="https://weather-app-cedrickogb.vercel.app/" target="blank" className=" font-medium hover:bg-green-700 transition duration-700 ">WeatherApp</Link> <br/>
                             Petite application pour consulter la météo
@@ -146,21 +146,21 @@ export default function Page() {
                     </div>
 
                     <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700 content-center">
-                        <img src="/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2 " />
+                        <img src="/image/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2 " />
                         <p className="transition duration-700 text-center text-white">
                             <Link href=""> Projet 2</Link>
                         </p>                    
                     </div>
 
                     <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700">
-                        <img src="/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2" />
+                        <img src="/image/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2" />
                         <p className="transition duration-700 text-center text-white">
                             <Link href=""> Projet 3</Link>
                         </p>                    
                     </div>
 
                     <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700">
-                        <img src="/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2" />
+                        <img src="/image/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2" />
                         <p className="transition duration-700 text-center text-white">
                             <Link href=""> Projet 4</Link>
                         </p>                    

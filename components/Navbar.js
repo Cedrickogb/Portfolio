@@ -13,7 +13,7 @@ export default function Navb() {
 
 
                 <div className="sm:px-[16px] py-10">
-                    <Image width="200" height="200" src="/Kurosaki Ichigo.png" >
+                    <Image width="200" height="200" src="/image/profil.jpg" >
                     </Image>
                     <div >
                         <h2 className="font-bold sm:px-3 py-2 text-white text-center text-xl ">OGOUBIYI Cédrick</h2>
