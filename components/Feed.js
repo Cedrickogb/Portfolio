@@ -141,7 +141,7 @@ export default function Page() {
                         <img src="/image/weatherApp.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30 ">
                             <Link href="https://weather-app-five-azure.vercel.app/" class="text-lg text-black font-semibold">WeatherApp</Link>
-                            <p class="mt-2 text-sm text-black hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                            <p class="mt-2 text-sm text-black hidden nd:block ">Petite application pour consulter la météo</p>
                         </div>
                     </div>
 
@@ -149,7 +149,7 @@ export default function Page() {
                         <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
                             <Link href="" class="text-lg text-white font-semibold">Projet 2</Link>
-                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
                         </div>
                     </div>
 
@@ -157,7 +157,7 @@ export default function Page() {
                         <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
                             <Link href="" class="text-lg text-white font-semibold">Projet 3</Link>
-                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
                         </div>
                     </div>
 
@@ -165,7 +165,7 @@ export default function Page() {
                         <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
                             <Link href="" class="text-lg text-white font-semibold">Projet 4</Link>
-                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
                         </div>
                     </div>
 
