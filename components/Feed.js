@@ -141,7 +141,7 @@ export default function Page() {
                         <img src="/image/weatherApp.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30 ">
                             <Link href="https://weather-app-five-azure.vercel.app/" class="text-lg text-black font-semibold">WeatherApp</Link>
-                            <p class="mt-2 text-sm text-black hidden nd:block ">Petite application pour consulter la météo</p>
+                            <p class="mt-2 text-sm text-black hidden nd:block ">Petite application web pour consulter la météo</p>
                         </div>
                     </div>
 
