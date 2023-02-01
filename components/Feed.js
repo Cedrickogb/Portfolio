@@ -6,16 +6,16 @@ export default function Page() {
     const form = useRef();
 
     const sendEmail = (e) => {
-      e.preventDefault();
-  
-      emailjs.sendForm('service_2rgpnmg', 'template_a3eaole', e.target, 'H6vSPvEf36X6FpChS')
-        .then((result) => {
-            console.log(result.text);
-            alert("Message sent!");
-        }, (error) => {
-            console.log(error.text);
-            alert("Message not sent!");
-        });
+        e.preventDefault();
+
+        emailjs.sendForm('service_2rgpnmg', 'template_a3eaole', e.target, 'H6vSPvEf36X6FpChS')
+            .then((result) => {
+                console.log(result.text);
+                alert("Message sent!");
+            }, (error) => {
+                console.log(error.text);
+                alert("Message not sent!");
+            });
     };
 
 
@@ -45,7 +45,7 @@ export default function Page() {
 
                     <div className=" px-2 text-white bg-neutral-600 bg-opacity-40 hover:bg-slate-100 hover:text-black transition duration-700  ">
 
-                        <svg fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 my-2"  color='currentColor' >
+                        <svg fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 my-2" color='currentColor' >
                             <title>javascript</title>
                             <path d="M17.313 14.789h-2.809c0 2.422-0.011 4.829-0.011 7.254 0.033 0.329 0.051 0.712 0.051 1.099 0 0.81-0.081 1.601-0.236 2.365l0.013-0.076c-0.412 0.861-1.475 0.751-1.957 0.6-0.451-0.242-0.808-0.609-1.031-1.055l-0.006-0.014c-0.044-0.094-0.097-0.174-0.16-0.246l0.001 0.001-2.281 1.406c0.367 0.79 0.934 1.434 1.637 1.885l0.018 0.011c0.763 0.427 1.675 0.678 2.645 0.678 0.484 0 0.954-0.063 1.401-0.18l-0.038 0.009c0.988-0.248 1.793-0.89 2.254-1.744l0.009-0.019c0.359-0.914 0.566-1.973 0.566-3.080 0-0.388-0.026-0.77-0.075-1.145l0.005 0.044c0.015-2.567 0-5.135 0-7.722zM28.539 23.843c-0.219-1.368-1.11-2.518-3.753-3.59-0.92-0.431-1.942-0.731-2.246-1.425-0.063-0.158-0.099-0.341-0.099-0.532 0-0.124 0.015-0.244 0.044-0.359l-0.002 0.010c0.208-0.55 0.731-0.935 1.343-0.935 0.199 0 0.388 0.040 0.559 0.113l-0.009-0.004c0.552 0.19 0.988 0.594 1.215 1.112l0.005 0.013c1.292-0.845 1.292-0.845 2.193-1.406-0.216-0.369-0.459-0.689-0.734-0.977l0.002 0.002c-0.767-0.814-1.852-1.32-3.056-1.32-0.171 0-0.34 0.010-0.505 0.030l0.020-0.002-0.881 0.111c-0.856 0.194-1.587 0.639-2.133 1.252l-0.003 0.004c-0.535 0.665-0.859 1.519-0.859 2.449 0 1.279 0.613 2.415 1.56 3.131l0.010 0.007c1.706 1.275 4.2 1.555 4.519 2.755 0.3 1.462-1.087 1.931-2.457 1.762-0.957-0.218-1.741-0.83-2.184-1.652l-0.009-0.017-2.287 1.313c0.269 0.536 0.607 0.994 1.011 1.385l0.001 0.001c2.174 2.194 7.61 2.082 8.586-1.255 0.113-0.364 0.178-0.782 0.178-1.215 0-0.3-0.031-0.593-0.091-0.875l0.005 0.028zM1.004 1.004h29.991v29.991h-29.991z"></path>
                         </svg>
@@ -58,7 +58,7 @@ export default function Page() {
                     <div className=" px-2 text-white bg-neutral-600 bg-opacity-40 hover:bg-slate-100 hover:text-black transition duration-700">
 
                         <svg className="h-20 w-20 my-2" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" >
-                            <path fill="currentColor" fill-rule="evenodd" d="M8 1C4.133 1 1 4.13 1 7.993c0 3.09 2.006 5.71 4.787 6.635.35.064.478-.152.478-.337 0-.166-.006-.606-.01-1.19-1.947.423-2.357-.937-2.357-.937-.319-.808-.778-1.023-.778-1.023-.635-.434.048-.425.048-.425.703.05 1.073.72 1.073.72.624 1.07 1.638.76 2.037.582.063-.452.244-.76.444-.935-1.554-.176-3.188-.776-3.188-3.456 0-.763.273-1.388.72-1.876-.072-.177-.312-.888.07-1.85 0 0 .586-.189 1.924.716A6.711 6.711 0 018 4.381c.595.003 1.194.08 1.753.236 1.336-.905 1.923-.717 1.923-.717.382.963.142 1.674.07 1.85.448.49.72 1.114.72 1.877 0 2.686-1.638 3.278-3.197 3.45.251.216.475.643.475 1.296 0 .934-.009 1.688-.009 1.918 0 .187.127.404.482.336A6.996 6.996 0 0015 7.993 6.997 6.997 0 008 1z" clip-rule="evenodd"/>
+                            <path fill="currentColor" fill-rule="evenodd" d="M8 1C4.133 1 1 4.13 1 7.993c0 3.09 2.006 5.71 4.787 6.635.35.064.478-.152.478-.337 0-.166-.006-.606-.01-1.19-1.947.423-2.357-.937-2.357-.937-.319-.808-.778-1.023-.778-1.023-.635-.434.048-.425.048-.425.703.05 1.073.72 1.073.72.624 1.07 1.638.76 2.037.582.063-.452.244-.76.444-.935-1.554-.176-3.188-.776-3.188-3.456 0-.763.273-1.388.72-1.876-.072-.177-.312-.888.07-1.85 0 0 .586-.189 1.924.716A6.711 6.711 0 018 4.381c.595.003 1.194.08 1.753.236 1.336-.905 1.923-.717 1.923-.717.382.963.142 1.674.07 1.85.448.49.72 1.114.72 1.877 0 2.686-1.638 3.278-3.197 3.45.251.216.475.643.475 1.296 0 .934-.009 1.688-.009 1.918 0 .187.127.404.482.336A6.996 6.996 0 0015 7.993 6.997 6.997 0 008 1z" clip-rule="evenodd" />
                         </svg>
                         <h1 className="text-2xl font-medium py-1">GitHub</h1>
                         <p className="py-2"> C'est un service web d'hébergement et de gestion de développement de logiciels, utilisant le logiciel de versioning Git.</p>
@@ -80,12 +80,12 @@ export default function Page() {
 
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 my-2">
                             <g clip-path="url(#clip0)">
-                            <path d="M11.2141 0.00645944C11.1625 0.0111515 10.9982 0.0275738 10.8504 0.039304C7.44164 0.346635 4.24868 2.18593 2.22639 5.01291C1.10029 6.58476 0.380059 8.36775 0.107918 10.2563C0.0117302 10.9156 0 11.1103 0 12.0041C0 12.898 0.0117302 13.0927 0.107918 13.7519C0.760117 18.2587 3.96716 22.0452 8.31672 23.4481C9.0956 23.6991 9.91672 23.8704 10.8504 23.9736C11.2141 24.0135 12.7859 24.0135 13.1496 23.9736C14.7613 23.7953 16.1267 23.3965 17.4733 22.7091C17.6798 22.6035 17.7196 22.5754 17.6915 22.5519C17.6727 22.5378 16.793 21.3578 15.7372 19.9314L13.8182 17.339L11.4135 13.7801C10.0903 11.8235 9.00176 10.2235 8.99238 10.2235C8.98299 10.2211 8.97361 11.8024 8.96891 13.7331C8.96188 17.1138 8.95953 17.2499 8.9173 17.3296C8.85631 17.4446 8.80938 17.4915 8.71085 17.5431C8.63578 17.5807 8.57009 17.5877 8.21584 17.5877H7.80997L7.70205 17.5197C7.63167 17.4751 7.58006 17.4164 7.54487 17.3484L7.4956 17.2428L7.50029 12.539L7.50733 7.83285L7.58006 7.74136C7.6176 7.69209 7.69736 7.62875 7.75367 7.59825C7.84985 7.55133 7.88739 7.54664 8.29325 7.54664C8.77185 7.54664 8.85161 7.5654 8.97595 7.70147C9.01114 7.73901 10.3132 9.7003 11.871 12.0628C13.4287 14.4252 15.5589 17.651 16.6053 19.2346L18.5056 22.1132L18.6018 22.0499C19.4534 21.4962 20.3543 20.7079 21.0674 19.8868C22.5853 18.1437 23.5636 16.0182 23.8921 13.7519C23.9883 13.0927 24 12.898 24 12.0041C24 11.1103 23.9883 10.9156 23.8921 10.2563C23.2399 5.74957 20.0328 1.96306 15.6833 0.560125C14.9161 0.311445 14.0997 0.140184 13.1848 0.036958C12.9595 0.0134976 11.4088 -0.0123089 11.2141 0.00645944ZM16.1267 7.26511C16.2393 7.32142 16.3308 7.42933 16.3636 7.54194C16.3824 7.60294 16.3871 8.90734 16.3824 11.8469L16.3754 16.0651L15.6317 14.9249L14.8856 13.7848V10.7185C14.8856 8.73608 14.895 7.62171 14.9091 7.56775C14.9466 7.43637 15.0287 7.33315 15.1413 7.27215C15.2375 7.22288 15.2727 7.21819 15.6411 7.21819C15.9883 7.21819 16.0493 7.22288 16.1267 7.26511Z" fill="currentColor"/>
+                                <path d="M11.2141 0.00645944C11.1625 0.0111515 10.9982 0.0275738 10.8504 0.039304C7.44164 0.346635 4.24868 2.18593 2.22639 5.01291C1.10029 6.58476 0.380059 8.36775 0.107918 10.2563C0.0117302 10.9156 0 11.1103 0 12.0041C0 12.898 0.0117302 13.0927 0.107918 13.7519C0.760117 18.2587 3.96716 22.0452 8.31672 23.4481C9.0956 23.6991 9.91672 23.8704 10.8504 23.9736C11.2141 24.0135 12.7859 24.0135 13.1496 23.9736C14.7613 23.7953 16.1267 23.3965 17.4733 22.7091C17.6798 22.6035 17.7196 22.5754 17.6915 22.5519C17.6727 22.5378 16.793 21.3578 15.7372 19.9314L13.8182 17.339L11.4135 13.7801C10.0903 11.8235 9.00176 10.2235 8.99238 10.2235C8.98299 10.2211 8.97361 11.8024 8.96891 13.7331C8.96188 17.1138 8.95953 17.2499 8.9173 17.3296C8.85631 17.4446 8.80938 17.4915 8.71085 17.5431C8.63578 17.5807 8.57009 17.5877 8.21584 17.5877H7.80997L7.70205 17.5197C7.63167 17.4751 7.58006 17.4164 7.54487 17.3484L7.4956 17.2428L7.50029 12.539L7.50733 7.83285L7.58006 7.74136C7.6176 7.69209 7.69736 7.62875 7.75367 7.59825C7.84985 7.55133 7.88739 7.54664 8.29325 7.54664C8.77185 7.54664 8.85161 7.5654 8.97595 7.70147C9.01114 7.73901 10.3132 9.7003 11.871 12.0628C13.4287 14.4252 15.5589 17.651 16.6053 19.2346L18.5056 22.1132L18.6018 22.0499C19.4534 21.4962 20.3543 20.7079 21.0674 19.8868C22.5853 18.1437 23.5636 16.0182 23.8921 13.7519C23.9883 13.0927 24 12.898 24 12.0041C24 11.1103 23.9883 10.9156 23.8921 10.2563C23.2399 5.74957 20.0328 1.96306 15.6833 0.560125C14.9161 0.311445 14.0997 0.140184 13.1848 0.036958C12.9595 0.0134976 11.4088 -0.0123089 11.2141 0.00645944ZM16.1267 7.26511C16.2393 7.32142 16.3308 7.42933 16.3636 7.54194C16.3824 7.60294 16.3871 8.90734 16.3824 11.8469L16.3754 16.0651L15.6317 14.9249L14.8856 13.7848V10.7185C14.8856 8.73608 14.895 7.62171 14.9091 7.56775C14.9466 7.43637 15.0287 7.33315 15.1413 7.27215C15.2375 7.22288 15.2727 7.21819 15.6411 7.21819C15.9883 7.21819 16.0493 7.22288 16.1267 7.26511Z" fill="currentColor" />
                             </g>
                             <defs>
-                            <clipPath id="clip0">
-                            <rect width="24" height="24" fill="white"/>
-                            </clipPath>
+                                <clipPath id="clip0">
+                                    <rect width="24" height="24" fill="white" />
+                                </clipPath>
                             </defs>
                         </svg>
                         <h1 className="text-2xl font-medium py-1">Next.js</h1>
@@ -97,7 +97,7 @@ export default function Page() {
 
                         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 my-2">
                             <title>file_type_tailwind</title>
-                            <path d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z" fill='currentColor' className='hover:fill-blue'/>
+                            <path d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z" fill='currentColor' className='hover:fill-blue' />
                         </svg>
                         <h1 className="text-2xl font-medium py-1">Tailwind CSS</h1>
                         <p className="py-2 "> Tailwind CSS est un framework CSS open source. C'est un framework conçu pour permettre aux utilisateurs de créer des applications plus rapidement et plus facilement.</p>
@@ -137,34 +137,38 @@ export default function Page() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 px-2 py-6">
-                    <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700">
-                        <img src="/image/weatherApp.png" width={500} height={25} className="px-2 py-2" />
-                        <p className="transition duration-700 text-center text-white">
-                            <Link href="https://weather-app-cedrickogb.vercel.app/" target="blank" className=" font-medium hover:bg-green-700 transition duration-700 ">WeatherApp</Link> <br/>
-                            Petite application pour consulter la météo
-                        </p>
+                    <div className="relative transition duration-700 content-center overflow-hidden">
+                        <img src="/image/weatherApp.png" className=" transform transition duration-500 hover:scale-110" />
+                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30 ">
+                            <Link href="https://weather-app-five-azure.vercel.app/" class="text-lg text-black font-semibold">WeatherApp</Link>
+                            <p class="mt-2 text-sm text-black hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                        </div>
                     </div>
 
-                    <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700 content-center">
-                        <img src="/image/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2 " />
-                        <p className="transition duration-700 text-center text-white">
-                            <Link href=""> Projet 2</Link>
-                        </p>                    
+                    <div className="relative transition duration-700 content-center overflow-hidden">
+                        <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
+                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
+                            <Link href="" class="text-lg text-white font-semibold">Projet 2</Link>
+                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                        </div>
                     </div>
 
-                    <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700">
-                        <img src="/image/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2" />
-                        <p className="transition duration-700 text-center text-white">
-                            <Link href=""> Projet 3</Link>
-                        </p>                    
+                    <div className="relative transition duration-700 content-center overflow-hidden">
+                        <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
+                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
+                            <Link href="" class="text-lg text-white font-semibold">Projet 3</Link>
+                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                        </div>
                     </div>
 
-                    <div className="hover:bg-neutral-600 hover:bg-opacity-40 transition duration-700">
-                        <img src="/image/Kurosaki Ichigo.png" width={500} height={25} className="px-2 py-2" />
-                        <p className="transition duration-700 text-center text-white">
-                            <Link href=""> Projet 4</Link>
-                        </p>                    
+                    <div className="relative transition duration-700 content-center overflow-hidden">
+                        <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
+                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
+                            <Link href="" class="text-lg text-white font-semibold">Projet 4</Link>
+                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text. Some dummy text here. Welcome to KindaCode.com</p>
+                        </div>
                     </div>
+
                 </div>
 
             </div>
@@ -187,23 +191,21 @@ export default function Page() {
 
                     <div className="px-2">
                         <h1 className="px-2 font-bold text-xl text-white text-center">Message</h1>
-                        
+
                         <form ref={form} onSubmit={sendEmail} className="flex-col px-2 text-center container mx-auto">
                             <div className="py-2 text-center">
-                                <input type="text" id="fullName" name="name" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="nom et prenom..."/>
+                                <input type="text" id="fullName" name="name" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="nom et prenom..." />
                             </div>
                             <div className="py-2 text-center">
-                                <input type="text" id="email_id" name="email" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="email..."/>
+                                <input type="text" id="email_id" name="email" className="pr-[50px] bg-neutral-600  placeholder:text-gray-900 bg-opacity-60 text-white border" placeholder="email..." />
                             </div>
                             <div className="py-2 text-center container mx-auto">
-                                <textarea type="text" id="message" name="message" className="bg-neutral-600 placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[100px] py-auto" placeholder="message..."/>
+                                <textarea type="text" id="message" name="message" className="bg-neutral-600 placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[100px] py-auto" placeholder="message..." />
                             </div>
-                            <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-green-700  hover:text-white transition duration-700" value="Send"/>
+                            <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-green-700  hover:text-white transition duration-700" value="Send" />
                         </form>
 
                     </div>
-
-                    {/* <MyForm /> */}
 
                 </div>
 
