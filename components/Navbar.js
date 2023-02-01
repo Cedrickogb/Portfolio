@@ -25,16 +25,16 @@ export default function Navb() {
                     <nav className={`${open ? "display" : "hidden"}  sm:flex sm:items-center sm:w-auto w-auto `}>
 
                         <ul className="px-[3px] py-4 ">
-                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2 ">
+                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2 cursor-pointer ">
                                 <Link href="#About me">Qui suis-je</Link>
                             </li>
-                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2">
+                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2 cursor-pointer">
                                 <Link href="#Points fort">Points fort</Link>
                             </li>
-                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2">
+                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2 cursor-pointer">
                                 <Link href="#Projects">Projets</Link>
                             </li>
-                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2 border-b-2">
+                            <li className="font-semibold sm:px-[75px] py-5 text-white text-center hover:bg-slate-100 hover:text-slate-900 transition duration-700 border-t-2 border-b-2 cursor-pointer">
                                 <Link href="#Contact">Contact</Link>
                             </li>
 
