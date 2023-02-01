@@ -140,7 +140,7 @@ export default function Page() {
                     <div className="relative transition duration-700 content-center overflow-hidden">
                         <img src="/image/weatherApp.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30 ">
-                            <Link href="https://weather-app-five-azure.vercel.app/" class="text-lg text-black font-semibold">WeatherApp</Link>
+                            <Link href="https://weather-app-five-azure.vercel.app/" class="text-lg text-black font-semibold" target="blank">WeatherApp</Link>
                             <p class="mt-2 text-sm text-black hidden nd:block ">Petite application web pour consulter la météo</p>
                         </div>
                     </div>
@@ -148,7 +148,7 @@ export default function Page() {
                     <div className="relative transition duration-700 content-center overflow-hidden">
                         <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
-                            <Link href="" class="text-lg text-white font-semibold">Projet 2</Link>
+                            <Link href="" class="text-lg text-white font-semibold" target="blank">Projet 2</Link>
                             <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
                         </div>
                     </div>
@@ -156,7 +156,7 @@ export default function Page() {
                     <div className="relative transition duration-700 content-center overflow-hidden">
                         <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
-                            <Link href="" class="text-lg text-white font-semibold">Projet 3</Link>
+                            <Link href="" class="text-lg text-white font-semibold" target="blank">Projet 3</Link>
                             <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
                         </div>
                     </div>
@@ -164,7 +164,7 @@ export default function Page() {
                     <div className="relative transition duration-700 content-center overflow-hidden">
                         <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
                         <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
-                            <Link href="" class="text-lg text-white font-semibold">Projet 4</Link>
+                            <Link href="" class="text-lg text-white font-semibold" target="blank">Projet 4</Link>
                             <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
                         </div>
                     </div>
