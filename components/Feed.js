@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import emailjs from "emailjs-com"
 import Link from "next/link";
+
 export default function Page() {
 
     const form = useRef();
-
     const sendEmail = (e) => {
         e.preventDefault();
 
@@ -137,35 +137,35 @@ export default function Page() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 px-2 py-6">
-                    <div className="relative transition duration-700 content-center overflow-hidden">
-                        <img src="/image/weatherApp.png" className=" transform transition duration-500 hover:scale-110" />
-                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-50 ">
+                    <div className="sm:relative transition duration-700 content-center overflow-hidden"  onClick={() => window.open("https://weather-app-five-azure.vercel.app/")}>
+                        <img src="/image/weatherApp.png" className="transition duration-500 hover:scale-110 cursor-pointer" />
+                        <div class="sm:absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40 ">
                             <Link href="https://weather-app-five-azure.vercel.app/" class="text-lg text-white font-semibold" target="blank">WeatherApp</Link>
                             <p class="mt-2 text-sm text-white hidden nd:block ">Petite application web pour consulter la météo.</p>
                         </div>
                     </div>
 
-                    <div className="relative transition duration-700 content-center overflow-hidden">
-                        <img src="/image/twitter-clone.png" className=" transform transition duration-500 hover:scale-110" />
-                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40">
+                    <div className="sm:relative transition duration-700 content-center overflow-hidden cursor-pointer" onClick={() => window.open("https://twitter-clone-cedrickogb.vercel.app/")}>
+                        <img src="/image/twitter-clone.png" className=" hover:transform transition duration-500 hover:scale-110 sm:hover:none" />
+                        <div class="sm:absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40">
                             <Link href="https://twitter-clone-cedrickogb.vercel.app/" class="text-lg text-white font-semibold" target="blank">Twitter-clone</Link>
                             <p class="mt-2 text-sm text-white hidden nd:block ">Clone de l'application web Twitter.</p>
                         </div>
                     </div>
 
-                    <div className="relative transition duration-700 content-center overflow-hidden">
-                        <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
-                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
-                            <Link href="" class="text-lg text-white font-semibold" target="blank">Projet 3</Link>
-                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
+                    <div className="sm:relative transition duration-700 content-center overflow-hidden cursor-pointer" onClick={() => window.open("")}>
+                        <img src="/image/empty.png"  className=" hover:transform transition duration-500 hover:scale-110 sm:hover:none" />
+                        <div class="sm:absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40">
+                            <Link href="https://twitter-clone-cedrickogb.vercel.app/" class="text-lg text-white font-semibold" target="blank">Project 3</Link>
+                            <p class="mt-2 text-sm text-white hidden nd:block ">Some description.</p>
                         </div>
                     </div>
 
-                    <div className="relative transition duration-700 content-center overflow-hidden">
-                        <img src="/image/Kurosaki Ichigo.png" className=" transform transition duration-500 hover:scale-110" />
-                        <div class="absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-30">
-                            <Link href="" class="text-lg text-white font-semibold" target="blank">Projet 4</Link>
-                            <p class="mt-2 text-sm text-gray-300 hidden nd:block ">Some description text.</p>
+                    <div className="sm:relative transition duration-700 content-center overflow-hidden cursor-pointer" onClick={() => window.open("")}>
+                        <img src="/image/empty.png" className=" hover:transform transition duration-500 hover:scale-110 sm:hover:none" />
+                        <div class="sm:absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40">
+                            <Link href="https://twitter-clone-cedrickogb.vercel.app/" class="text-lg text-white font-semibold" target="blank">Project 4</Link>
+                            <p class="mt-2 text-sm text-white hidden nd:block ">Some description.</p>
                         </div>
                     </div>
 

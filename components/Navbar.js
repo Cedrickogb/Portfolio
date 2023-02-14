@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Navb() {
     const [open, setOpen] = useState(false);
     return (
-        <div className="transition duration-700 absolute">
+        <div className="transition duration-700 fixed">
             <FiMenu className="fixed sm:hidden display h-7 w-7 mr-2 mt-2 top-0 right-0 cursor-pointer bg-white " onClick={() => setOpen(!open)} />
             <div className={`${open ? "display" : "hidden"} sm:flex flex-col py-2 xl:items-start fixed  h-full xl:ml-[96px] bg-gradient-to-r from-lime-700 to-green-700 overflow-auto scrollbar-hide transition duration-700  `}>
 
