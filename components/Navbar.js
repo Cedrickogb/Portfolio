@@ -6,15 +6,15 @@ import Link from "next/link";
 export default function Navb() {
     const [open, setOpen] = useState(false);
     return (
-        <div className="transition duration-700">
+        <div className="transition duration-700 absolute">
             <FiMenu className="fixed sm:hidden display h-7 w-7 mr-2 mt-2 top-0 right-0 cursor-pointer bg-white " onClick={() => setOpen(!open)} />
             <div className={`${open ? "display" : "hidden"} sm:flex flex-col py-2 xl:items-start fixed  h-full xl:ml-[96px] bg-gradient-to-r from-lime-700 to-green-700 overflow-auto scrollbar-hide transition duration-700  `}>
 
 
 
                 <div className="sm:px-[16px] py-10">
-                    <Image width="200" height="200" src="/image/Kurosaki Ichigo.png" >
-                    </Image>
+                    <img width="200" height="200" src="https://t3.ftcdn.net/jpg/03/42/99/68/360_F_342996846_tHMepJOsXWwbvMpG7uiYpE68wbfQ9e4s.jpg" />
+
                     <div >
                         <h2 className="font-bold sm:px-3 py-2 text-white text-center text-xl ">OGOUBIYI Cédrick</h2>
                         <p className="text-center italic text-white">Développeur Web</p>
