@@ -7,7 +7,7 @@ export default function Navb() {
     return (
         <div className="transition duration-700 fixed">
             <FiMenu className="fixed sm:hidden display h-7 w-7 mr-2 mt-2 top-0 right-0 cursor-pointer bg-white " onClick={() => setOpen(!open)} />
-            <div className={`${open ? "display" : "ml-[-100%]"} sm:flex flex-col py-2 xl:items-start fixed  h-full xl:ml-[96px] bg-gradient-to-r from-lime-600 to-green-700 overflow-auto scrollbar-hide transition-ease duration-700  `}>
+            <div className={`${open ? "display" : "ml-[-100%]"} sm:ml-[0%] flex-col py-2 xl:items-start fixed  h-full xl:ml-[96px] bg-gradient-to-r from-lime-600 to-green-700 overflow-auto scrollbar-hide transition-ease duration-700  `}>
 
 
 
