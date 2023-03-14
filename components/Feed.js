@@ -24,7 +24,7 @@ export default function Page() {
             {/* Section About Me */}
             <div className="xl:ml-[250px] xl:pl-[120px] border-b border-gray-200  sm:ml-[230px] px-10 py-5 ">
                 <h1 className="text-center text-3xl font-semibold text-white pt-20 pb-6 " id="About me">Qui suis-je ?</h1>
-                <p className="text-center text-white mt-2">Bienvenue, moi c'est OGOUBIYI Cédrick Gbemahonmédé j'ai 20ans, je suis étudiant en troisième année d'Architechture Logiciel à l'Ecole Supérieur de Gestion d'Informatique et des Sciences, je suis passionné d'informatique et de dessin. Très féru de manga de jeux-videos et de nouvelles technologies,  je suis aussi avide de connaissances et de nouvelles expérience donc j'aime me lancer de nouveaux défis.</p>
+                <p className="text-center text-white mt-2">Bienvenuuue, je suis <span className='text-lime-500 text-lg'>OGOUBIYI Cédrick Gbemahonmédé</span> j'ai 20ans, je suis étudiant en troisième année d'Architechture Logiciel à l'Ecole Supérieur de Gestion d'Informatique et des Sciences, je suis passionné d'informatique et de dessin. Très féru de manga de jeux-videos et de nouvelles technologies,  je suis aussi avide de connaissances et de nouvelles expérience donc j'aime me lancer de nouveaux défis.</p>
             </div>
 
             {/* Section Points forts */}
@@ -156,7 +156,7 @@ export default function Page() {
                     <div className="sm:relative transition duration-700 content-center overflow-hidden cursor-pointer" onClick={() => window.open("")}>
                         <img src="/image/empty.png"  className=" hover:transform transition duration-500 hover:scale-110 sm:hover:none" />
                         <div class="sm:absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40">
-                            <Link href="https://twitter-clone-cedrickogb.vercel.app/" class="text-lg text-white font-semibold" target="blank">Project 3</Link>
+                            <Link href="" class="text-lg text-white font-semibold" target="blank">Project 3</Link>
                             <p class="mt-2 text-sm text-white hidden nd:block ">Some description.</p>
                         </div>
                     </div>
@@ -164,7 +164,7 @@ export default function Page() {
                     <div className="sm:relative transition duration-700 content-center overflow-hidden cursor-pointer" onClick={() => window.open("")}>
                         <img src="/image/empty.png" className=" hover:transform transition duration-500 hover:scale-110 sm:hover:none" />
                         <div class="sm:absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40">
-                            <Link href="https://twitter-clone-cedrickogb.vercel.app/" class="text-lg text-white font-semibold" target="blank">Project 4</Link>
+                            <Link href="" class="text-lg text-white font-semibold" target="blank">Project 4</Link>
                             <p class="mt-2 text-sm text-white hidden nd:block ">Some description.</p>
                         </div>
                     </div>
@@ -202,7 +202,7 @@ export default function Page() {
                             <div className="py-2 text-center container mx-auto">
                                 <textarea type="text" id="message" name="message" className="bg-neutral-600 placeholder:text-gray-900 resize bg-opacity-60 text-white border pr-[100px] py-auto" placeholder="message..." />
                             </div>
-                            <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-green-700  hover:text-white transition duration-700" value="Send" />
+                            <input type="submit" className="bg-white px-3 py-1 text-neutral-600 font-medium hover:bg-lime-600   hover:text-white transition duration-700" value="Send" />
                         </form>
 
                     </div>
