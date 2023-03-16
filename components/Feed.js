@@ -186,7 +186,7 @@ export default function Page() {
                     <div className="">
                         <h1 className="font-bold text-xl text-white px-2 text-center py-2">OGOUBIYI Cédrick</h1>
                         <p className="px-2  text-white text-center">+229 96172375</p>
-                        <p className="px-2  text-white text-center">benogoubiyi13@gmail.com</p>
+                        <p className="px-2  text-white text-center">cedrickogoubiyi13@gmail.com</p>
                     </div>
 
                     <div className="px-2">

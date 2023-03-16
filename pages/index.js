@@ -3,8 +3,6 @@ import Navbar from "../components/Navbar"
 import Feed from "../components/Feed"
 
 
-
-
 export default function Home({newsResults, randomUsersResults}) {
   return (
     <div className="relative">
