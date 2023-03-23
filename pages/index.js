@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar"
 import Feed from "../components/Feed"
+import Blurb from "../components/blurb";
 
 
 export default function Home({newsResults, randomUsersResults}) {
