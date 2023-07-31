@@ -24,7 +24,7 @@ export default function Page() {
             {/* Section About Me */}
             <div className="xl:ml-[250px] xl:pl-[120px] border-b border-gray-200  sm:ml-[230px] px-10 py-5 ">
                 <h1 className="text-center text-3xl font-semibold text-white pt-20 pb-6 " id="About me">Qui suis-je ?</h1>
-                <p className="text-center text-white mt-2">Bienvenuuue, je suis <span className='text-lime-500 text-lg'>OGOUBIYI Cédrick Gbemahonmédé</span> j'ai 20ans, je suis étudiant en troisième année d'Architechture Logiciel à l'Ecole Supérieur de Gestion d'Informatique et des Sciences, je suis passionné d'informatique et de dessin. Très féru de manga de jeux-videos et de nouvelles technologies,  je suis aussi avide de connaissances et de nouvelles expérience donc j'aime me lancer de nouveaux défis.</p>
+                <p className="text-center text-white mt-2">Bienvenuuue, je suis <span className='text-lime-500 text-lg font-medium'>OGOUBIYI Cédrick Gbemahonmédé</span> j'ai 20ans, je suis étudiant en troisième année d'Architechture Logiciel à l'Ecole Supérieur de Gestion d'Informatique et des Sciences, je suis passionné d'informatique et de dessin. Très féru de manga de jeux-videos et de nouvelles technologies,  je suis aussi avide de connaissances et de nouvelles expérience donc j'aime me lancer de nouveaux défis.</p>
             </div>
 
             {/* Section Points forts */}
@@ -32,7 +32,7 @@ export default function Page() {
                 <h1 className="text-center text-3xl font-semibold text-white pt-2 pb-6" id="Points fort">Points forts</h1>
                 <p className="text-center text-white mt-2 pb-5">Comme la majorité des développeur ou des web développeurs et étant encore étudiant il y a des domaines où j'excèlle et d'autres où mes performances ne sont pas élevées, j'excèlle donc avec les technologies suivantes:</p>
 
-                <div className="grid grid-cols-2 gap-2 px-2 py-6">
+                <div className="flex flex-col space-y-3 lg:grid lg:grid-cols-2 lg:gap-2 lg:px-2 lg:py-6">
                     <div className="px-2 text-white bg-neutral-600 bg-opacity-40 hover:bg-slate-100 hover:text-black transition duration-700 cursor-pointer" >
                         <div className="p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-20 w-20 my-2 hover:text-green">
@@ -138,7 +138,7 @@ export default function Page() {
                     <p className="text-center text-white "> Voici un petit étallage des différents projets que j'ai commencer et mener jusqu'à la fin. </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 px-2 py-6">
+                <div className="flex flex-col space-y-3 lg:grid lg:grid-cols-2 lg:gap-2 lg:px-2 lg:py-6">
                     <div className="sm:relative transition duration-700 content-center overflow-hidden" onClick={() => window.open("https://weather-app-five-azure.vercel.app/")}>
                         <img src="/image/weatherApp.png" className="transition duration-500 hover:scale-110 cursor-pointer" />
                         <div class="sm:absolute bottom-0  px-4 py-1 bg-neutral-900 bg-opacity-40 ">
