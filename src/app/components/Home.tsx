@@ -7,11 +7,11 @@ export default function Page() {
         <div className="flex flex-col justify-center items-center space-y-4 animate-moveToleft">
             {/* <h1 className="text-center text-3xl font-semibold text-white" id="About me">Qui suis-je ?</h1> */}
             {/* <div className="w-[80%] text-center text-white p-10 bg-gray-200/20 rounded-2xl"> */}
-            <div className="w-[80%] flex flex-col -space-y-6 text-3xl text-white p-10">
+            <div className="lg:w-[80%] flex flex-col -space-y-6 text-3xl text-white p-10">
                 <h3>Helloo, I'm </h3>
-                <h1 className='items-end space-x-2 md:text-[125px] leading-normal text-lime-500 light'>  
+                <h1 className='flex flex-col lg:block items-end space-x-2 text-[100px] md:text-[125px] leading-normal text-lime-500 light'>  
                     <span className='font-bold'>Cédrick</span> 
-                    <span className='text-[65px] font-medium'>OGOUBIYI</span> 
+                    <span className='invisible lg:visible text-[50px] lg:text-[65px] font-medium'>OGOUBIYI</span> 
                 </h1>  
                 <p className='text-2xl'>I'm a Software engineer and i actually choose the path of the frontend development </p>
                 

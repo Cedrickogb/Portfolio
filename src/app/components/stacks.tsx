@@ -6,7 +6,7 @@ export default function Page() {
 
     return (
         <div className="flex flex-col space-y-4 p-6 lg:p-10 z-20">
-            <div className="flex flex-wrap gap-4 justify-center lg:p-6 rounded-2xl">
+            <div className="flex flex-wrap gap-2 lg:gap-4 justify-center lg:p-6 rounded-2xl">
 
                 <div className="group flex flex-col justify-center items-center space-y-2">
                     <div className="relative p-2 text-white bg-neutral-600/40 hover:bg-neutral-600/80 transition duration-700 cursor-pointer rounded-2xl">

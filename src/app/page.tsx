@@ -9,7 +9,7 @@ import Imager from './image/empty.png'
 import { useState } from "react";
 
 export default function Home() {
-  const [section, setSection] = useState('Home');
+  const [section, setSection] = useState('Stack');
 
   function changeValue(section: string){
     setSection(section);
@@ -18,14 +18,7 @@ export default function Home() {
 
   return (
     <div className="relative flex flex-col justify-center items-center w-full h-[100vh] font-[family-name:var(--font-nunito)] bg-neutral-900 overflow-hidden">
-      <div className="opacity-25">
-          <div className="absolute bottom-0 left-10 w-72 h-72 bg-lime-600 rounded-full filter blur-2xl -z-30 animate-pulse"></div>
-          <div className="absolute top-12 left-12 lg:left-32 w-80 h-80 bg-[#46FF78] rounded-full filter blur-2xl -z-30 animate-slideToRight"></div>
-          <div className="absolute -top-10 right-40 w-72 h-72 bg-green-600 filter rounded-full blur-2xl -z-30 animate-slideToleft"></div>
-          <div className="absolute top-32 -right-5 w-96 h-96 bg-[#46FF14] filter rounded-full blur-2xl -z-30 animate-slideUp"></div>
-      </div>
-
-      <header className="w-full p-8 flex justify-between">
+      <header className="w-full p-8 flex justify-between z-10">
         <div className="flex space-x-3 text-xl">
           <div onClick={() => setSection('Home')} className={`${section === 'Home' ? 'text-lime-500' : ''} hover:text-lime-500 transition duration-700 cursor-pointer`}>Home</div>
           <div onClick={() => setSection('Stack')} className={`${section === 'Stack' ? 'text-lime-500' : ''} hover:text-lime-500 transition duration-700 cursor-pointer`}>Stacks</div>
@@ -55,18 +48,23 @@ export default function Home() {
         </div>
       </header>
 
-      <div className={`flex ${section === 'Home' || 'Stack' ? 'justify-center items-start' : ''} w-full h-full overflow-auto`}>
+      <div className={`flex ${section === 'Home' || 'Stack' ? 'justify-center items-start' : ''} w-full h-full overflow-auto z-10`}>
         {section === 'Home' && <HomeSection/>}
         {section === 'Stack' && <Stacks/>}
         {section === 'Project' && <Projects/>}
         {section === 'Contact' && <Contacts/>}
       </div>
 
-      <footer className="w-full flex justify-center text-white p-4">
+      <footer className="w-full flex justify-center text-white p-4 z-10">
         <p>Copyright © 2020 - 2024. Cédrick OGOUBIYI</p>
       </footer>
 
-
+      <div className="opacity-25 z-0">
+        <div className="absolute bottom-0 left-10 w-72 h-72 bg-lime-600 rounded-full filter blur-2xl animate-pulse"></div>
+        <div className="absolute top-12 left-12 lg:left-32 w-80 h-80 bg-[#46FF78] rounded-full filter blur-2xl animate-slideToRight"></div>
+        <div className="absolute -top-10 right-40 w-72 h-72 bg-green-600 filter rounded-full blur-2xl animate-slideToleft"></div>
+        <div className="absolute top-32 -right-5 w-96 h-96 bg-[#46FF14] filter rounded-full blur-2xl animate-slideUp"></div>
+      </div>
     </div>
   );
 }
