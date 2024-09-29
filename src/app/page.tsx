@@ -19,10 +19,10 @@ export default function Home() {
   return (
     <div className="relative flex flex-col justify-center items-center w-full h-[100vh] font-[family-name:var(--font-nunito)] bg-neutral-900 overflow-hidden">
       <div className="opacity-25">
-          <div className="absolute bottom-0 left-10 w-72 h-72 bg-lime-600 rounded-full filter blur-2xl -z-10 animate-pulse"></div>
-          <div className="absolute top-12 left-12 lg:left-32 w-80 h-80 bg-[#46FF78] rounded-full filter blur-2xl -z-10 animate-slideToRight"></div>
-          <div className="absolute -top-10 right-40 w-72 h-72 bg-green-600 filter rounded-full blur-2xl -z-10 animate-slideToleft"></div>
-          <div className="absolute top-32 -right-5 w-96 h-96 bg-[#46FF14] filter rounded-full blur-2xl -z-10 animate-slideUp"></div>
+          <div className="absolute bottom-0 left-10 w-72 h-72 bg-lime-600 rounded-full filter blur-2xl -z-30 animate-pulse"></div>
+          <div className="absolute top-12 left-12 lg:left-32 w-80 h-80 bg-[#46FF78] rounded-full filter blur-2xl -z-30 animate-slideToRight"></div>
+          <div className="absolute -top-10 right-40 w-72 h-72 bg-green-600 filter rounded-full blur-2xl -z-30 animate-slideToleft"></div>
+          <div className="absolute top-32 -right-5 w-96 h-96 bg-[#46FF14] filter rounded-full blur-2xl -z-30 animate-slideUp"></div>
       </div>
 
       <header className="w-full p-8 flex justify-between">
