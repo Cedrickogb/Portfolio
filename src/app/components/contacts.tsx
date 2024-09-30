@@ -20,10 +20,10 @@ export default function Page() {
 
 
     return (
-        <div className="flex flex-col space-y-10 border-gray-200 p-4">
+        <div className="flex flex-col space-y-10 border-gray-200 p-4 animate-moveToleft">
 
             <div className='flex flex-col space-y-2'>
-                <h1 className="text-center text-4xl lg:text-6xl font-semibold text-white" id="Contact">Contact</h1>
+                <h1 className="text-center text-5xl lg:text-6xl font-semibold text-white" id="Contact">Contact</h1>
                 <p className="text-center text-white ">Avez vous besoin de mes services ou des suggestions à me faire ? Cette petite section vous aidera.</p>
             </div>
 

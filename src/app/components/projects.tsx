@@ -9,7 +9,7 @@ import pic4 from '../image/aso1.png'
 export default function Page() {
 
     return (
-        <div className="flex flex-col space-y-4 p-4">
+        <div className="flex flex-col space-y-4 p-4 animate-moveToleft">
             <div className="space-y-2">
                 <h1 className=" text-center text-5xl font-semibold text-white" id="Projects">Projects</h1>
                 <p className="text-center text-white ">Here is a small display of the different projects that I have started and completed.</p>
