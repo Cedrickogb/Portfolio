@@ -16,13 +16,13 @@ export default function Page() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-8">
-                <div className="sm:relative transition duration-700 content-center border p-2 rounded-2xl overflow-hidden" onClick={() => window.open("https://weather-app-five-azure.vercel.app/")}>
+                {/* <div className="sm:relative transition duration-700 content-center border p-2 rounded-2xl overflow-hidden" onClick={() => window.open("https://weather-app-five-azure.vercel.app/")}>
                     <Image alt="" src={pic1} className="bg-neutral-600/80 transition duration-500 hover:scale-110 rounded-2xl cursor-pointer" />
                     <div className="sm:absolute bottom-0 flex flex-col space-y-2 p-4 py-2 bg-neutral-900/70">
                         <Link href="https://weather-app-five-azure.vercel.app/" className="text-base text-white font-semibold" target="blank">WeatherApp</Link>
                         <p className="text-sm text-white hidden nd:block ">Petite application web pour consulter la météo.</p>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="sm:relative transition duration-700 content-center border p-2 rounded-2xl overflow-hidden cursor-pointer" onClick={() => window.open("https://twitter-clone-cedrickogb.vercel.app/")}>
                     <Image alt="" src={pic2} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
