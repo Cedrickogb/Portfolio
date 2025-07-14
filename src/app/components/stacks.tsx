@@ -9,6 +9,22 @@ export default function Page() {
             <div className="flex flex-wrap gap-2 lg:gap-4 justify-center lg:p-6 rounded-2xl">
 
                 <div className="group flex flex-col justify-center items-center space-y-2">
+                    <div className="relative p-2 text-white bg-neutral-600/40 hover:bg-neutral-600/80 transition duration-700 cursor-pointer rounded-2xl overflow-hidden">
+                        <div className="p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.76 226.69" className='w-20 h-20'>
+                                <path d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z" fill="#41b883"/><path d="M161.096.001l-30.225 52.351L100.647.001H52.346l78.526 136.01L209.398.001z" fill="#34495e"/>
+                            </svg>
+                        </div>
+
+                        <div className="absolute top-[-30%] left-[-5%] group-hover:translate-y-[10%] group-hover:translate-x-[120%] flex w-40 h-40 bg-[#41b883] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
+                        <div className="absolute top-[20%] right-[20%] group-hover:translate-y-[-10%] group-hover:translate-x-[-20%] flex w-32 h-32 bg-[#34495e] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
+                        <div className="absolute top-[50%] left-[10%] group-hover:translate-y-[50%] group-hover:translate-x-[50%] flex w-32 h-32 bg-[#34495e] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
+                        <div className="absolute bottom-0 right-0 group-hover:translate-y-[-50%] group-hover:translate-x-[-100%] flex w-24 h-24 bg-[#41b883] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
+                    </div>
+                    <h1 className="invisible group-hover:visible text-sm font-medium">Vue.js</h1>
+                </div>
+
+                <div className="group flex flex-col justify-center items-center space-y-2">
                     <div className="relative p-2 text-white bg-neutral-600/40 hover:bg-neutral-600/80 transition duration-700 cursor-pointer rounded-2xl">
                         <div className="p-2">
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-20 w-20">
@@ -24,22 +40,6 @@ export default function Page() {
                         </div>
                     </div>
                     <h1 className="invisible group-hover:visible text-sm font-medium">Next.js</h1>
-                </div>
-
-                <div className="group flex flex-col justify-center items-center space-y-2">
-                    <div className="relative p-2 text-white bg-neutral-600/40 hover:bg-neutral-600/80 transition duration-700 cursor-pointer rounded-2xl overflow-hidden">
-                        <div className="p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.76 226.69" className='w-20 h-20'>
-                                <path d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z" fill="#41b883"/><path d="M161.096.001l-30.225 52.351L100.647.001H52.346l78.526 136.01L209.398.001z" fill="#34495e"/>
-                            </svg>
-                        </div>
-
-                        <div className="absolute top-[-30%] left-[-5%] group-hover:translate-y-[10%] group-hover:translate-x-[120%] flex w-40 h-40 bg-[#41b883] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
-                        <div className="absolute top-[20%] right-[20%] group-hover:translate-y-[-10%] group-hover:translate-x-[-20%] flex w-32 h-32 bg-[#34495e] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
-                        <div className="absolute top-[50%] left-[10%] group-hover:translate-y-[50%] group-hover:translate-x-[50%] flex w-32 h-32 bg-[#34495e] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
-                        <div className="absolute bottom-0 right-0 group-hover:translate-y-[-50%] group-hover:translate-x-[-100%] flex w-24 h-24 bg-[#41b883] rounded-full filter blur-2xl -z-10 transition duration-700"></div>
-                    </div>
-                    <h1 className="invisible group-hover:visible text-sm font-medium">Vue.js</h1>
                 </div>
 
                 <div className="group flex flex-col justify-center items-center space-y-2">
