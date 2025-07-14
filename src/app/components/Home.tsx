@@ -8,12 +8,13 @@ export default function Page() {
             {/* <h1 className="text-center text-3xl font-semibold text-white" id="About me">Qui suis-je ?</h1> */}
             {/* <div className="w-[80%] text-center text-white p-10 bg-gray-200/20 rounded-2xl"> */}
             <div className="lg:w-[80%] flex flex-col -space-y-6 text-3xl text-white p-10">
-                <h3>Helloo, I'm </h3>
+                <h3>Hello, I'm </h3>
                 <h1 className='flex flex-col lg:block items-end space-x-2 text-[100px] md:text-[125px] leading-normal text-lime-500 light'>  
                     <span className='font-bold'>Cédrick</span> 
                     <span className='invisible lg:visible text-[50px] lg:text-[65px] font-medium'>OGOUBIYI</span> 
                 </h1>  
-                <p className='text-2xl'>I'm a Software engineer and i actually choose the path of the frontend development </p>
+                <p className='text-2xl'>I'm a Software Engineer specialized in frontend development, with a passion for building fast, accessible, and visually compelling web interfaces.
+                Let’s bring your ideas to life — one line of code at a time.</p>
                 
             </div>
 
