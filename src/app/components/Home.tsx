@@ -14,7 +14,7 @@ export default function Page() {
                     <span className='invisible lg:visible text-[50px] lg:text-[65px] font-medium'>OGOUBIYI</span> 
                 </h1>  
                 <p className='text-2xl'>I'm a Software Engineer specialized in frontend development, with a passion for building fast, accessible, and visually compelling web interfaces.
-                Let’s bring your ideas to life — one line of code at a time.</p>
+                Let’s bring your ideas to life one line of code at a time.</p>
                 
             </div>
 

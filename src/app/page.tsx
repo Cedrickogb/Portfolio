@@ -73,14 +73,14 @@ export default function Home() {
         </div>
       </header>
 
-      <div className={`flex ${section === 'Home' || 'Stack' ? 'justify-center items-start' : ''} w-full h-full overflow-auto z-10`}>
+      <div className={`flex ${section === 'Home' || 'Stack' ? 'justify-center items-start' : ''} w-full h-full overflow-auto scrollBar z-10`}>
         {section === 'Home' && <HomeSection/>}
         {section === 'Stack' && <Stacks/>}
         {section === 'Project' && <Projects/>}
         {section === 'Contact' && <Contacts/>}
       </div>
 
-      <footer className="w-full flex justify-center text-white p-4 z-10">
+      <footer className="w-full flex justify-center text-white p-4">
         <p>Copyright © 2020 - 2024. Cédrick OGOUBIYI</p>
       </footer>
 

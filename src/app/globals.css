@@ -19,6 +19,16 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.scrollBar::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+  overflow: scroll;
+}
+.scrollBar::-webkit-scrollbar-thumb {
+  background-color: rgb(132, 204, 22, 1);
+  border-radius: 20px;
+}
 /* .light{
   color: var(--ncpc-neon-text-color);
 
