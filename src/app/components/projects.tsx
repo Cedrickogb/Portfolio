@@ -6,7 +6,7 @@ import pic2 from '../image/twitter-clone.png'
 import pic3 from '../image/ncpc2.png'
 import pic4 from '../image/aso1.png'
 import pic5 from '../image/mr-streaming.png'
-
+import pic6 from '../image/musicHopper.png'
 
 export default function Page() {
 
@@ -32,7 +32,7 @@ export default function Page() {
                     <div className="sm:relative transition duration-700 content-center border p-1 rounded-2xl overflow-hidden cursor-pointer" onClick={() => window.open("https://twitter-clone-cedrickogb.vercel.app/")}>
                         <Image alt="" src={pic2} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
                         <div className="sm:absolute bottom-0 left-0 flex flex-col space-y-2 p-4 py-2 bg-neutral-900/70 backdrop-blur-sm">
-                            <Link href="https://twitter-clone-cedrickogb.vercel.app/" className="text-base text-white font-semibold" target="blank">Twitter-clone</Link>
+                            <Link href="https://twitter-clone-cedrickogb.vercel.app/" className="text-base text-white font-semibold" target="blank">Twitter-clone <span className='text-xs'>(2022)</span></Link>
                             <p className="text-sm text-white hidden nd:block ">Clone of the web app Twitter.</p>
                         </div>
                     </div>
@@ -40,7 +40,7 @@ export default function Page() {
                     <div className="sm:relative transition duration-700 content-center border p-1 rounded-2xl overflow-hidden cursor-pointer" onClick={() => window.open("https://demos.signsdesigner.us/ncpc-live-demo/")}>
                         <Image alt="" src={pic3} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
                         <div className="sm:absolute bottom-0 left-0 flex flex-grow flex-col space-y-2 p-4 py-2 bg-neutral-900/70 backdrop-blur-sm">
-                            <Link href="" className="text-base text-white font-semibold" target="blank">Neon Channel Product Customizer</Link>
+                            <Link href="" className="text-base text-white font-semibold" target="blank">Neon Channel Product Customizer <span className='text-xs'>(2023-2024)</span></Link>
                             <p className="text-xs text-white hidden nd:block ">With the Vertim Coders team on this project I was responsible for integrating the interfaces and implementing the functionalities for the customization of illuminated signs</p>
                         </div>
                     </div>
@@ -48,7 +48,7 @@ export default function Page() {
                     <div className="sm:relative transition duration-700 content-center border p-1 rounded-2xl overflow-hidden cursor-pointer" onClick={() => window.open("https://demos.signsdesigner.us/aso-live-demo/")}>
                         <Image alt="" src={pic4} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
                         <div className="sm:absolute bottom-0 left-0 flex flex-col space-y-2 p-4 py-2 bg-neutral-900/70 backdrop-blur-sm">
-                            <Link href="" className="text-base text-white font-semibold" target="blank">All Signs Options</Link>
+                            <Link href="" className="text-base text-white font-semibold" target="blank">All Signs Options <span className='text-xs'>(2024-2025)</span></Link>
                             <p className="text-sm text-white hidden nd:block ">With the Vertim Coders team on this project I was responsible for integrating the interfaces and implementing the functionalities for the customization custom signs and banners</p>
                         </div>
                     </div>
@@ -56,18 +56,18 @@ export default function Page() {
                     <div className="sm:relative transition duration-700 content-center border p-1 rounded-2xl overflow-hidden cursor-pointer" onClick={() => window.open("https://mr-streamings.vercel.app/")}>
                         <Image alt="" src={pic5} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
                         <div className="sm:absolute bottom-0 left-0 flex flex-col space-y-2 p-4 py-2 bg-neutral-900/70 backdrop-blur-sm">
-                            <Link href="" className="text-base text-white font-semibold" target="blank">Mr Streaming</Link>
+                            <Link href="" className="text-base text-white font-semibold" target="blank">Mr Streaming <span className='text-xs'>(2025)</span></Link>
                             <p className="text-sm text-white hidden nd:block ">Streaming subscription profile sales site</p>
                         </div>
                     </div>
 
-                    {/* <div className="sm:relative transition duration-700 content-center border p-1 rounded-2xl overflow-hidden cursor-pointer" onClick={() => setDownloadModal(true)}>
-                        <Image alt="" src={pic5} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
+                    <div className="sm:relative transition duration-700 content-center border p-1 rounded-2xl overflow-hidden cursor-pointer" onClick={() => setDownloadModal(true)}>
+                        <Image alt="" src={pic6} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
                         <div className="sm:absolute bottom-0 left-0 flex flex-col space-y-2 p-4 py-2 bg-neutral-900/70 backdrop-blur-sm">
-                            <Link href="" className="text-base text-white font-semibold" target="blank">MusicHopper</Link>
+                            <Link href="" className="text-base text-white font-semibold" target="blank">MusicHopper <span className='text-xs'>(2025)</span></Link>
                             <p className="text-sm text-white hidden nd:block ">Lecteur de musique desktop basé sur un design revisité de apple music </p>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
 
             </div>
@@ -82,7 +82,7 @@ export default function Page() {
                         </span>
                         <h3 className='text-center text-xl font-medium'>Here you can download the app</h3>
 
-                        <div onClick={() => window.open("https://github.com/Cedrickogb/MusicHopper/releases/download/music/MusicHopper_v1.zip")} className='flex justify-between p-2 cursor-pointer'>
+                        <div onClick={() => window.open("https://github.com/Cedrickogb/MusicHopper/releases/download/music/MusicHopper_v1.1.zip")} className='flex justify-between p-2 cursor-pointer'>
                             <span>Windows</span>
                             <span className='text-lime-500'>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-5 h-5">
