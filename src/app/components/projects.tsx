@@ -82,7 +82,7 @@ export default function Page() {
                         </span>
                         <h3 className='text-center text-xl font-medium'>Here you can download the app</h3>
 
-                        <div onClick={() => window.open("https://github.com/Cedrickogb/MusicHopper/releases/download/music/MusicHopper_v1.1.zip")} className='flex justify-between p-2 cursor-pointer'>
+                        <div onClick={() => window.open("https://github.com/Cedrickogb/MusicHopper/releases/download/sync_lyrics/MusicHopper.Setup.1.3.0.zip")} className='flex justify-between p-2 cursor-pointer'>
                             <span>Windows</span>
                             <span className='text-lime-500'>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="w-5 h-5">
