@@ -7,6 +7,7 @@ import pic3 from '../image/ncpc2.png'
 import pic4 from '../image/aso1.png'
 import pic5 from '../image/mr-streaming.png'
 import pic6 from '../image/musicHopper.png'
+import pic7 from '../image/collabDraw.png'
 
 export default function Page() {
 
@@ -66,6 +67,14 @@ export default function Page() {
                         <div className="sm:absolute bottom-0 left-0 flex flex-col space-y-2 p-4 py-2 bg-neutral-900/70 backdrop-blur-sm">
                             <Link href="" className="text-base text-white font-semibold" target="blank">MusicHopper <span className='text-xs'>(2025)</span></Link>
                             <p className="text-sm text-white hidden nd:block ">Lecteur de musique desktop basé sur un design revisité de apple music </p>
+                        </div>
+                    </div>
+
+                    <div className="sm:relative transition duration-700 content-center border p-1 rounded-2xl overflow-hidden cursor-pointer" onClick={() => window.open("https://collab-draw-iota.vercel.app/")}>
+                        <Image alt="" src={pic7} className="bg-neutral-600/80 hover:transform transition duration-500 hover:scale-110 rounded-2xl sm:hover:none" />
+                        <div className="sm:absolute bottom-0 left-0 flex flex-col space-y-2 p-4 py-2 bg-neutral-900/70 backdrop-blur-sm">
+                            <Link href="" className="text-base text-white font-semibold" target="blank">CollabDraw <span className='text-xs'>(2026)</span></Link>
+                            <p className="text-sm text-white hidden nd:block ">Une application SaaS de tableau blanc collaboratif en temps réel, avec une gestion fluide des permissions (invités/propriétaires) et une synchronisation ultra-rapide sans conflit.</p>
                         </div>
                     </div>
                 </div>
