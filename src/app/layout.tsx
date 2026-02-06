@@ -1,46 +1,31 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-const monsserat = localFont({
-  src: "./fonts/Montserrat-VariableFont_wght.ttf",
-  variable: "--font-monsserat",
-  weight: "100 900",
-});
-const nunito = localFont({
-  src: "./fonts/NunitoSans-VariableFont_YTLC,opsz,wdth,wght.ttf",
-  variable: "--font-nunito",
-  weight: "100 900",
-});
+import React from 'react';
+import './globals.css';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Uppercase +",
-  description: "",
+  title: 'Cédrick OGOUBIYI - Gamer Portfolio',
+  description: 'Gamer Edition Portfolio for Cédrick OGOUBIYI featuring a retro-futuristic design, tech stack analysis, and quest logs.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <link rel="icon" href="/codicon.svg" />
-      <link rel="icon" type="image/svg" sizes="16x16" href="/codicon.svg" />
-
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${monsserat.variable} ${nunito.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Fonts loaded via CDN to preserve existing look */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@400;500;600;700&family=VT323&family=Inter:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+      </head>
+      <body className="bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-200 transition-colors duration-300">
         {children}
       </body>
     </html>
