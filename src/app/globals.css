@@ -136,3 +136,57 @@ html:not(.dark) .text-stroke-white {
 .battle-text-shadow {
   text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
 }
+
+
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+textarea::-webkit-scrollbar-track {
+    background: #111814; 
+}
+textarea::-webkit-scrollbar-thumb {
+    background: #2d4a3e; 
+    border-radius: 4px;
+}
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #2bee79; 
+}
+.floating-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+.particle {
+    position: absolute;
+    bottom: -10px;
+    background-color: #2bee79;
+    opacity: 0.2;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #2bee79;
+    animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    20% { opacity: 0.6; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+.pixel-border {
+    box-shadow: 
+        -2px 0 0 0 #2d4a3e,
+        2px 0 0 0 #2d4a3e,
+        0 -2px 0 0 #2d4a3e,
+        0 2px 0 0 #2d4a3e;
+    margin: 2px;
+}
+.glass-panel {
+    /* background: rgba(16, 34, 23, 0.7); */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(43, 238, 121, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}

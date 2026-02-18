@@ -18,8 +18,10 @@ export interface QuestItem {
   id: string;
   title: string;
   description: string;
-  image: string;
+  image: any;
   level: number;
   levelColor: string;
   tags: string[];
+  year: string;
+  link: string;
 }

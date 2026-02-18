@@ -33,13 +33,13 @@ const Hero: React.FC = () => {
             <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-primary z-20"></div>
 
             {/* Avatar Image */}
-            <div className="hidden sm:block absolute -top-12 -right-4 md:-right-12 w-24 h-24 md:w-32 md:h-32 bg-gray-200 dark:bg-gray-800 border-4 border-gray-900 dark:border-white rounded overflow-hidden shadow-lg transform rotate-3 z-30">
+            {/* <div className="hidden sm:block absolute -top-12 -right-4 md:-right-12 group-hover:-right-[110px] w-24 h-24 md:w-32 md:h-32 bg-gray-200 dark:bg-gray-800 border-4 border-gray-900 dark:border-white rounded overflow-hidden shadow-lg transform rotate-3 group-hover:rotate-0 z-30 transition-all">
               <img 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBruudcF3V_uVoV4TsYVBOlP_1AvSiy-bg7fYiH5XzKcDmDmUUyoWTXzhWsHgbdNw5xgHd_7mc5h38YCpV2yn3643Xuwb8NXKH6yd0C74Wenmrf4L2oXOBK3o5YLCwVRGoO4aDJnM7iHTHVS51sJ4R1bk8LppH_fGTuifBia7cFHZF6GIpx4KmfG_deNBS_sMn98MutM78RGjrBD39Qqh_1JpmLGoBoXdKFic1JI_hBIHRuE-Gxh9BUHuqg44S2DDSIEnmU3-VCUnc" 
                 alt="Character Portrait" 
                 className="w-full h-full object-cover" 
               />
-            </div>
+            </div> */}
 
             {/* Header */}
             <div className="flex items-center justify-between mb-4 border-b-2 border-dashed border-gray-300 dark:border-gray-700 pb-2">

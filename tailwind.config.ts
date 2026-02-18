@@ -10,7 +10,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#76C829", 
+        "vue": "#42b883",
+        "react": "#61dafb",
+        "next": "#e5e7eb",
+        "tailwind": "#38bdf8",
+        "html": "#e34f26",
+        "js": "#f7df1e",
+        "ts": "#3178c6",
+        "git": "#f05032",
+
+        "primary": "#76C829", 
         "primary-dark": "#4da014",
         "primary-lime": "#84cc16",
         "battle-green": "#2bee79",
@@ -44,6 +53,8 @@ const config: Config = {
         'grid-pattern-light': "linear-gradient(to right, #e5e7eb 1px, transparent 1px), linear-gradient(to bottom, #e5e7eb 1px, transparent 1px)",
         'battle-grid': "linear-gradient(rgba(43, 238, 121, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 238, 121, 0.05) 1px, transparent 1px)",
         'scanlines': 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))',
+        // 'grid-pattern': "linear-gradient(rgba(43, 238, 121, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(43, 238, 121, 0.05) 1px, transparent 1px)"
+
       },
       animation: {
         'float': 'float 4s ease-in-out infinite',
