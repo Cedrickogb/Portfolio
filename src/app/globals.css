@@ -164,10 +164,10 @@ textarea::-webkit-scrollbar-thumb:hover {
 .particle {
     position: absolute;
     bottom: -10px;
-    background-color: #2bee79;
+    background-color: #76C829;
     opacity: 0.2;
     border-radius: 50%;
-    box-shadow: 0 0 10px #2bee79;
+    box-shadow: 0 0 10px #76C829;
     animation: floatUp linear infinite;
 }
 @keyframes floatUp {
@@ -189,4 +189,16 @@ textarea::-webkit-scrollbar-thumb:hover {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(43, 238, 121, 0.2);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  /* height: 4px; */
+  overflow: scroll;
+  background: #444;
+  padding: 5px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #76C829;
+  border-radius: 20px;
 }

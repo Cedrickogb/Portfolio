@@ -4,7 +4,11 @@ import type { Metadata } from 'next';
 import ThemeProvider from './components/ThemeProvider'; // Importe le composant créé au dessus
 
 export const metadata: Metadata = {
-  title: 'Cédrick OGOUBIYI - Gamer Portfolio',
+  title: 'Cédrick OGOUBIYI | Uppercase+',
+  icons: {
+    icon: '/favicon.svg',
+  },
+
   description: 'Gamer Edition Portfolio...',
 };
 

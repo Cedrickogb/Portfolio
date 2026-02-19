@@ -48,6 +48,56 @@ export default function Page() {
                 </div>
             </div>
 
+            {/* contact form from the new design */}
+            <div className="w-full md:w-2/3">
+                <div className=" bg-white/80 dark:bg-card-dark/60 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 rounded-lg h-full p-1 relative">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+                    <div className="h-full rounded p-6 md:p-8 flex flex-col">
+                        <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
+                        <div>
+                            <h1 className="text-lg md:text-xl font-display text-gray-900 dark:text-white font-bold mb-1">Start Quest</h1>
+                            <p className="text-gray-600 dark:text-gray-400 text-sm">Fill out the parameters to initiate contact.</p>
+                        </div>
+                        <div className="hidden md:block">
+                            <span className="material-symbols-outlined text-4xl text-primary animate-pulse">sms</span>
+                        </div>
+                        </div>
+                        <form className="flex-grow flex flex-col gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="group">
+                                    <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Player Name</label>
+                                    <div className="relative">
+                                        <input className="w-full bg-gray-100 dark:bg-black/30 border-2 border-gray-200 dark:border-[#2d4a3e] rounded p-3 text-gray-800 dark:text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary dark:focus:bg-black/50 transition-all font-mono text-sm" placeholder="Enter your name" type="text"/>
+                                        <div className="absolute inset-0 border-2 border-primary opacity-0 rounded pointer-events-none group-focus-within:opacity-20 transition-all duration-300"></div>
+                                    </div>
+                                </div>
+                                <div className="group">
+                                    <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Comms Link</label>
+                                    <div className="relative">
+                                        <input className="w-full bg-gray-100 dark:bg-black/30 border-2 border-gray-200 dark:border-[#2d4a3e] rounded p-3 text-gray-800 dark:text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary dark:focus:bg-black/50 transition-all font-mono text-sm" placeholder="email@example.com" type="email"/>
+                                        <div className="absolute inset-0 border-2 border-primary opacity-0 rounded pointer-events-none group-focus-within:opacity-20 transition-all duration-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="group flex-grow">
+                                <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Quest Briefing</label>
+                                <div className="relative h-full">
+                                    <textarea className="w-full h-40 md:h-48 bg-gray-100 dark:bg-black/30 border-2 border-gray-200 dark:border-[#2d4a3e] rounded p-3 text-gray-800 dark:text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary dark:focus:bg-black/50 transition-all font-mono text-sm resize-none" placeholder="Describe your project or inquiry..."></textarea>
+                                    <div className="absolute inset-0 border-2 border-primary opacity-0 rounded pointer-events-none group-focus-within:opacity-20 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                            <div className="flex items-center justify-end pt-4 mt-auto border-t border-white/5">
+
+                                <button className="group relative inline-flex items-center justify-center px-8 py-2 font-display text-xs text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
+                                Initialize
+                                <i className="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>         
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     )
 }

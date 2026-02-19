@@ -1,11 +1,11 @@
 import React from 'react';
 // import { QUESTS } from '../../../constants';
-import pic2 from '../image/twitter-clone.png'
-import pic3 from '../image/ncpc2.png'
-import pic4 from '../image/aso1.png'
-import pic5 from '../image/mr-streaming.png'
-import pic6 from '../image/musicHopper.png'
-import pic7 from '../image/collabDraw.png'
+import pic2 from '../image/twitter-clone.webp'
+import pic3 from '../image/ncpc2.webp'
+import pic4 from '../image/aso1.webp'
+import pic5 from '../image/mr-streaming.webp'
+import pic6 from '../image/musicHopper.webp'
+import pic7 from '../image/collabDraw.webp'
 import { QuestItem } from '../../../types';
 import Image from 'next/image';
 
@@ -63,7 +63,7 @@ const QUESTS: QuestItem[] = [
     levelColor: 'bg-pink-600',
     tags: ['VueJs', 'Ts', 'Tailwind', 'ElectronJs'],
     year: '2025',
-    link: '',
+    link: 'https://github.com/Cedrickogb/MusicHopper/releases/download/sync_lyrics/MusicHopper.Setup.1.3.0.zip',
   },
   {
     id: 'collab-draw',

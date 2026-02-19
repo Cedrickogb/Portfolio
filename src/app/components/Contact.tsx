@@ -225,8 +225,8 @@ const Contact: React.FC = () => {
     //     </div>
     //   </div>
     // </section>
-    <section id='contact' className="flex-grow relative flex flex-col items-center justify-center p-4 py-20 md:p-8 lg:px-12 md:py-20 min-h-[calc(100vh-80px)]">
-            <header className="text-center mb-8">
+    <section id='contact' className="flex-grow relative flex flex-col items-center justify-start py-24 md:p-8 lg:px-12 md:py-24 min-h-[calc(100vh-80px)]">
+      <header className="text-center mb-8">
         <h1 className="text-2xl md:text-4xl font-display text-gray-900 dark:text-white mb-4 tracking-tight drop-shadow-[0_0_10px_rgba(132,204,22,0.5)]  transition-colors">
           <span className="text-primary">CONTACT</span> PAD
         </h1>
@@ -240,91 +240,29 @@ const Contact: React.FC = () => {
           <div className="particle w-4 h-4 left-[75%] animation-delay-1000" style={{animationDuration: '20s', animationDelay: '1s'}}></div>
           <div className="particle w-2 h-2 left-[90%] animation-delay-3000" style={{animationDuration: '14s', animationDelay: '3s'}}></div>
       </div>
-      <div className="w-full max-w-4xl relative z-10 flex flex-col md:flex-row gap-6">
-          <div className="w-full md:w-1/3 flex flex-col gap-4">
-            <div className=" bg-white/80 dark:bg-card-dark/60 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 rounded-lg p-6 relative overflow-hidden group hover:border-primary/50 transition-colors duration-300">
-              <div className="absolute top-0 right-0 p-2 opacity-50">
-              <span className="material-symbols-outlined text-4xl text-white/10">account_circle</span>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <div className="w-24 h-24 rounded-full border-2 border-primary p-1 bg-black/40 mb-4 shadow-[0_0_20px_rgba(43,238,121,0.2)]">
-                  <img alt="Portrait of a developer" className="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPwi-qgl7feJt9SoBJke9ClVjkehCO174Jz3OzdFisFTzJ_7aplFCJivNN_gji1XWgzsosDWwR4hbW6pq4YErDiSR_9B6j2yBGJoIFVU1czCZld65aRInMgxzuwqqYacpOnH6hrwLDPG6bHE7B8PWkdj6qMkpNuub0XX9AJ8Qjd5uSmnm5SKqIYQg-htBFNHqrATHIXz9B4DW4EeVmhSV1GYT5tPV25bA6ExxsedAk3z38vlAla9ZAzjBTRlMlBPp0z1Qoy9KV03Y"/>
-                </div>
-                <h3 className="text-lg font-display font-bold text-gray-900 dark:text-white tracking-wide">Uppercase+</h3>
-                <p className="text-primary text-sm font-mono mb-4">Lvl. 99 Frontend Dev</p>
-                <div className="w-full bg-black/40 rounded p-3 text-left bg-gray-100 dark:bg-black/30 border border-gray-200 dark:border-white/10">
-                  <p className="text-sm text-gray-500 font-mono mb-1">CURRENT QUEST</p>
-                  <p className="text-sm text-gray-800 dark:text-gray-200 font-mono font-medium">Seeking new opportunities &amp; collaborations.</p>
-                </div>
-              </div>
-            </div>
 
-            <div className=" bg-white/80 dark:bg-card-dark/60 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 rounded-lg p-5">
-              <h4 className="text-xs font-display font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                Inventory
-              </h4>
-              <div className="flex flew-wrap gap-2">
-                <a className="aspect-square p-2 bg-gray-100 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded text-gray-800 dark:text-gray-200  flex items-center justify-center hover:bg-primary/20 hover:border-primary hover:text-primary transition-all group relative" href="#" title="Phone">
-                  <span className="material-symbols-outlined">phone</span>
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white dark:bg-black text-[10px] px-2 py-1 rounded border border-gray-200 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20">Phone</div>
+      <div className="w-full max-w-4xl relative z-10 flex justify-center items-center flex-col md:flex-row gap-6">
+          <div className="w-full justify-center items-center flex flex-col gap-4">
+            <div className="w-fit bg-white/80 dark:bg-card-dark/60 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 rounded-lg p-5">
+              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+                <a className="p-2 bg-gray-100 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded text-gray-800 dark:text-gray-200 font-sans flex space-x-1 items-center justify-start hover:bg-primary/20 hover:border-primary hover:text-primary transition-all group relative" href="#" title="Phone">
+                  <span className="bg-primary/10 rounded border border-primary/20 p-1.5 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                    </svg>
+                  </span>
+                  <div className="text-sm pr-2">+229 96 17 23 75</div>
                 </a>
-                <a className="aspect-square p-2 bg-gray-100 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded text-gray-800 dark:text-gray-200  flex items-center justify-center hover:bg-blue-500/20 hover:border-blue-500 hover:text-blue-400 transition-all group relative" href="#" title="LinkedIn">
-                  <span className="material-symbols-outlined">work</span>
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white dark:bg-black text-[10px] px-2 py-1 rounded border border-gray-200 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20">LinkedIn</div>
-                </a>
-                <a className="aspect-square p-2 bg-gray-100 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded text-gray-800 dark:text-gray-200  flex items-center justify-center hover:bg-red-500/20 hover:border-red-500 hover:text-red-400 transition-all group relative" href="#" title="Email">
-                  <span className="material-symbols-outlined">mail</span>
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-white dark:bg-black text-[10px] px-2 py-1 rounded border border-gray-200 dark:border-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20">Email</div>
+
+                <a className="p-2 bg-gray-100 dark:bg-black/30 border border-gray-200 dark:border-white/10 rounded text-gray-800 dark:text-gray-200 font-sans flex space-x-1 items-center justify-start hover:bg-primary/20 hover:border-primary hover:text-primary transition-all group relative" href="" onClick={() => window.open("mailto:cedrickogoubiyi13@gmail.com")} title="Phone">
+                  <span className="bg-primary/10 rounded border border-primary/20 p-1.5 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                  </span>
+                  <div className="text-sm pr-2">cedrickogoubiyi13@gmail.com</div>
                 </a>
               </div>
-            </div>
-          </div>
-          <div className="w-full md:w-2/3">
-            <div className=" bg-white/80 dark:bg-card-dark/60 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 rounded-lg h-full p-1 relative">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
-                <div className="h-full rounded p-6 md:p-8 flex flex-col">
-                    <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-4">
-                      <div>
-                        <h1 className="text-lg md:text-xl font-display text-gray-900 dark:text-white font-bold mb-1">Start Quest</h1>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm">Fill out the parameters to initiate contact.</p>
-                      </div>
-                      <div className="hidden md:block">
-                        <span className="material-symbols-outlined text-4xl text-primary animate-pulse">sms</span>
-                      </div>
-                    </div>
-                    <form className="flex-grow flex flex-col gap-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="group">
-                                <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Player Name</label>
-                                <div className="relative">
-                                    <input className="w-full bg-gray-100 dark:bg-black/30 border-2 border-gray-200 dark:border-[#2d4a3e] rounded p-3 text-gray-800 dark:text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary dark:focus:bg-black/50 transition-all font-mono text-sm" placeholder="Enter your name" type="text"/>
-                                    <div className="absolute inset-0 border-2 border-primary opacity-0 rounded pointer-events-none group-focus-within:opacity-20 transition-all duration-300"></div>
-                                </div>
-                            </div>
-                            <div className="group">
-                                <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Comms Link</label>
-                                <div className="relative">
-                                    <input className="w-full bg-gray-100 dark:bg-black/30 border-2 border-gray-200 dark:border-[#2d4a3e] rounded p-3 text-gray-800 dark:text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary dark:focus:bg-black/50 transition-all font-mono text-sm" placeholder="email@example.com" type="email"/>
-                                    <div className="absolute inset-0 border-2 border-primary opacity-0 rounded pointer-events-none group-focus-within:opacity-20 transition-all duration-300"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="group flex-grow">
-                            <label className="block text-xs font-bold text-primary uppercase tracking-widest mb-2 ml-1">Quest Briefing</label>
-                            <div className="relative h-full">
-                                <textarea className="w-full h-40 md:h-48 bg-gray-100 dark:bg-black/30 border-2 border-gray-200 dark:border-[#2d4a3e] rounded p-3 text-gray-800 dark:text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary dark:focus:bg-black/50 transition-all font-mono text-sm resize-none" placeholder="Describe your project or inquiry..."></textarea>
-                                <div className="absolute inset-0 border-2 border-primary opacity-0 rounded pointer-events-none group-focus-within:opacity-20 transition-all duration-300"></div>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-end pt-4 mt-auto border-t border-white/5">
-
-                            <button className="group relative inline-flex items-center justify-center px-8 py-2 font-display text-xs text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
-                              Initialize
-                              <i className="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>         
-                            </button>
-                        </div>
-                    </form>
-                </div>
             </div>
           </div>
       </div>
