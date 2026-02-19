@@ -2,28 +2,28 @@ import React from 'react';
 
 const Hero: React.FC = () => {
   return (
-    <section id="hero" className="relative min-h-screen pt-32 pb-16 flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen py-20 flex items-center justify-center overflow-hidden">
       {/* Background Decor */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-float"></div>
         <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-start gap-8">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-start gap-4">
         <div className="space-y-4">
           <h2 className="font-mono text-xl md:text-2xl text-primary animate-pulse">
             <span className="mr-2">&gt;</span> System_Ready...
           </h2>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-tight text-gray-900 dark:text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.1)] dark:drop-shadow-[0_2px_0_rgba(0,0,0,1)] transition-colors">
+          <h1 className="font-display text-2xl md:text-4xl lg:text-5xl leading-tight text-gray-900 dark:text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.1)] dark:drop-shadow-[0_2px_0_rgba(0,0,0,1)] transition-colors">
             Hello, I'm <br />
-            <span className="text-primary text-5xl md:text-7xl lg:text-8xl block mt-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.2)] dark:drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] text-stroke-white">
-              Cédrick <span className="text-gray-900 dark:text-white text-3xl md:text-5xl lg:text-6xl align-middle tracking-wider ml-2 transition-colors">OGOUBIYI</span>
+            <span className="text-primary text-3xl md:text-5xl lg:text-7xl block mt-4 drop-shadow-[2px_2px_0px_rgba(0,0,0,0.2)] dark:drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] text-stroke-white">
+              Cédrick <br className='md:hidden' /><span className="text-gray-900 dark:text-white text-xl md:text-3xl lg:text-4xl align-middle tracking-wider ml-2 transition-colors">OGOUBIYI</span>
             </span>
           </h1>
         </div>
 
         {/* Character Card */}
-        <div className="relative w-full max-w-3xl mt-8 group">
+        <div className="relative w-full max-w-3xl mt-2 group">
           <div className="bg-white/90 dark:bg-gray-900/90 border-4 border-gray-300 dark:border-gray-600 rounded p-6 relative pixel-border group-hover:border-gray-900 dark:group-hover:border-white transition-colors duration-300 shadow-xl dark:shadow-none">
             
             {/* Corner Decor */}
@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
 
         {/* Stats & CTA */}
         <div className="flex flex-wrap items-center gap-6 mt-4">
-          <a href="#projects" className="group relative inline-flex items-center justify-center px-8 py-4 font-display text-sm text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
+          <a href="/projects" className="group relative inline-flex items-center justify-center px-8 py-4 font-display text-sm text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
             Start Quest
             <i className="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
           </a>

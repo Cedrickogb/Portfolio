@@ -18,13 +18,13 @@ const TechStack: React.FC = () => {
   };
 
   return (
-    <section id="stacks" className="py-20 bg-background-light dark:bg-background-dark relative transition-colors duration-300">
+    <section id="stacks" className="py-20 relative transition-colors duration-300">
         {/* Background blobs */}
         <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary/10 rounded-full blur-[120px] mix-blend-screen opacity-20 pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <h1 className="font-display text-4xl md:text-5xl text-gray-900 dark:text-white mb-4 tracking-wider drop-shadow-[0_0_10px_rgba(132,204,22,0.5)] transition-colors">
+        <div className="text-center mb-8">
+          <h1 className="font-display text-2xl md:text-4xl text-gray-900 dark:text-white mb-4 tracking-wider drop-shadow-[0_0_10px_rgba(132,204,22,0.5)] transition-colors">
             <span className="text-primary-lime">SKILL</span> COLLECTION
           </h1>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-mono text-base border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
@@ -46,7 +46,7 @@ const TechStack: React.FC = () => {
                 </div>
                 <div className="h-32 flex items-center justify-center bg-gray-50 dark:bg-[#181a1b] rounded-lg mb-2 relative overflow-hidden group-hover:bg-opacity-80 transition-colors border border-gray-100 dark:border-none">
                   {tech.key === 'tailwind' && 
-                    <span className="group-hover:text-tailwind">
+                    <span className="group-hover:text-tailwind text-gray-400 dark:text-gray-400">
                       <svg className='w-14 h-14 group-hover:scale-110 transition-all' viewBox="0 0 32 32" fill='currentColor' xmlns="http://www.w3.org/2000/svg"><title>file_type_tailwind</title><path d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z" /></svg>
                     </span>
                   }

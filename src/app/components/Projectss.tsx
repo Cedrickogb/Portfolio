@@ -81,9 +81,9 @@ const QUESTS: QuestItem[] = [
 
 const Projects: React.FC = () => {
   return (
-    <section id="projects" className="relative z-10 max-w-7xl mx-auto px-6 py-24 flex flex-col items-center">
-      <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-display text-gray-900 dark:text-white mb-4 tracking-tight drop-shadow-[0_0_10px_rgba(132,204,22,0.5)]  transition-colors">
+    <section id="projects" className="relative z-10 max-w-7xl mx-auto px-6 py-20 flex flex-col items-center">
+      <header className="text-center mb-8">
+        <h1 className="text-2xl md:text-4xl font-display text-gray-900 dark:text-white mb-4 tracking-tight drop-shadow-[0_0_10px_rgba(132,204,22,0.5)]  transition-colors">
           <span className="text-primary">QUEST</span> LOG
         </h1>
         <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-mono text-base border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">

@@ -225,14 +225,11 @@ const Contact: React.FC = () => {
     //     </div>
     //   </div>
     // </section>
-    <section id='contact' className="flex-grow relative flex flex-col items-center justify-center p-4 md:p-8 lg:p-12 min-h-[calc(100vh-80px)]">
+    <section id='contact' className="flex-grow relative flex flex-col items-center justify-center p-4 py-20 md:p-8 lg:px-12 md:py-20 min-h-[calc(100vh-80px)]">
             <header className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-display text-gray-900 dark:text-white mb-4 tracking-tight drop-shadow-[0_0_10px_rgba(132,204,22,0.5)]  transition-colors">
+        <h1 className="text-2xl md:text-4xl font-display text-gray-900 dark:text-white mb-4 tracking-tight drop-shadow-[0_0_10px_rgba(132,204,22,0.5)]  transition-colors">
           <span className="text-primary">CONTACT</span> PAD
         </h1>
-        {/* <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-mono text-base border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
-          Select a mission to view details. Completed quests demonstrate mastery in frontend development.
-        </p> */}
       </header>
 
       {/* <div className="absolute inset-0 bg-background-dark bg-grid-pattern bg-[length:40px_40px] opacity-20 z-0"></div> */}
