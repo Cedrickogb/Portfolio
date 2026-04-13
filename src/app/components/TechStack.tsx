@@ -23,11 +23,11 @@ const TechStack: React.FC = () => {
         <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary/10 rounded-full blur-[120px] mix-blend-screen opacity-20 pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-8">
+        <div className="text-center mb-10">
           <h1 className="font-display text-2xl md:text-4xl text-gray-900 dark:text-white mb-4 tracking-wider drop-shadow-[0_0_10px_rgba(132,204,22,0.5)] transition-colors">
             <span className="text-primary-lime">SKILL</span> COLLECTION
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-mono text-base border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-mono text-xl border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
             Choose your fighter to inspect its stats.
           </p>
         </div>

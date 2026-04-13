@@ -6,53 +6,33 @@ import pic4 from '../image/aso1.webp'
 import pic5 from '../image/mr-streaming.webp'
 import pic6 from '../image/musicHopper.webp'
 import pic7 from '../image/collabDraw.webp'
+import pic8 from '../image/trust-flow.webp'
 import { QuestItem } from '../../../types';
 import Image from 'next/image';
 
 const QUESTS: QuestItem[] = [
   {
-    id: 'twitter-clone',
-    title: 'Twitter Clone',
-    description: 'A pixel-perfect replication of the social giant using React and Node.js. Features real-time updates.',
-    image: pic2,
-    level: 99,
-    levelColor: 'bg-primary',
-    tags: ['Next', 'Js', 'Tailwind', 'Firebase'],
-    year: '2022',
-    link: 'https://twitter-clone-cedrickogb.vercel.app/',
+    id: 'trust-flow',
+    title: 'TrustFlow',
+    description: 'A modern B2B SaaS platform designed to enhance the online reputation of local businesses, it enables the collection and management of customer feedback via personalized QR codes',
+    image: pic8,
+    level: 33,
+    levelColor: 'bg-teal-600',
+    tags: ['NextJs', 'Ts', 'Tailwind', 'Supabase', 'Resend'],
+    year: '2026',
+    link: 'https://trust-flow.app/',
   },
   {
-    id: 'ncpc',
-    title: 'NCPC',
-    description: 'Interactive product customizer for illuminated signs. Integrated with Vertim Coders team.',
-    image: pic3,
-    level: 45,
-    levelColor: 'bg-yellow-600',
-    tags: ['VueJs', 'Js', 'Tailwind', 'Konva js'],
-    year: '2023-2024',
-    link: 'https://demos.signsdesigner.us/ncpc-live-demo/',
-  },
-  {
-    id: 'asc',
-    title: 'ASC',
-    description: 'Interactive product customizer for signs, banners and stickers. Integrated with Vertim Coders team.',
-    image: pic4,
-    level: 72,
-    levelColor: 'bg-blue-600',
-    tags: ['VueJs', 'Js', 'Tailwind', 'Fabric js'],
-    year: '2024-2025',
-    link: 'https://demos.signsdesigner.us/aso-live-demo/',
-  },
-  {
-    id: 'mr-streaming',
-    title: 'Mr Streaming',
-    description: 'Streaming subscription profile sales site',
-    image: pic5,
-    level: 88,
-    levelColor: 'bg-purple-600',
-    tags: ['VueJs', 'Tailwind'],
-    year: '2025',
-    link: 'https://mr-streamings.vercel.app/',
+    id: 'collab-draw',
+    title: 'CollabDraw',
+    // description: 'Real-time collaborative whiteboard for remote teams to brainstorm ideas.',
+    description: 'A real-time collaborative whiteboard SaaS application with seamless permission management (guests/owners) and ultra-fast, conflict-free synchronization.',
+    image: pic7,
+    level: 33,
+    levelColor: 'bg-teal-600',
+    tags: ['React', 'Ts', 'Tailwind', 'Konva js', 'Liveblocks', 'Clerk'],
+    year: '2026',
+    link: 'https://collab-draw-iota.vercel.app/',
   },
   {
     id: 'music-hopper',
@@ -66,27 +46,59 @@ const QUESTS: QuestItem[] = [
     link: 'https://github.com/Cedrickogb/MusicHopper/releases/download/sync_lyrics/MusicHopper.Setup.1.3.0.zip',
   },
   {
-    id: 'collab-draw',
-    title: 'CollabDraw',
-    // description: 'Real-time collaborative whiteboard for remote teams to brainstorm ideas.',
-    description: 'A real-time collaborative whiteboard SaaS application with seamless permission management (guests/owners) and ultra-fast, conflict-free synchronization.',
-    image: pic7,
-    level: 33,
-    levelColor: 'bg-teal-600',
-    tags: ['React', 'Ts', 'Tailwind', 'Konva js', 'Liveblocks', 'Clerk'],
-    year: '2026',
-    link: 'https://collab-draw-iota.vercel.app/',
-  }
+    id: 'mr-streaming',
+    title: 'Mr Streaming',
+    description: 'Streaming subscription profile sales site',
+    image: pic5,
+    level: 88,
+    levelColor: 'bg-purple-600',
+    tags: ['VueJs', 'Tailwind'],
+    year: '2025',
+    link: 'https://mr-streamings.vercel.app/',
+  },
+  {
+    id: 'asc',
+    title: 'ASC',
+    description: 'Interactive product customizer for signs, banners and stickers. Integrated with Vertim Coders team.',
+    image: pic4,
+    level: 72,
+    levelColor: 'bg-blue-600',
+    tags: ['VueJs', 'Js', 'Tailwind', 'Fabric js'],
+    year: '2024-2025',
+    link: 'https://demos.signsdesigner.us/aso-live-demo/',
+  },
+  {
+    id: 'ncpc',
+    title: 'NCPC',
+    description: 'Interactive product customizer for illuminated signs. Integrated with Vertim Coders team.',
+    image: pic3,
+    level: 45,
+    levelColor: 'bg-yellow-600',
+    tags: ['VueJs', 'Js', 'Tailwind', 'Konva js'],
+    year: '2023-2024',
+    link: 'https://demos.signsdesigner.us/ncpc-live-demo/',
+  },
+  {
+    id: 'twitter-clone',
+    title: 'Twitter Clone',
+    description: 'A pixel-perfect replication of the social giant using React and Node.js. Features real-time updates.',
+    image: pic2,
+    level: 99,
+    levelColor: 'bg-primary',
+    tags: ['NextJs', 'Js', 'Tailwind', 'Firebase'],
+    year: '2022',
+    link: 'https://twitter-clone-cedrickogb.vercel.app/',
+  },
 ];
 
 const Projects: React.FC = () => {
   return (
     <section id="projects" className="relative z-10 max-w-7xl mx-auto px-6 py-20 flex flex-col items-center">
-      <header className="text-center mb-8">
+      <header className="text-center mb-10">
         <h1 className="text-2xl md:text-4xl font-display text-gray-900 dark:text-white mb-4 tracking-tight drop-shadow-[0_0_10px_rgba(132,204,22,0.5)]  transition-colors">
           <span className="text-primary">QUEST</span> LOG
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-mono text-base border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
+        <p className="text-gray-600 dark:text-gray-400 max-w-4xl mx-auto font-mono text-xl border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
           Select a mission to view details. Completed quests demonstrate mastery in frontend development.
         </p>
       </header>
