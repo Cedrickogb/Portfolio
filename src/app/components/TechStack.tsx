@@ -19,8 +19,8 @@ const TechStack: React.FC = () => {
 
   return (
     <section id="stacks" className="py-20 relative transition-colors duration-300">
-        {/* Background blobs */}
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary/10 rounded-full blur-[120px] mix-blend-screen opacity-20 pointer-events-none"></div>
+      {/* Background blobs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary/10 rounded-full blur-[120px] mix-blend-screen opacity-20 pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-10">

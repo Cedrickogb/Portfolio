@@ -1,4 +1,11 @@
 import { TechItem, QuestItem, ExperienceItem } from './types';
+import pic2 from './src/app/image/twitter-clone.webp'
+import pic3 from './src/app/image/ncpc2.webp'
+import pic4 from './src/app/image/aso1.webp'
+import pic5 from './src/app/image/mr-streaming.webp'
+import pic6 from './src/app/image/musicHopper.webp'
+import pic7 from './src/app/image/collabDraw.webp'
+import pic8 from './src/app/image/trust-flow.webp'
 
 export const TECH_DATA: Record<string, TechItem> = {
   vue: {
@@ -130,4 +137,164 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     icon: 'shield',
     highlightColor: 'gray-500' 
   }
+];
+
+export const QUESTS: QuestItem[] = [
+  {
+    id: 'trust-flow',
+    active: true,
+    title: 'TrustFlow',
+    description: 'A modern B2B SaaS platform designed to enhance the online reputation of local businesses, it enables the collection and management of customer feedback via personalized QR codes',
+    image: pic8,
+    level: 33,
+    levelColor: 'bg-teal-600',
+    tags: [
+      "Frontend: Next.js 14 + React 18 with App Router for server-side rendering and routing",
+      "Database: Supabase (PostgreSQL) with Row Level Security, Edge Functions and pg_cron",
+      "Authentication: Supabase Auth with email/password, reset flow and session management",
+      "Styling: Tailwind CSS + shadcn/ui for consistent and accessible component design",
+      "Emails: Resend + React Email for transactional emails and weekly reports",
+      "Deployment: Vercel for hosting + Cloudflare for DNS routing and email (trust-flow.app)",
+      // "Payments: FedaPay for mobile money (MTN MoMo, Moov Money) and card payments in West Africa",
+    ],
+    features: [
+      "Smart filtering funnel using custom QR codes",
+      "Automated redirection of positive reviews to Google Maps",
+      "Private interception system for customer complaints",
+      "Comprehensive B2B dashboard with multi-tenant architecture",
+      // "Automated payments and subscriptions via Mobile Money (Moneroo)"
+    ],
+    date: '8 Apr',
+    year: '2026',
+    link: 'https://trust-flow.app/',
+  },
+  {
+    id: 'collab-draw',
+    active: true,
+    title: 'CollabDraw',
+    // description: 'Real-time collaborative whiteboard for remote teams to brainstorm ideas.',
+    description: 'Built with React + Liveblocks for conflict-free real-time sync across multiple users. Implemented a guest/owner permission model with Clerk auth. Handled canvas state with Konva.js for high-performance rendering.',
+    image: pic7,
+    level: 33,
+    levelColor: 'bg-teal-600',
+    tags: [
+      "Frontend: React for a dynamic and interactive user interface",
+      "Real-time Infrastructure: Liveblocks for instant multi-user synchronization and live cursors",
+      "Canvas Manipulation: Konva.js for the interactive drawing workspace",
+      "Styling: Tailwind CSS for efficient utility-first styling",
+      "Authentification: Clerk for secure authentification system",
+    ],
+    features: [
+      "Real-time collaborative drawing web app (React)",
+      "Instant multi-user synchronization with live cursors (Liveblocks)",
+      "Smooth, interactive workspace for visual creation",
+      "High-performance architecture optimized for simultaneous, latency-free collaboration",
+    ],
+    date: '5 Feb',
+    year: '2026',
+    link: 'https://collab-draw-iota.vercel.app/',
+  },
+  {
+    id: 'music-hopper',
+    active: true,
+    title: 'MusicHopper',
+    description: "MusicHopper is a modern desktop music player. It is specifically designed to provide a seamless user experience for managing local music libraries and creating persistent playlists. Its standout feature is the integration of real-time synchronized lyrics that automatically scroll during playback for locally stored songs",
+    image: pic6,
+    level: 60,
+    levelColor: 'bg-pink-600',
+    tags: [
+      "Desktop Framework: Electron for cross-platform desktop application distribution",
+      "Frontend: Vue 3 for a reactive and fluid user interface",
+      "Styling: Tailwind CSS for efficient utility-first styling",
+      "Audio Management: HTML5 Audio API for local library playback and synchronized lyrics",
+      "Lyrics: lyrics.ovh for lyrics retrieval with timestamps for accurate synchronization",
+    ],
+    features: [
+      "Modern, cross-platform desktop music player",
+      "Smooth, optimized user interface",
+      "Centralized management of the local music library",
+      "Creation and saving of persistent playlists",
+      "Real-time synchronized lyrics display with automatic scrolling",
+    ],
+    date: "21 Nov",
+    year: '2025',
+    isWeb: false,
+    link: 'https://github.com/Cedrickogb/MusicHopper/releases/download/sync_lyrics/MusicHopper.Setup.1.3.0.zip',
+  },
+  {
+    id: 'mr-streaming',
+    active: false,
+    title: 'Mr Streaming',
+    description: 'Streaming subscription profile sales site',
+    image: pic5,
+    level: 88,
+    levelColor: 'bg-purple-600',
+    tags: [
+      'Frontend: Vue 3 for a reactive and fluid user interface', 
+      'Tailwind'
+    ],
+    features: [],
+    year: '2025',
+    link: 'https://mr-streamings.vercel.app/',
+  },
+  {
+    id: 'aso',
+    active: true,
+    title: 'ASO',
+    description: 'Together with the team at Vertim Coders, where I served as lead front-end developer, we developed ASO (All Signs Options), a powerful product configurator designed for general signage (banners, acrylic/wood signs, stickers). It transforms a simple product page into a full-fledged visual design studio integrated directly into the browser',
+    image: pic4,
+    level: 72,
+    levelColor: 'bg-blue-600',
+    tags: [
+      'Frontend: Vue 3 for a reactive and fluid user interface', 
+      "Styling: Tailwind CSS for efficient utility-first styling", 
+      "Canvas Manipulation: Fabric.js for an interactive product configuration and editing workspace"
+    ],
+    features: [
+      "Front-End Engineering & Canvas Manipulation: Development of a fluid, interactive workspace for real-time management of layers, backgrounds, and the positioning of complex visuals",
+      "State Machine and Dynamic Pricing: Implementation of robust calculation logic that instantly adjusts prices based on cross-variables (custom dimensions, material choices, cutting options)",
+      "Industrial Export: Accurate conversion of interactive web designs into high-definition vector production files (SVG, PDF, DXF) that can be used directly by printers"
+    ],
+    year: '2024-2026',
+    link: 'https://demos.signsdesigner.us/aso-live-demo/',
+  },
+  {
+    id: 'ncpc',
+    active: true,
+    title: 'NCPC',
+    description: 'Together with the team at Vertim Coders, where I served as lead front-end developer, we developed NCPC (Neon Channel Product Customizer), a highly specialized solution designed for manufacturers of illuminated signs. It allows customers to design neon or LED lettering by simulating a realistic visual rendering before making a purchase',
+    image: pic3,
+    level: 45,
+    levelColor: 'bg-yellow-600',
+    tags: [
+      'Frontend: Vue 3 for a reactive and fluid user interface', 
+      "Styling: Tailwind CSS for efficient utility-first styling", 
+      "Canvas Manipulation: Konva.js for an interactive product configuration and editing workspace"
+    ],
+    features: [
+      "Visual Rendering and Simulation: Development of an advanced interface logic to simulate lighting effects, with the ability to combine multiple colors and fonts on a single product",
+      "Dynamic Typography Management: Implementation of a seamless system for the real-time import, processing, and application of custom fonts (TTF files and Google Fonts) within the canvas",
+      "Seamless E-commerce Integration: Synchronization of the configurator with the Shopify and WooCommerce ecosystems, ensuring lossless transfer of configuration metadata and generated files to the checkout process"
+    ],
+    year: '2023-2026',
+    link: 'https://demos.signsdesigner.us/ncpc-live-demo/',
+  },
+  {
+    id: 'twitter-clone',
+    active: false,
+    title: 'Twitter Clone',
+    description: 'A pixel-perfect replication of the social giant using React and Node.js. Features real-time updates.',
+    image: pic2,
+    level: 99,
+    levelColor: 'bg-primary',
+    tags: [
+      'NextJs', 
+      'Js', 
+      'Tailwind', 
+      'Firebase'
+    ],
+    features: [],
+    year: '2022',
+    link: 'https://twitter-clone-cedrickogb.vercel.app/',
+  },
 ];

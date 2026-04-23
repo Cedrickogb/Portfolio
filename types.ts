@@ -16,13 +16,17 @@ export interface TechItem {
 
 export interface QuestItem {
   id: string;
+  active: boolean;
   title: string;
   description: string;
   image: any;
   level: number;
   levelColor: string;
   tags: string[];
+  features: string[];
+  date?: string;
   year: string;
+  isWeb?: boolean;
   link: string;
 }
 
