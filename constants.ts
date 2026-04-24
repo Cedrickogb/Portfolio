@@ -198,7 +198,7 @@ export const QUESTS: QuestItem[] = [
     id: 'music-hopper',
     active: true,
     title: 'MusicHopper',
-    description: "MusicHopper is a modern desktop music player. It is specifically designed to provide a seamless user experience for managing local music libraries and creating persistent playlists. Its standout feature is the integration of real-time synchronized lyrics that automatically scroll during playback for locally stored songs",
+    description: "MusicHopper is a modern desktop music player. It is specifically designed to provide a seamless user experience for managing local music libraries and creating persistent playlists. Its standout feature is the integration of real-time synchronized lyrics that automatically scroll during playback for locally stored songs. Only the Windows version is available at this time; the rest will be available soon",
     image: pic6,
     level: 60,
     levelColor: 'bg-pink-600',
@@ -219,7 +219,7 @@ export const QUESTS: QuestItem[] = [
     date: "21 Nov",
     year: '2025',
     isWeb: false,
-    link: 'https://github.com/Cedrickogb/MusicHopper/releases/download/sync_lyrics/MusicHopper.Setup.1.3.0.zip',
+    link: 'https://github.com/Cedrickogb/MusicHopper/releases/download/issue-fixing/MusicHopper.Setup_1.4.zip',
   },
   {
     id: 'mr-streaming',
