@@ -76,10 +76,10 @@ const Hero: React.FC = () => {
             <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded transition-colors">
               <span className="text-hp-red">STR:</span> Next.js / Vue 3
             </div>
-            <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded hidden sm:block transition-colors">
+            <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded block transition-colors">
               <span className="text-primary">INT:</span> SaaS Builder
             </div>
-            <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded hidden sm:block transition-colors">
+            <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded block transition-colors">
               <span className="text-green-500">LOC:</span> Cotonou, Bénin
             </div>
           </div>
