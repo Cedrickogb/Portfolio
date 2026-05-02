@@ -32,26 +32,21 @@ const Hero: React.FC = () => {
             <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-primary z-20"></div>
             <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-primary z-20"></div>
 
-            {/* Avatar Image */}
-            {/* <div className="hidden sm:block absolute -top-12 -right-4 md:-right-12 group-hover:-right-[110px] w-24 h-24 md:w-32 md:h-32 bg-gray-200 dark:bg-gray-800 border-4 border-gray-900 dark:border-white rounded overflow-hidden shadow-lg transform rotate-3 group-hover:rotate-0 z-30 transition-all">
-              <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBruudcF3V_uVoV4TsYVBOlP_1AvSiy-bg7fYiH5XzKcDmDmUUyoWTXzhWsHgbdNw5xgHd_7mc5h38YCpV2yn3643Xuwb8NXKH6yd0C74Wenmrf4L2oXOBK3o5YLCwVRGoO4aDJnM7iHTHVS51sJ4R1bk8LppH_fGTuifBia7cFHZF6GIpx4KmfG_deNBS_sMn98MutM78RGjrBD39Qqh_1JpmLGoBoXdKFic1JI_hBIHRuE-Gxh9BUHuqg44S2DDSIEnmU3-VCUnc" 
-                alt="Character Portrait" 
-                className="w-full h-full object-cover" 
-              />
-            </div> */}
-
             {/* Header */}
             <div className="flex items-center justify-between mb-4 border-b-2 border-dashed border-gray-300 dark:border-gray-700 pb-2">
               <span className="font-display text-xs text-primary uppercase tracking-widest">Character Bio</span>
-              <span className="font-mono text-gray-500 text-sm">Class: Software Engineer</span>
+              <span className="font-mono text-gray-500 text-sm">Class: Frontend Engineer</span>
             </div>
 
             {/* Content */}
             <p className="font-body text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed pr-0 sm:pr-20 transition-colors">
-              I'm a <span className="text-gray-900 dark:text-white font-bold transition-colors">Software Engineer</span> specialized in <span className="text-primary">web development</span>. My quest involves building fast, accessible, and visually compelling web solutions.
+              I'm a <span className="text-gray-900 dark:text-white font-bold transition-colors">Frontend Engineer</span> based in{' '}
+              <span className="text-primary">Cotonou, Bénin</span> — building interfaces and products that work in the real world.
               <br /><br />
-              Let's bring your ideas to life one line of code at a time.
+              4 years shipping production-grade apps: from browser-based{' '}
+              <span className="text-gray-900 dark:text-white font-bold transition-colors">design studios</span> (Vertim Coders) to{' '}
+              <span className="text-gray-900 dark:text-white font-bold transition-colors">real-time collaborative tools</span> and my own{' '}
+              <span className="text-primary">B2B SaaS</span> — TrustFlow, a reputation management platform for local businesses in West Africa.
               <span className="inline-block w-2 h-5 bg-primary ml-1 cursor-blink align-middle"></span>
             </p>
 
@@ -60,10 +55,11 @@ const Hero: React.FC = () => {
               <span className="font-mono text-xs text-gray-500 animate-pulse mr-2 self-center">Press A to Continue</span>
               <div className="w-8 h-8 rounded-full border-2 border-gray-400 dark:border-gray-500 flex items-center justify-center text-gray-500 font-display text-xs">A</div>
             </div>
+
+            {/* Chat Bubble Tail */}
+            <div className="absolute bottom-[-19px] left-10 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[16px] border-t-white dark:border-t-gray-600 group-hover:border-t-gray-900 dark:group-hover:border-t-white   transition-colors duration-300 drop-shadow-xl dark:drop-shadow-none"></div>
           </div>
           
-          {/* Chat Bubble Tail */}
-          <div className="absolute bottom-[-16px] left-10 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[16px] border-t-white dark:border-t-gray-600 transition-colors duration-300 drop-shadow-xl dark:drop-shadow-none"></div>
         </div>
 
         {/* Stats & CTA */}
@@ -73,15 +69,18 @@ const Hero: React.FC = () => {
             <i className="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
           </a>
           
-          <div className="flex gap-4 font-mono text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-wrap gap-4 font-mono text-sm text-gray-600 dark:text-gray-400">
             <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded transition-colors">
               <span className="text-xp-blue">XP:</span> 4 Years
             </div>
             <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded transition-colors">
-              <span className="text-hp-red">STR:</span> Vue.js / React
+              <span className="text-hp-red">STR:</span> Next.js / Vue 3
             </div>
             <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded hidden sm:block transition-colors">
-              <span className="text-primary">INT:</span> UI/UX Design
+              <span className="text-primary">INT:</span> SaaS Builder
+            </div>
+            <div className="bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 px-3 py-1 rounded hidden sm:block transition-colors">
+              <span className="text-green-500">LOC:</span> Cotonou, Bénin
             </div>
           </div>
         </div>
