@@ -49,7 +49,7 @@ const Hero: React.FC = () => {
 
             {/* Content */}
             <p className="font-body text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed pr-0 sm:pr-20 transition-colors">
-              I'm a <span className="text-gray-900 dark:text-white font-bold transition-colors">Software Engineer</span> specialized in <span className="text-primary">web development</span>. My quest involves building fast, accessible, and visually compelling web interfaces.
+              I'm a <span className="text-gray-900 dark:text-white font-bold transition-colors">Software Engineer</span> specialized in <span className="text-primary">web development</span>. My quest involves building fast, accessible, and visually compelling web solutions.
               <br /><br />
               Let's bring your ideas to life one line of code at a time.
               <span className="inline-block w-2 h-5 bg-primary ml-1 cursor-blink align-middle"></span>
