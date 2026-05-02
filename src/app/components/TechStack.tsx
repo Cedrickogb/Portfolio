@@ -50,6 +50,34 @@ const TechStack: React.FC = () => {
                       <svg className='w-14 h-14 group-hover:scale-110 transition-all' viewBox="0 0 32 32" fill='currentColor' xmlns="http://www.w3.org/2000/svg"><title>file_type_tailwind</title><path d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z" /></svg>
                     </span>
                   }
+                  {tech.key === 'supabase' && 
+                    <span className="group-hover:text-supabase text-gray-400 dark:text-gray-400">
+                      <svg className='w-12 h-12 group-hover:scale-110 transition-all' viewBox="0 0 109 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="currentColor"/>
+                        <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="currentColor" fill-opacity="0.2"/>
+                        <path d="M45.317 2.07103C48.1765 -1.53037 53.9745 0.442937 54.0434 5.041L54.4849 72.2922H9.83113C1.64038 72.2922 -2.92775 62.8321 2.1655 56.4175L45.317 2.07103Z" fill="currentColor"/>
+                      </svg>
+                    </span>
+                  }
+                  {tech.key === 'konvajs' && 
+                    <span className="group-hover:text-tailwind text-gray-400 dark:text-gray-400">
+                      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" className='w-12 h-12 group-hover:scale-110 transition-all' viewBox="0 0 300.000000 300.000000"  preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                            <path d="M1363 2989 c-352 -34 -667 -182 -918 -434 -515 -515 -586 -1300 -173
+                            -1908 81 -119 256 -294 375 -375 459 -312 1027 -354 1516 -111 149 74 270 161
+                            392 284 364 364 515 874 405 1376 -60 278 -198 527 -405 734 -256 256 -562
+                            399 -930 435 -113 11 -145 11 -262 -1z m581 -624 c115 -8 212 -18 216 -22 4
+                            -4 -3 -133 -15 -286 -16 -206 -25 -281 -36 -291 -8 -7 -78 -53 -157 -101 -79
+                            -48 -140 -91 -135 -95 4 -3 75 -35 157 -71 103 -44 151 -70 156 -84 6 -16 107
+                            -625 113 -685 2 -13 -42 -17 -283 -31 -157 -8 -286 -15 -287 -14 -1 1 -10 107
+                            -19 236 -9 128 -17 234 -18 235 -14 14 -279 184 -282 182 -2 -2 1 -141 7 -308
+                            5 -167 6 -307 2 -311 -9 -9 -525 -28 -534 -19 -4 3 -12 378 -18 835 -8 656 -8
+                            831 2 837 15 10 494 10 500 1 3 -5 8 -153 12 -330 l8 -321 111 80 c168 121
+                            150 83 156 341 3 122 9 228 13 234 6 9 26 11 65 7 31 -2 151 -11 266 -19z"/>
+                        </g>
+                      </svg>
+                    </span>
+                  }
                   {tech.isTextIcon ? (
                     <span className={`font-display text-3xl font-bold text-gray-400 dark:text-gray-400 transition-all duration-300
                       ${tech.key === 'ts' ? 'group-hover:text-ts' : ''}
@@ -89,6 +117,9 @@ const TechStack: React.FC = () => {
                       ${tech.key === 'git' ? 'bg-git' : ''}
                       ${tech.key === 'ts' ? 'bg-ts' : ''}
                       ${tech.key === 'next' ? 'bg-next' : ''}
+                      ${tech.key === 'supabase' ? 'bg-supabase' : ''}
+                      ${tech.key === 'fabricjs' ? 'bg-fabricjs' : ''}
+                      ${tech.key === 'konvajs' ? 'bg-konvajs' : ''}
                     `}></div>
                   </div>
                 </div>
@@ -136,6 +167,39 @@ const TechStack: React.FC = () => {
                                     ) : (
                                       <i className={`${selectedTech.iconClass} text-3xl`}></i>
                                     )}
+                                    {selectedTech.key === "tailwind" && 
+                                      <span className="">
+                                        <svg className='w-9 h-9 group-hover:scale-110 transition-all' viewBox="0 0 32 32" fill='currentColor' xmlns="http://www.w3.org/2000/svg"><title>file_type_tailwind</title><path d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z" /></svg>
+                                      </span>
+                                    }
+                                    {selectedTech.key === 'supabase' && 
+                                      <span className="">
+                                        <svg className='w-7 h-7 group-hover:scale-110 transition-all' viewBox="0 0 109 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="currentColor"/>
+                                          <path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="currentColor" fill-opacity="0.2"/>
+                                          <path d="M45.317 2.07103C48.1765 -1.53037 53.9745 0.442937 54.0434 5.041L54.4849 72.2922H9.83113C1.64038 72.2922 -2.92775 62.8321 2.1655 56.4175L45.317 2.07103Z" fill="currentColor"/>
+                                        </svg>
+                                      </span>
+                                    }
+                                    {selectedTech.key === 'konvajs' && 
+                                      <span className="">
+                                        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" className='w-9 h-9 group-hover:scale-110 transition-all' viewBox="0 0 300.000000 300.000000"  preserveAspectRatio="xMidYMid meet">
+                                          <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                                              <path d="M1363 2989 c-352 -34 -667 -182 -918 -434 -515 -515 -586 -1300 -173
+                                              -1908 81 -119 256 -294 375 -375 459 -312 1027 -354 1516 -111 149 74 270 161
+                                              392 284 364 364 515 874 405 1376 -60 278 -198 527 -405 734 -256 256 -562
+                                              399 -930 435 -113 11 -145 11 -262 -1z m581 -624 c115 -8 212 -18 216 -22 4
+                                              -4 -3 -133 -15 -286 -16 -206 -25 -281 -36 -291 -8 -7 -78 -53 -157 -101 -79
+                                              -48 -140 -91 -135 -95 4 -3 75 -35 157 -71 103 -44 151 -70 156 -84 6 -16 107
+                                              -625 113 -685 2 -13 -42 -17 -283 -31 -157 -8 -286 -15 -287 -14 -1 1 -10 107
+                                              -19 236 -9 128 -17 234 -18 235 -14 14 -279 184 -282 182 -2 -2 1 -141 7 -308
+                                              5 -167 6 -307 2 -311 -9 -9 -525 -28 -534 -19 -4 3 -12 378 -18 835 -8 656 -8
+                                              831 2 837 15 10 494 10 500 1 3 -5 8 -153 12 -330 l8 -321 111 80 c168 121
+                                              150 83 156 341 3 122 9 228 13 234 6 9 26 11 65 7 31 -2 151 -11 266 -19z"/>
+                                          </g>
+                                        </svg>
+                                      </span>
+                                    }
                                 </div>
                                 <div className="text-right">
                                     <h2 className="text-green-400 font-bold uppercase text-sm">{selectedTech.name}</h2>

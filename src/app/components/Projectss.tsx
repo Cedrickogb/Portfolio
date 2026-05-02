@@ -22,7 +22,7 @@ const Projects: React.FC = () => {
           <span className="text-primary">QUEST</span> LOG
         </h1>
         <p className="text-gray-600 dark:text-gray-400 max-w-4xl mx-auto font-mono text-xl border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
-          Select a mission to view details. Completed quests demonstrate mastery in frontend development.
+          Select a mission to view details. Completed quests demonstrate mastery in web development.
         </p>
       </header>
 

@@ -50,6 +50,38 @@ export const TECH_DATA: Record<string, TechItem> = {
     desc: 'A utility-first CSS framework for rapid UI development. Highly customizable and low-level. Special Move: Instant Styling.',
     stats: { exp: '3 Years', projects: '10+' }
   },
+  supabase: {
+    key: 'supabase',
+    name: 'Supabase',
+    type: 'Backend / BaaS',
+    color: 'text-[#3ecf8e]',
+    borderColor: 'hover:border-[#3ecf8e]',
+    iconClass: '',
+    desc: 'An open-source backend-as-a-service that provides authentication, database, storage and real-time APIs. A powerful Firebase alternative built on PostgreSQL. Special Move: Instant APIs.',
+    stats: { exp: '1-2 Years', projects: '2' }
+  },
+  fabricjs: {
+    key: 'fabricjs',
+    name: 'Fabric.js',
+    type: 'Canvas Library',
+    color: 'text-[#139CE1]',
+    borderColor: 'hover:border-[#139CE1]',
+    iconClass: '',
+    isTextIcon: true,
+    textSymbol: 'F',
+    desc: 'A powerful JavaScript library for working with HTML5 canvas. It simplifies drawing, object manipulation, and interactive graphics. Ideal for editors and design tools. Special Move: Object Manipulation.',
+    stats: { exp: '1 Year', projects: '2' }
+  },
+  konvajs: {
+    key: 'konvajs',
+    name: 'Konva.js',
+    type: 'Canvas Library',
+    color: 'text-[#0D83CD]',
+    borderColor: 'hover:border-[#0D83CD]',
+    iconClass: '',
+    desc: 'A powerful JavaScript library for working with HTML5 canvas. It simplifies drawing, object manipulation, and interactive graphics. Ideal for editors and design tools. Special Move: Object Manipulation.',
+    stats: { exp: '3 Year', projects: '2' }
+  },
   html: {
     key: 'html',
     name: 'HTML5',

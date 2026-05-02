@@ -18,6 +18,9 @@ const config: Config = {
         "js": "#f7df1e",
         "ts": "#3178c6",
         "git": "#f05032",
+        "supabase": "#3ecf8e",
+        "fabricjs": "#139CE1",
+        "konvajs": "#0D83CD",
 
         "primary": "#76C829", 
         "primary-dark": "#4da014",
