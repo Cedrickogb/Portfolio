@@ -267,9 +267,7 @@ Non glamour, mais tout le reste s'appuie dessus.
 - [x] Auto-héberger les 6 familles via **Fontsource** (paquets npm). `next/font/google`
       a été écarté : Google Fonts est injoignable depuis l'environnement de build.
       Les .ttf de `src/app/fonts` sont Geist/Montserrat/Nunito — ni utilisés, ni référencés.
-- [ ] **En attente de Cédrick** : intégrer le vrai parcours dans `EXPERIENCE_DATA`
-      (les entrées Paris / New York sont des placeholders qui contredisent la bio
-      Cotonou / Vertim Coders).
+- [x] Vrai parcours intégré dans `EXPERIENCE_DATA` : Vertim Coders, 41Devs, ANIP.
 
 Corrigé en plus, hors périmètre annoncé :
 - [x] `page.tsx` dupliquait le state de thème, la scanline et la grille déjà fournis par
@@ -671,21 +669,73 @@ Start 2P donnait « CéDRICK » et « QUêTES LIVRéES » — la fonte n'a pas l
 majuscules accentuées, qui retombaient en police de secours. Les libellés sont
 désormais écrits dans la casse voulue, sans transformation CSS.
 
-**Reste à faire
-- [ ] Quêtes archivées : les faire apparaître, grisées, dans le Journal.
-- [ ] Dialogues à réécrire par Cédrick — c'est sa voix, pas la mienne.
+**Reste à faire en phase 3**
+- [ ] **Quêtes archivées** dans le Journal, grisées et non sélectionnables.
+      Aujourd'hui `questEntries()` filtre sur `active` : Twitter Clone et
+      Mr Streaming n'existent pas dans le jeu.
+- [x] **Hall des Trophées** : cinquième bâtiment, volontairement isolé au nord
+      derrière un rideau d'arbres, sur un parvis dallé. Carte du bourg agrandie
+      de 40x25 à **52x32** pour lui laisser sa distance.
+      - Style `hall` hors gabarit : trois tuiles de haut, large débord, toit
+        **cuivré** et **colonnade** en façade. Un édifice qui aurait la même
+        silhouette que les maisons voisines ne se lirait pas comme un monument.
+      - Intérieur en dallage clair, sans comptoir ni personnage : on n'y vient
+        pas demander quelque chose, on y circule entre des stèles.
+      - **Consultation par approche**, pas par pression de touche : on se tient
+        devant un piédestal et la plaque se lit. C'est le geste qu'on a dans une
+        salle d'exposition, et ça évite d'apprendre au visiteur qu'il faut
+        appuyer sur A devant un objet qui n'a pas l'air d'un interlocuteur. Le
+        panneau ne bloque donc rien et suit les pas.
+      - `parseMap` refuse un piédestal sans donnée **et** une donnée sans
+        piédestal : un socle vide et une expérience invisible sont deux bugs.
+- [ ] **Dialogues à réécrire par Cédrick.** Les miens sont fonctionnels mais
+      neutres — 4 panneaux dans le bourg, 4 personnages, 4 panneaux intérieurs.
 
-- [ ] Format de carte en TS (cohérent avec l'approche code-first ; Tiled reste une option
-      si l'édition à la main devient pénible) : tuiles, collisions, triggers, spawns.
-- [ ] **Labo/Maison** : poster Character Bio (le texte du `Hero` actuel), PC → StackDex,
-      ordinateur → **téléchargement du CV**, porte → extérieur.
-- [ ] **Quartier des Quêtes** : un bâtiment généré par entrée de `QUESTS`, les
-      `active: false` en volets fermés « Quête archivée ».
-- [ ] PNJ guide + panneaux, ~10 dialogues écrits.
-- [ ] `<QuestPanel />` : fiche projet plein écran, reprend le design de `projects/[id]`.
-- [ ] Générateur de monde depuis `@/data` — **aucun contenu recopié à la main.**
+*Superseded en cours de route, à ne pas reprendre tel quel :* le plan prévoyait
+un bâtiment par projet et le StackDex dans le Labo. Les bâtiments sont devenus
+des **pôles** (LAB, QUESTS, STACKS, CONTACT) avec la liste au comptoir — c'est
+mieux, et c'est ce qui est en place.
 
-### Phase 4 — Systèmes de jeu · 3 j
+### Phase 4 — Systèmes de jeu · en cours
+
+**Fait — sauvegarde et menu START.**
+- [x] **Sauvegarde locale** : carte, position, orientation, quêtes lues et technos
+      vues. Écrite par abonnement au store — quand quelque chose change, pas
+      toutes les secondes — et jamais au milieu d'un pas.
+- [x] **Relecture validée champ par champ.** Le contenu de `localStorage` survit
+      aux refactors, aux changements de carte et à une console ouverte : une
+      donnée douteuse est jetée et la partie repart du début, ce qui vaut
+      toujours mieux qu'un joueur téléporté dans un mur. Un numéro de version
+      permet d'invalider les sauvegardes d'une forme antérieure.
+- [x] **Menu START** ouvert par B dans le monde — il n'y a rien d'autre à annuler
+      à ce niveau, et c'est la touche que le joueur essaie en premier. Bouton `≡`
+      ajouté au pavé tactile, où aucune touche Échap n'existe.
+- [x] **Compteur de progression** : quêtes lues et technos vues. Ce n'est pas
+      décoratif — c'est ce qui donne envie de finir le tour, et la preuve visible
+      que la partie a été retenue.
+- [x] Entrée « Nouvelle partie », qui remet à zéro sans recharger la page.
+
+**Fait — écran titre et audio.**
+- [x] **Écran titre** « PRESS START », puis Continuer / Nouvelle partie quand une
+      sauvegarde existe. Il sert trois choses à la fois : annoncer où l'on arrive,
+      laisser choisir, et fournir le **geste utilisateur** sans lequel aucun
+      navigateur n'autorise le son.
+- [x] **Audio entièrement synthétisé**, aucun fichier. Même raisonnement que pour
+      les textures : un bruitage de pas est une onde carrée de 40 ms, pas un .wav
+      de 12 ko. Le jeu reste à poids constant quel que soit le nombre de sons.
+- [x] **Boucle musicale séquencée sur l'horloge audio.** Un `setInterval` qui
+      jouerait les notes directement dériverait — les timers du navigateur sont
+      approximatifs et le décalage s'entend au bout de quelques mesures. On
+      planifie 200 ms d'avance sur l'horloge du contexte, qui elle est exacte.
+- [x] Sourdine réglable depuis le menu START et **persistée avec la sauvegarde**.
+- [x] **Sauvegarde validée à la relecture**, désormais y compris la case : une
+      carte remaniée pouvait replacer le joueur dans un mur. La validation est
+      extraite en fonction pure et couverte par **9 assertions**.
+
+Vérifié en conditions réelles : aucun contexte audio n'est créé avant un geste
+de l'utilisateur, et il passe à `running` juste après.
+
+### Phase 4 (plan initial) · 3 j
 - [ ] Écran titre « PRESS START », choix Continuer / Nouvelle partie.
 - [ ] Menu START : Journal de Quêtes, StackDex, CV, Mode Classique, Options, Sauvegarder.
 - [ ] Sauvegarde localStorage + compteur de quêtes lues / % exploré.
@@ -693,12 +743,17 @@ désormais écrits dans la casse voulue, sans transformation CSS.
       **jamais d'autoplay** sans geste utilisateur.
 
 ### Phase 5 — Intégration, perf & mise en ligne · 3 j
-- [ ] Accueil : choix des deux modes, avec un GIF du jeu en aperçu.
+- [x] **Portes d'entrée vers le jeu** : bouton « ▶ Jouer » en tête du Hero et
+      entrée dans la navigation. **Écart assumé au plan** — celui-ci prévoyait un
+      écran de choix des deux modes à la racine. Un interstitiel avant le contenu
+      ferait perdre le recruteur pressé et sortirait le texte de la page indexée ;
+      les deux portes coexistent donc sur l'accueil, sans passage obligé.
+- [ ] Aperçu animé du jeu sur l'accueil (GIF ou vidéo courte).
 - [ ] `/game?goto=trust-flow` téléporte devant la quête (partageable depuis LinkedIn).
 - [ ] Mode classique : bouton « Voir dans le jeu » sur chaque projet, et inversement.
-- [ ] SEO : `/game` en `noindex`, tout le contenu indexable reste côté classique.
-- [ ] Détection matériel faible → proposition de bascule ; `prefers-reduced-motion` ;
-      navigation clavier complète.
+- [x] SEO : `/game` en `noindex`, tout le contenu indexable reste côté classique.
+- [x] `prefers-reduced-motion` respecté ; navigation clavier complète dans les menus.
+- [ ] Détection matériel faible → proposition de bascule vers le mode classique.
 - [ ] Tests sur vrai mobile Android bas/milieu de gamme. Lighthouse sur `/` inchangé.
 
 **Total v1 ≈ 19 jours effectifs.**

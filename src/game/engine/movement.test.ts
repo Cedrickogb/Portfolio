@@ -32,9 +32,13 @@ const snap = (over: Partial<Snapshot> = {}): Snapshot => ({
 
 console.log('\ngrille');
 
-check('la carte se parse aux bonnes dimensions', () => {
-  assert.equal(map.width, 40);
-  assert.equal(map.height, 25);
+check('la carte se parse aux dimensions de sa grille', () => {
+  /* Pas de taille en dur : elle changerait à chaque agrandissement du bourg et
+     le test échouerait sans qu'aucune règle ne soit cassée. Ce qui compte est
+     que les dimensions lues correspondent à la grille écrite. */
+  assert.equal(map.height, TOWN_MAP.rows.length);
+  assert.equal(map.width, TOWN_MAP.rows[0].length);
+  assert.ok(map.width > 0 && map.height > 0);
 });
 
 check('le spawn est sur du sol traversable', () => {
@@ -48,9 +52,11 @@ check('les bords bloquent', () => {
 });
 
 check('hors carte bloque, sans lever d erreur', () => {
+  // Bornes dérivées de la carte : elles suivent ses agrandissements.
   assert.equal(isWalkable(map, -1, 5), false);
-  assert.equal(isWalkable(map, 40, 5), false);
-  assert.equal(isWalkable(map, 5, 25), false);
+  assert.equal(isWalkable(map, 5, -1), false);
+  assert.equal(isWalkable(map, map.width, 5), false);
+  assert.equal(isWalkable(map, 5, map.height), false);
 });
 
 check('decors et panneaux bloquent', () => {

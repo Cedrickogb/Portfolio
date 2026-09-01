@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import type { Tile } from '@/game/engine/grid';
+import type { Tile, Travel } from '@/game/engine/grid';
 import type { Direction } from '@/game/engine/direction';
 
 
 /** Menu ouvert à la fin d'un dialogue. */
-export type MenuKind = 'quests' | 'stacks' | 'contact' | 'cv';
+export type MenuKind = 'quests' | 'stacks' | 'contact' | 'cv' | 'start';
 
 interface DialogueState {
   lines: string[];
@@ -38,6 +38,19 @@ interface GameState {
   questId: string | null;
   /** Fiche de techno ouverte, s'il y en a une. */
   techKey: string | null;
+  /** Quêtes et technos dont la fiche a déjà été ouverte : la progression. */
+  questsSeen: string[];
+  techsSeen: string[];
+  /** Vrai une fois la sauvegarde relue : avant, on n'écrit rien. */
+  hydrated: boolean;
+  /** Faux tant que l'écran titre n'a pas été franchi. */
+  started: boolean;
+  /** Son coupé. Persisté avec la sauvegarde. */
+  muted: boolean;
+  /** Mode de déplacement : à pied, à vélo, ou en barque. */
+  travel: Travel;
+  /** Territoire courant, pour la musique et le bandeau d'entrée. */
+  territory: string | null;
 
   spawnAt: (tile: Tile) => void;
   face: (dir: Direction) => void;
@@ -48,6 +61,12 @@ interface GameState {
   openMenu: (menu: MenuKind) => void;
   closeMenu: () => void;
   setMenuCursor: (index: number) => void;
+  hydrate: (state: Partial<GameState>) => void;
+  start: () => void;
+  setMutedState: (muted: boolean) => void;
+  setTravel: (travel: Travel) => void;
+  setTerritory: (id: string | null) => void;
+  resetProgress: (mapId: string, tile: Tile) => void;
   openQuest: (id: string) => void;
   closeQuest: () => void;
   openTech: (key: string) => void;
@@ -71,11 +90,26 @@ export const useGameStore = create<GameState>((set, get) => ({
   farewell: null,
   questId: null,
   techKey: null,
+  questsSeen: [],
+  techsSeen: [],
+  hydrated: false,
+  started: false,
+  muted: false,
+  travel: 'foot',
+  territory: null,
 
   spawnAt: (tile) => set({ tile, step: null, dialogue: null, questId: null, techKey: null, menu: null }),
 
   warpTo: (mapId, tile, facing) =>
-    set({ mapId, pendingSpawn: { tile, facing }, warping: true, step: null, dialogue: null }),
+    set((s) => ({
+      mapId,
+      pendingSpawn: { tile, facing },
+      warping: true,
+      step: null,
+      dialogue: null,
+      // On n'entre pas dans un bâtiment en barque.
+      travel: s.travel === 'boat' ? 'foot' : s.travel,
+    })),
 
   consumeSpawn: () => set({ pendingSpawn: null, warping: false }),
 
@@ -91,7 +125,11 @@ export const useGameStore = create<GameState>((set, get) => ({
         ? { menu: null, menuCursor: 0, farewell: null, dialogue: { lines: s.farewell, index: 0, revealed: 0 } }
         : { menu: null, menuCursor: 0 },
     ),
-  openTech: (key) => set({ techKey: key }),
+  openTech: (key) =>
+    set((s) => ({
+      techKey: key,
+      techsSeen: s.techsSeen.includes(key) ? s.techsSeen : [...s.techsSeen, key],
+    })),
   closeTech: () => set({ techKey: null }),
 
   face: (dir) => {
@@ -103,7 +141,37 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   endStep: () => set({ step: null }),
 
-  openQuest: (id) => set({ questId: id }),
+  hydrate: (state) => set({ ...state, hydrated: true }),
+
+  start: () => set({ started: true }),
+
+  setMutedState: (muted) => set({ muted }),
+
+  setTravel: (travel) => set({ travel }),
+
+  setTerritory: (territory) => set({ territory }),
+
+  /* Nouvelle partie : on efface la progression et on renvoie au point de
+     départ, sans recharger la page — le monde est déjà en mémoire. */
+  resetProgress: (mapId, tile) =>
+    set({
+      mapId,
+      pendingSpawn: { tile, facing: 'down' },
+      warping: true,
+      questsSeen: [],
+      techsSeen: [],
+      menu: null,
+      questId: null,
+      techKey: null,
+      dialogue: null,
+      step: null,
+    }),
+
+  openQuest: (id) =>
+    set((s) => ({
+      questId: id,
+      questsSeen: s.questsSeen.includes(id) ? s.questsSeen : [...s.questsSeen, id],
+    })),
 
   closeQuest: () => set({ questId: null }),
 

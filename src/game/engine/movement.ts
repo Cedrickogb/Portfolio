@@ -1,4 +1,4 @@
-import { isWalkable, npcAt, signDialogueAt, warpAt, type NpcSpec, type ParsedMap, type Warp } from './grid';
+import { isDock, isWalkable, npcAt, signDialogueAt, warpAt, type NpcSpec, type ParsedMap, type Travel, type Warp } from './grid';
 import { tileAhead, type Direction, type Tile } from './direction';
 
 /** Ce que le joueur demande à cette frame. */
@@ -13,6 +13,7 @@ export interface Input {
 export interface Snapshot {
   tile: Tile;
   facing: Direction;
+  travel: Travel;
   stepping: boolean;
   dialogue: { lines: string[]; index: number; revealed: number } | null;
 }
@@ -21,6 +22,8 @@ export type Intent =
   | { kind: 'idle' }
   | { kind: 'warp'; warp: Warp }
   | { kind: 'talk-npc'; npc: NpcSpec }
+  | { kind: 'board' }
+  | { kind: 'disembark'; to: Tile }
   | { kind: 'reveal-line' }
   | { kind: 'advance-dialogue' }
   | { kind: 'talk'; lines: string[] }
@@ -53,6 +56,18 @@ export function decide(input: Input, s: Snapshot, map: ParsedMap): Intent {
   if (input.a) {
     const front = tileAhead(s.tile, s.facing);
 
+    /* Embarquement et débarquement se font depuis un ponton, en regardant vers
+       l'élément où l'on veut aller. Deux gestes symétriques, une seule case. */
+    if (isDock(map, s.tile.x, s.tile.y)) {
+      if (s.travel !== 'boat' && map.kinds[front.y]?.[front.x] === 'water') {
+        return { kind: 'board' };
+      }
+      if (s.travel === 'boat' && isWalkable(map, front.x, front.y, 'foot')
+          && map.kinds[front.y]?.[front.x] !== 'water') {
+        return { kind: 'disembark', to: front };
+      }
+    }
+
     const npc = npcAt(map, front.x, front.y);
     if (npc) return { kind: 'talk-npc', npc };
 
@@ -72,7 +87,7 @@ export function decide(input: Input, s: Snapshot, map: ParsedMap): Intent {
 
   const to = tileAhead(s.tile, input.dir);
   // Cible bloquée : on pivote sur place, comme dans les jeux d'origine.
-  return isWalkable(map, to.x, to.y)
+  return isWalkable(map, to.x, to.y, s.travel)
     ? { kind: 'step', dir: input.dir, to }
     : { kind: 'turn', dir: input.dir };
 }

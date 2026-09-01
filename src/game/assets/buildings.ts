@@ -27,6 +27,8 @@ export interface BuildingStyle {
   overhang: number;
   /** Rangée de fenêtres de part et d'autre de la porte. */
   windows: boolean;
+  /** Colonnade en façade : réservée aux édifices publics. */
+  columns: boolean;
 }
 
 const P = PALETTE;
@@ -42,6 +44,7 @@ export const BUILDING_STYLES = {
     roofHeight: 0.42,
     overhang: 0.3,
     windows: true,
+    columns: false,
   },
   /** Le quartier des quêtes : toit de tuiles rouges, crépi chaud, plus haut. */
   quests: {
@@ -53,6 +56,7 @@ export const BUILDING_STYLES = {
     roofHeight: 0.5,
     overhang: 0.36,
     windows: true,
+    columns: false,
   },
   /** Le magasin : toit bleu, façade grise, large débord façon auvent. */
   stacks: {
@@ -67,6 +71,7 @@ export const BUILDING_STYLES = {
     roofHeight: 0.36,
     overhang: 0.38,
     windows: true,
+    columns: false,
   },
   /** Le centre de contact : toit turquoise, crépi clair, toit épais. */
   contact: {
@@ -78,6 +83,25 @@ export const BUILDING_STYLES = {
     roofHeight: 0.58,
     overhang: 0.32,
     windows: false,
+    columns: false,
+  },
+  /**
+   * Le hall des trophées : pierre claire, toit cuivré, colonnade.
+   *
+   * Volontairement hors gabarit — plus haut, plus large, plus débordant que les
+   * quatre autres. Un édifice « à l'écart » qui aurait la même silhouette que
+   * les maisons voisines ne se lirait pas comme un monument.
+   */
+  hall: {
+    roof: { base: P.roofCopper, light: P.roofCopperLight, side: P.roofCopperDark },
+    wall: { base: P.stoneHi, hi: P.white, dark: P.stoneLight },
+    trim: P.roofCopperLight,
+    trimDark: P.roofCopperDark,
+    bodyHeight: 3,
+    roofHeight: 0.7,
+    overhang: 0.55,
+    windows: false,
+    columns: true,
   },
 } as const satisfies Record<string, BuildingStyle>;
 

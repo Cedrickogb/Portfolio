@@ -4,10 +4,12 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MathUtils, type Group, type Mesh, type MeshBasicMaterial } from 'three';
 import { CAMERA_OFFSET, SHADOW_OPACITY, SHADOW_Y, STEP_MS, TILE_TEXELS, shadowOffset } from '@/game/config';
+import { STEP_MS_BY_TRAVEL } from '@/game/config';
 import { HERO, HERO_HEIGHT, HERO_ROW, HERO_SHADOW_H, HERO_SHADOW_W, heroAtlas, heroShadowRaster } from '@/game/assets/hero';
 import { PALETTE } from '@/game/assets/palette';
 import { textureFromRaster } from '@/game/assets/texture';
 import { consumeA, heldDir } from '@/game/engine/input';
+import { sfx } from '@/game/audio/sfx';
 import { decide } from '@/game/engine/movement';
 import type { ParsedMap } from '@/game/engine/grid';
 import { playerVisual } from '@/game/engine/runtime';
@@ -61,6 +63,9 @@ export default function Player({ map }: { map: ParsedMap }) {
     const now = performance.now();
     const s = useGameStore.getState();
 
+    // Rien ne bouge tant que l'écran titre n'est pas franchi.
+    if (!s.started) return;
+
     /* Une fiche ou un menu ouvert suspend le déplacement. On ne consomme
        surtout pas les entrées : c'est `useUiInput` qui les traite, et les
        avaler ici rendrait B inopérant dans les panneaux. */
@@ -68,7 +73,7 @@ export default function Player({ map }: { map: ParsedMap }) {
 
     const intent = decide(
       { a: consumeA(), dir: heldDir() },
-      { tile: s.tile, facing: s.facing, stepping: s.step !== null, dialogue: s.dialogue },
+      { tile: s.tile, facing: s.facing, travel: s.travel, stepping: s.step !== null, dialogue: s.dialogue },
       map,
     );
 
@@ -78,15 +83,28 @@ export default function Player({ map }: { map: ParsedMap }) {
       case 'talk': s.openDialogue(intent.lines); break;
       case 'talk-npc': s.openDialogue(intent.npc.lines, intent.npc.menu, intent.npc.farewell); break;
       case 'warp': s.warpTo(intent.warp.to, intent.warp.at, intent.warp.facing ?? 'down'); break;
+      case 'board':
+        s.setTravel('boat');
+        s.openDialogue(['Tu montes dans la barque.']);
+        break;
+      case 'disembark':
+        s.setTravel('foot');
+        s.beginStep(intent.to, now);
+        break;
       case 'turn': s.face(intent.dir); break;
-      case 'step': s.face(intent.dir); s.beginStep(intent.to, now); break;
+      case 'step':
+        s.face(intent.dir);
+        s.beginStep(intent.to, now);
+        if (!s.muted) sfx.step();
+        break;
       case 'idle': break;
     }
 
     // Position visuelle : interpolation du pas en cours, sinon position logique.
     const st = useGameStore.getState();
     const from = st.step ? st.step.from : st.tile;
-    const t = st.step ? MathUtils.clamp((now - st.step.startedAt) / STEP_MS, 0, 1) : 1;
+    const stepMs = STEP_MS_BY_TRAVEL[st.travel];
+    const t = st.step ? MathUtils.clamp((now - st.step.startedAt) / stepMs, 0, 1) : 1;
     playerVisual.set(
       MathUtils.lerp(from.x, st.tile.x, t),
       0,

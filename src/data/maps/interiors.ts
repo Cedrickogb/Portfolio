@@ -10,7 +10,10 @@ import type { GameMap } from '@/game/engine/grid';
  * revêtement du sol, le mur et le mobilier qui distinguent les pôles.
  *
  * Légende propre aux intérieurs : 'C' comptoir, 'S' rayonnage, 'V' plante,
- * 'M' terminal, 'D' paillasson de sortie.
+ * 'M' terminal, 'X' piédestal, 'D' paillasson de sortie.
+ *
+ * Le hall fait exception au gabarit : plus vaste, sans comptoir ni personnage.
+ * On n'y vient pas demander quelque chose, on y circule entre des stèles.
  *
  * Chaque sortie renvoie sur la case *voisine* du paillasson extérieur, jamais
  * dessus : arriver sur une case de téléportation relancerait aussitôt le
@@ -189,6 +192,43 @@ export const CONTACT_INTERIOR: GameMap = {
   dialogues: {
     '1': [
       "Centre de contact. Laisse un message au comptoir.",
+    ],
+  },
+};
+
+export const HALL_INTERIOR: GameMap = {
+  name: 'Hall des trophees',
+  interior: true,
+  interiorStyle: 'hall',
+  rows: [
+    '###################',
+    '###################',
+    '#wwwwwwwwwwwwwwwww#',
+    '#wVwwwwwwwwwwwwwVw#',
+    '#wwwwwwwwwwwwwwwww#',
+    '#wwwwXwwwXwwwXwwww#',
+    '#wwwwwwwwwwwwwwwww#',
+    '#wwwwwwwwwwwwwwwww#',
+    '#w1wwwwwwwwwwwwwww#',
+    '#wwwwwwwwwwwwwwwww#',
+    '#wwwwwwwwwwwwwwwww#',
+    '#wVwwwwwwwwwwwwwVw#',
+    '#wwwwwwwwPwwwwwwww#',
+    '#wwwwwwwwDwwwwwwww#',
+    '###################',
+  ],
+  warps: {
+    '9,13': { to: 'town', at: { x: 24, y: 9 }, facing: 'down' },
+  },
+  trophies: {
+    '5,5': 'vertim-coders',
+    '9,5': '41devs',
+    '13,5': 'anip',
+  },
+  dialogues: {
+    '1': [
+      "Hall des trophees.",
+      "Une stele par etape du parcours. Approche-toi pour lire.",
     ],
   },
 };

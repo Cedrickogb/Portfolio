@@ -1,5 +1,5 @@
 import { TOWN_MAP } from './town-map';
-import { CONTACT_INTERIOR, LAB_INTERIOR, QUESTS_INTERIOR, STACKS_INTERIOR } from './interiors';
+import { CONTACT_INTERIOR, HALL_INTERIOR, LAB_INTERIOR, QUESTS_INTERIOR, STACKS_INTERIOR } from './interiors';
 import { parseMap, tileKey, type GameMap, type ParsedMap } from '@/game/engine/grid';
 
 /** Toutes les cartes du jeu, indexées par identifiant. */
@@ -9,6 +9,7 @@ export const MAPS: Record<string, GameMap> = {
   quests: QUESTS_INTERIOR,
   stacks: STACKS_INTERIOR,
   contact: CONTACT_INTERIOR,
+  hall: HALL_INTERIOR,
 };
 
 export const DEFAULT_MAP = 'town';

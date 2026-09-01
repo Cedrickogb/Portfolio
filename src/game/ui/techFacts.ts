@@ -19,13 +19,13 @@ export interface TechFacts {
 const MOVE = /special move\s*:\s*([^.]+)\.?/i;
 
 export function techFacts(tech: TechItem): TechFacts {
-  const numbers = tech.stats.exp.match(/\d+/g)?.map(Number) ?? [];
+  const numbers = tech.stats.experience.match(/\d+/g)?.map(Number) ?? [];
   const years = numbers.length ? Math.max(...numbers) : 0;
 
-  const found = MOVE.exec(tech.desc);
+  const found = MOVE.exec(tech.description);
   return {
     years,
-    description: found ? tech.desc.replace(found[0], '').trim() : tech.desc,
+    description: found ? tech.description.replace(found[0], '').trim() : tech.description,
     move: found ? found[1].trim() : null,
   };
 }

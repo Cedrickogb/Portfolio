@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { consumeA, consumeB, consumeDirTap } from '@/game/engine/input';
 import { useGameStore } from '@/game/store/useGameStore';
 import { menuColumns, menuEntryId, menuLength } from './menuEntries';
+import { DEFAULT_MAP, getMap } from '@/data/maps';
 
 /** Couches d'interface, de la plus haute à la plus basse. */
 export type UiLayer = 'detail' | 'menu' | 'dialogue' | 'world';
@@ -31,10 +32,17 @@ export function useUiInput() {
     const tick = () => {
       raf = requestAnimationFrame(tick);
       const s = useGameStore.getState();
+      if (!s.started) return; // l'écran titre gère son propre clavier
 
       const detail = s.questId !== null || s.techKey !== null;
       const inMenu = s.menu !== null;
-      if (!detail && !inMenu) return; // dialogue et monde : gérés par la boucle de jeu
+
+      /* Dans le monde, B ouvre le menu START — il n'y a rien d'autre à annuler
+         à ce niveau, et c'est la touche que le joueur essaie en premier. */
+      if (!detail && !inMenu) {
+        if (!s.dialogue && consumeB()) s.openMenu('start');
+        return;
+      }
 
       const a = consumeA();
       const b = consumeB();
@@ -64,11 +72,26 @@ export function useUiInput() {
         return;
       }
 
-      if (a) {
-        const id = menuEntryId(s.menu, s.menuCursor);
-        if (!id) return;
-        if (s.menu === 'quests') s.openQuest(id);
-        else s.openTech(id);
+      if (!a) return;
+      const id = menuEntryId(s.menu, s.menuCursor);
+      if (!id) return;
+
+      if (s.menu === 'quests') return s.openQuest(id);
+      if (s.menu === 'stacks') return s.openTech(id);
+
+      // Menu START : les entrées sont des actions, pas du contenu.
+      switch (id) {
+        case 'quests':
+        case 'stacks':
+        case 'cv':
+          return s.openMenu(id);
+        case 'sound':
+          return s.setMutedState(!s.muted);
+        case 'classic':
+          window.location.href = '/';
+          return;
+        case 'reset':
+          return s.resetProgress(DEFAULT_MAP, getMap(DEFAULT_MAP).spawn);
       }
     };
 

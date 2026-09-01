@@ -3,6 +3,20 @@
 /** Durée d'un pas d'une case à l'autre, en ms. Plus bas = plus nerveux. */
 export const STEP_MS = 145;
 
+/**
+ * Cadence par mode de déplacement.
+ *
+ * Le vélo ne change aucune règle de franchissement — seulement le rythme. C'est
+ * suffisant : sur une carte de cette taille, passer de 145 à 80 ms par case
+ * transforme la traversée d'une corvée en promenade. La barque est volontairement
+ * plus lente que la marche, pour qu'une traversée se sente.
+ */
+export const STEP_MS_BY_TRAVEL: Record<'foot' | 'bike' | 'boat', number> = {
+  foot: STEP_MS,
+  bike: 80,
+  boat: 170,
+};
+
 /** Résolution d'une tuile, en texels. Toutes les tuiles sont en 16x16. */
 export const TILE_TEXELS = 16;
 

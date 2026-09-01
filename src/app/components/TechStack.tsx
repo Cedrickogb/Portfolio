@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TECH_DATA } from '@/data/constants';
+import { TECH_DATA, techByKey } from '@/data/constants';
 import { TechItem } from '@/data/types';
+import TechIcon from './tech/TechIcon';
 
 const TechStack: React.FC = () => {
   const [selectedTech, setSelectedTech] = useState<TechItem | null>(null);
@@ -12,7 +13,8 @@ const TechStack: React.FC = () => {
     setAnalyzing(true);
     // Simulate loading/analysis delay
     setTimeout(() => {
-      setSelectedTech(TECH_DATA[key]);
+      const tech = techByKey(key);
+      if (tech) setSelectedTech(tech);
       setAnalyzing(false);
     }, 300);
   };
@@ -34,7 +36,7 @@ const TechStack: React.FC = () => {
 
         <div className="flex flex-col lg:flex-row gap-8 min-h-[600px]">
           {/* Grid */}
-          <div className="flex-grow grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 content-start">
+          {/* <div className="flex-grow grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 content-start">
             {Object.values(TECH_DATA).map((tech, index) => (
               <div 
                 key={tech.key}
@@ -95,7 +97,6 @@ const TechStack: React.FC = () => {
                       ${tech.key === 'git' ? 'group-hover:text-git' : ''}
                     `}></i>
                   )}
-                  {/* Subtle gradient only in dark mode or lighter in light mode */}
                   <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.6),rgba(255,255,255,0))] to-transparent"></div>
                 </div>
                 <div className="px-2 pb-2">
@@ -103,9 +104,6 @@ const TechStack: React.FC = () => {
                     <p className={`font-display text-[10px] md:text-xs text-gray-800 dark:text-gray-200 group-hover:${tech.color}`}>
                       {tech.name}
                     </p>
-                    {/* <span className="bg-gray-100 dark:bg-gray-800 text-[10px] px-1 rounded text-gray-500 dark:text-gray-400 font-mono transition-colors">
-                        Lvl.{tech.stats.exp.includes('Years') ? '90' : '99'}
-                    </span> */}
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-800 h-1.5 rounded-full overflow-hidden transition-colors">
                     <div className={`h-full w-full
@@ -125,6 +123,136 @@ const TechStack: React.FC = () => {
                 </div>
               </div>
             ))}
+          </div> */}
+          <div className="flex-grow grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 content-start">
+
+            {Object.values(TECH_DATA).map((tech, index) => (
+
+              <div
+                key={tech.key}
+                className={`
+                  group
+                  relative
+                  bg-white
+                  dark:bg-card-dark
+                  rounded-xl
+                  p-1
+                  border-2
+                  border-gray-200
+                  dark:border-gray-700
+                  ${tech.borderColor}
+                  cursor-pointer
+                  shadow-lg
+                  hover:shadow-[0_0_15px_rgba(0,0,0,0.1)]
+                  dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]
+                  transition-all
+                  duration-300
+                  transform
+                  hover:-translate-y-1
+                  hover:scale-105
+                `}
+                onClick={() => handleSelectTech(tech.key)}
+              >
+
+                {/* Numéro */}
+                <div
+                  className={`
+                    absolute
+                    top-2
+                    right-2
+                    text-[10px]
+                    font-mono
+                    text-gray-400
+                    transition-colors
+                    duration-300
+                    ${tech.color}
+                  `}
+                >
+                  #{String(index + 1).padStart(3, '0')}
+                </div>
+
+                {/* Icon */}
+                <div
+                  className="
+                    h-32
+                    flex
+                    items-center
+                    justify-center
+                    bg-gray-50
+                    dark:bg-[#181a1b]
+                    rounded-lg
+                    mb-2
+                    relative
+                    overflow-hidden
+                    group-hover:bg-opacity-80
+                    transition-colors
+                    border
+                    border-gray-100
+                    dark:border-none
+                  "
+                >
+
+                  <TechIcon tech={tech} mini={false} />
+
+                  {/* Gradient */}
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      bg-[linear-gradient(to_top,rgba(0,0,0,0.6),rgba(255,255,255,0))]
+                      pointer-events-none
+                    "
+                  />
+
+                </div>
+
+                {/* Informations */}
+                <div className="px-2 pb-2">
+
+                  <div className="flex justify-between items-center mb-1">
+
+                    <p
+                      className={`
+                        font-display
+                        text-[10px]
+                        md:text-xs
+                        text-gray-800
+                        dark:text-gray-200
+                        ${tech.color}
+                      `}
+                    >
+                      {tech.name}
+                    </p>
+
+                  </div>
+
+                  {/* Progress */}
+                  <div
+                    className="
+                      w-full
+                      bg-gray-200
+                      dark:bg-gray-800
+                      h-1.5
+                      rounded-full
+                      overflow-hidden
+                      transition-colors
+                    "
+                  >
+                    <div
+                      className={`
+                        h-full
+                        w-full
+                        ${tech.progressColor}
+                      `}
+                    />
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
+
           </div>
 
           {/* Sidebar / Pokedex */}
@@ -162,7 +290,8 @@ const TechStack: React.FC = () => {
                          <div className="w-full h-full flex flex-col text-left font-mono text-xs overflow-hidden">
                             <div className="flex items-center justify-between border-b border-green-800 pb-2 mb-2">
                                 <div className={selectedTech.color}>
-                                    {selectedTech.isTextIcon ? (
+                                    <TechIcon tech={selectedTech} mini={true} />
+                                    {/* {selectedTech.isTextIcon ? (
                                       <span className="font-display text-2xl font-bold">{selectedTech.textSymbol}</span>
                                     ) : (
                                       <i className={`${selectedTech.iconClass} text-3xl`}></i>
@@ -199,7 +328,7 @@ const TechStack: React.FC = () => {
                                           </g>
                                         </svg>
                                       </span>
-                                    }
+                                    } */}
                                 </div>
                                 <div className="text-right">
                                     <h2 className="text-green-400 font-bold uppercase text-sm">{selectedTech.name}</h2>
@@ -208,12 +337,12 @@ const TechStack: React.FC = () => {
                             </div>
                             <div className="flex-grow pixel-scroll overflow-y-auto pr-1 mb-2">
                                 <p className="text-green-300 text-[15px] leading-relaxed mb-4">
-                                  {selectedTech.desc}
+                                  {selectedTech.description}
                                 </p>
                                 <div className="grid grid-cols-2 gap-2 text-[13px]">
                                   <div className="bg-green-900/30 p-1 rounded border border-green-800/50">
                                     <span className="block text-green-600">EXP</span>
-                                    <span className="text-green-300">{selectedTech.stats.exp}</span>
+                                    <span className="text-green-300">{selectedTech.stats.experience}</span>
                                   </div>
                                   <div className="bg-green-900/30 p-1 rounded border border-green-800/50">
                                     <span className="block text-green-600">PROJECTS</span>

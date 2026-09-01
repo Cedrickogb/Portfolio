@@ -10,7 +10,7 @@ export default function StatBar({
   label,
   value,
   max,
-  color = 'bg-xp-blue',
+  color = 'bg-primary',
 }: {
   label: string;
   value: number;

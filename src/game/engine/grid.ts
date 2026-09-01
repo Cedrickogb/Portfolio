@@ -64,11 +64,26 @@ export type TileKind =
   | 'sign'
   | 'building'
   | 'counter'
-  | 'npc';
+  | 'npc'
+  | 'trophy'
+  | 'water'
+  | 'dock';
 
-const WALKABLE: ReadonlySet<TileKind> = new Set<TileKind>([
-  'grass', 'path', 'plaza', 'tall', 'flower', 'wood', 'door',
+/**
+ * Modes de déplacement.
+ *
+ * Le franchissement dépend de ce sur quoi — ou dans quoi — on se déplace : à
+ * pied on suit les chemins, en barque on ne suit que l'eau. Le vélo ne change
+ * pas les règles, seulement la cadence.
+ */
+export type Travel = 'foot' | 'bike' | 'boat';
+
+const ON_LAND: ReadonlySet<TileKind> = new Set<TileKind>([
+  'grass', 'path', 'plaza', 'tall', 'flower', 'wood', 'door', 'dock',
 ]);
+
+/** En barque : l'eau et les pontons, rien d'autre. */
+const ON_WATER: ReadonlySet<TileKind> = new Set<TileKind>(['water', 'dock']);
 
 /** Légende de la grille. 'grass' est le sol par défaut, donc non listé ici. */
 const LEGEND: Record<string, TileKind> = {
@@ -88,6 +103,9 @@ const LEGEND: Record<string, TileKind> = {
   'M': 'prop',
   'C': 'counter',
   'N': 'npc',
+  'X': 'trophy',
+  '~': 'water',
+  'Q': 'dock',
 };
 
 export interface GameMap {
@@ -101,6 +119,10 @@ export interface GameMap {
   warps?: Record<string, Warp>;
   /** Personnages, indexés par leur case : "x,y". */
   npcs?: Record<string, NpcSpec>;
+  /** Piédestaux : case -> identifiant d'une entrée de `EXPERIENCE_DATA`.
+   *  La carte ne connaît que l'identifiant ; le contenu est résolu à
+   *  l'affichage, comme pour les quêtes. */
+  trophies?: Record<string, string>;
   /** Décor intérieur : change les matériaux des murs et du sol. */
   interior?: boolean;
   /** Style d'intérieur : sol, mur et couleur d'accent du pôle. */
@@ -125,6 +147,9 @@ export interface ParsedMap {
     wall: Tile[];
     sign: Tile[];
     counter: Tile[];
+    trophy: Tile[];
+    water: Tile[];
+    dock: Tile[];
     /** Décors bloquants, groupés par caractère de légende ('T', 'L', 'F'). */
     props: Record<string, Tile[]>;
   };
@@ -133,6 +158,7 @@ export interface ParsedMap {
   warps: Record<string, Warp>;
   npcs: Record<string, NpcSpec>;
   npcTiles: Tile[];
+  trophies: Record<string, string>;
   dialogues: Record<string, string[]>;
 }
 
@@ -225,7 +251,7 @@ export function parseMap(map: GameMap): ParsedMap {
   const kinds: TileKind[][] = [];
   const positions: ParsedMap['positions'] = {
     path: [], plaza: [], tall: [], flower: [], wood: [], door: [],
-    wall: [], sign: [], counter: [], props: {},
+    wall: [], sign: [], counter: [], trophy: [], water: [], dock: [], props: {},
   };
   const signAt: Record<string, string> = {};
   const npcTiles: Tile[] = [];
@@ -256,7 +282,7 @@ export function parseMap(map: GameMap): ParsedMap {
 
   if (!spawn) throw new Error("Aucun spawn 'P' dans la carte");
 
-  const isWalkableKind = (t: Tile) => WALKABLE.has(kinds[t.y][t.x]);
+  const isWalkableKind = (t: Tile) => ON_LAND.has(kinds[t.y][t.x]) || ON_WATER.has(kinds[t.y][t.x]);
 
   /* Une téléportation posée sur un mur ne se déclencherait jamais, et un 'N'
      sans réplique produirait un personnage muet : deux pannes silencieuses. */
@@ -284,6 +310,21 @@ export function parseMap(map: GameMap): ParsedMap {
     }
   }
 
+  /* Un piédestal sans donnée est un socle vide, une donnée sans piédestal est
+     une expérience que personne ne verra jamais : les deux sont des erreurs. */
+  const trophies = map.trophies ?? {};
+  for (const t of positions.trophy) {
+    if (!trophies[tileKey(t.x, t.y)]) {
+      throw new Error(`Piédestal en ${tileKey(t.x, t.y)} sans donnée dans « ${map.name} »`);
+    }
+  }
+  const trophyKeys = new Set(positions.trophy.map((t) => tileKey(t.x, t.y)));
+  for (const key of Object.keys(trophies)) {
+    if (!trophyKeys.has(key)) {
+      throw new Error(`Trophée déclaré en ${key} mais aucun 'X' à cette case dans « ${map.name} »`);
+    }
+  }
+
   return {
     name: map.name,
     width,
@@ -298,15 +339,25 @@ export function parseMap(map: GameMap): ParsedMap {
     warps,
     npcs,
     npcTiles,
+    trophies,
     dialogues: map.dialogues,
   };
 }
 
-/** Les sols se traversent ; murs, décors, comptoirs et personnages bloquent. */
-export function isWalkable(map: ParsedMap, x: number, y: number): boolean {
+/**
+ * Franchissement d'une case, selon le mode de déplacement.
+ *
+ * Le ponton appartient aux deux mondes : c'est la seule case où l'on peut
+ * embarquer et débarquer, donc la seule qui accepte les deux modes.
+ */
+export function isWalkable(map: ParsedMap, x: number, y: number, travel: Travel = 'foot'): boolean {
   if (x < 0 || y < 0 || x >= map.width || y >= map.height) return false;
-  return WALKABLE.has(map.kinds[y][x]);
+  const kind = map.kinds[y][x];
+  return travel === 'boat' ? ON_WATER.has(kind) : ON_LAND.has(kind);
 }
+
+export const isDock = (map: ParsedMap, x: number, y: number): boolean =>
+  x >= 0 && y >= 0 && x < map.width && y < map.height && map.kinds[y][x] === 'dock';
 
 export function signDialogueAt(map: ParsedMap, x: number, y: number): string[] | null {
   const ch = map.signAt[tileKey(x, y)];
@@ -318,3 +369,17 @@ export const npcAt = (map: ParsedMap, x: number, y: number): NpcSpec | null =>
 
 export const warpAt = (map: ParsedMap, x: number, y: number): Warp | null =>
   map.warps[tileKey(x, y)] ?? null;
+
+/**
+ * Identifiant du piédestal jouxtant une case.
+ *
+ * Les trophées se consultent en s'approchant, pas en pressant une touche : dans
+ * une salle d'exposition, on lit ce devant quoi on se tient.
+ */
+export function trophyNear(map: ParsedMap, x: number, y: number): string | null {
+  for (const [dx, dy] of [[0, -1], [0, 1], [-1, 0], [1, 0]] as const) {
+    const id = map.trophies[tileKey(x + dx, y + dy)];
+    if (id) return id;
+  }
+  return null;
+}

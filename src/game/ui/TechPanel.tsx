@@ -1,18 +1,18 @@
 'use client';
 
 import { useMemo } from 'react';
-import { TECH_DATA } from '@/data/constants';
+import { TECH_LIST, techByKey } from '@/data/constants';
 import { useGameStore } from '@/game/store/useGameStore';
 import GameWindow from './GameWindow';
 import StatBar from './StatBar';
-import TechIcon from './TechIcon';
+import TechIcon from '@/app/components/tech/TechIcon';
 import { techFacts, yearsScale } from './techFacts';
 
 /** Fiche d'une technologie, façon entrée de bestiaire. Contenu : `TECH_DATA`. */
 export default function TechPanel() {
   const techKey = useGameStore((s) => s.techKey);
-  const tech = techKey ? TECH_DATA[techKey] : undefined;
-  const scale = useMemo(() => yearsScale(Object.values(TECH_DATA)), []);
+  const tech = techKey ? techByKey(techKey) : undefined;
+  const scale = useMemo(() => yearsScale(TECH_LIST), []);
 
   if (!tech) return null;
   const facts = techFacts(tech);
@@ -22,7 +22,7 @@ export default function TechPanel() {
       <GameWindow title={tech.name} hint="A ou B : fermer" width="max-w-xl">
         <div className="mb-4 flex items-center gap-4">
           <span className="flex h-20 w-20 shrink-0 items-center justify-center border-4 border-battle-border-dark bg-battle-panel-dark">
-            <TechIcon tech={tech} className="text-4xl" />
+            <TechIcon tech={tech} mini={true} className="text-4xl w-10 h-10" />
           </span>
           <div className="flex-1 space-y-2">
             <span className="inline-block border-2 border-battle-border-dark bg-battle-panel-dark px-2 py-1 font-display text-[8px] tracking-widest text-gray-300">
@@ -44,9 +44,9 @@ export default function TechPanel() {
         {facts.move && (
           <div className="border-2 border-primary/40 bg-primary/10 px-3 py-2">
             <span className="font-display text-[8px] tracking-widest text-primary">
-              ATTAQUE SPECIALE
+              SPECIAL ATTACK
             </span>
-            <p className="font-mono text-2xl leading-none text-primary-light">{facts.move}</p>
+            <p className="font-mono text-xl leading-none text-gray-200">{facts.move}</p>
           </div>
         )}
       </GameWindow>

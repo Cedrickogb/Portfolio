@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
 import { TILE_TEXELS, bufferRatio, pixelsPerTileFor, texelScaleFor } from '@/game/config';
 import { useKeyboard } from '@/game/engine/input';
+import { useSaveGame } from '@/game/engine/useSaveGame';
+import { useGameAudio } from '@/game/audio/useGameAudio';
 import { useUiInput } from '@/game/ui/useUiInput';
 import FollowCamera from '@/game/engine/FollowCamera';
 import Player from '@/game/entities/Player';
@@ -15,7 +17,9 @@ import ListMenu from '@/game/ui/ListMenu';
 import ContactPanel from '@/game/ui/ContactPanel';
 import LabPanel from '@/game/ui/LabPanel';
 import TechPanel from '@/game/ui/TechPanel';
+import TrophyPanel from '@/game/ui/TrophyPanel';
 import WarpFade from '@/game/ui/WarpFade';
+import TitleScreen from '@/game/ui/TitleScreen';
 import DebugHud from '@/game/ui/DebugHud';
 import TouchControls from '@/game/ui/TouchControls';
 import { getMap, validateWarps } from '@/data/maps';
@@ -31,6 +35,8 @@ export default function Game() {
 
   useKeyboard();
   useUiInput();
+  useSaveGame();
+  useGameAudio();
 
   useLayoutEffect(() => {
     const el = shell.current;
@@ -90,8 +96,10 @@ export default function Game() {
       <LabPanel />
       <QuestPanel />
       <TechPanel />
+      <TrophyPanel />
       <WarpFade />
       <TouchControls />
+      <TitleScreen />
 
       <div className="pointer-events-none absolute top-2 right-2 z-30 flex flex-col items-end gap-2">
         <Link

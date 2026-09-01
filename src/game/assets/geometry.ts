@@ -75,6 +75,7 @@ const P = PALETTE;
  */
 export const PROP_HEIGHT = {
   counter: 0.78,
+  pedestal: 1.15,
   shelf: 1.5,
   plant: 0.95,
   terminal: 1.05,
@@ -200,4 +201,18 @@ export const buildTerminal = (accent: string): BufferGeometry =>
     coloredBox([0.94, 0.62, 0.6], [0, 0.31, 0], { top: P.stoneLight, side: P.stoneDark, front: P.stone }),
     coloredBox([0.5, 0.08, 0.34], [0, 0.66, 0.08], { top: P.ink, side: P.ink, front: P.ink }),
     coloredBox([0.62, 0.38, 0.1], [0, 0.86, -0.08], { top: P.stoneDark, side: P.ink, front: accent }),
+  ]);
+
+/**
+ * Piédestal d'exposition : socle, fût, plateau, et une plaque inclinée.
+ *
+ * Il ne se lit pas par un texte gravé — à 16 px la gravure serait illisible —
+ * mais par sa silhouette : tout le monde reconnaît un socle de musée.
+ */
+export const buildPedestal = (accent: string): BufferGeometry =>
+  assemble([
+    coloredBox([0.86, 0.16, 0.86], [0, 0.08, 0], { top: P.stoneLight, side: P.stoneDark, front: P.stone }),
+    coloredBox([0.56, 0.72, 0.56], [0, 0.52, 0], { top: P.stoneHi, side: P.stoneDark, front: P.stoneLight }),
+    coloredBox([0.8, 0.14, 0.8], [0, 0.95, 0], { top: P.stoneHi, side: P.stoneDark, front: P.stoneLight }),
+    coloredBox([0.5, 0.12, 0.36], [0, 1.08, 0.06], { top: accent, side: P.woodDark, front: accent }),
   ]);

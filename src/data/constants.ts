@@ -1,4 +1,4 @@
-import { TechItem, QuestItem, ExperienceItem } from './types';
+import type { ExperienceItem, QuestItem, TechItem, TechKey } from './types';
 import pic2 from '../app/image/twitter-clone.webp'
 import pic3 from '../app/image/ncpc2.webp'
 import pic4 from '../app/image/aso1.webp'
@@ -28,124 +28,385 @@ export const PROFILE = {
   cv: '/cedrick-ogoubiyi-cv.pdf',
 } as const;
 
-export const TECH_DATA: Record<string, TechItem> = {
+// export const TECH_DATA: Record<string, TechItem> = {
+//   vue: {
+//     key: 'vue',
+//     name: 'Vue.js',
+//     type: 'Framework',
+//     color: 'text-[#42b883]',
+//     borderColor: 'hover:border-[#42b883]',
+//     iconClass: 'fab fa-vuejs',
+//     desc: 'A progressive framework for building user interfaces. Known for its gentle learning curve and high flexibility. Special Move: Two-Way Binding.',
+//     stats: { exp: '5 Years', projects: '5' }
+//   },
+//   react: {
+//     key: 'react',
+//     name: 'React',
+//     type: 'Library',
+//     color: 'text-[#61dafb]',
+//     borderColor: 'hover:border-[#61dafb]',
+//     iconClass: 'fab fa-react',
+//     desc: 'A JavaScript library for building user interfaces. Developed by Facebook. Special Move: Virtual DOM Manipulation.',
+//     stats: { exp: '4 Years', projects: '3' }
+//   },
+//   next: {
+//     key: 'next',
+//     name: 'Next.js',
+//     type: 'Framework',
+//     color: 'text-white',
+//     borderColor: 'hover:border-white',
+//     iconClass: '',
+//     isTextIcon: true,
+//     textSymbol: 'N',
+//     desc: 'The React Framework for Production. Enables server-side rendering and static site generation. Special Move: SSR Speed Boost.',
+//     stats: { exp: '3 Years', projects: '4' }
+//   },
+//   tailwind: {
+//     key: 'tailwind',
+//     name: 'Tailwind CSS',
+//     type: 'Styling',
+//     color: 'text-[#38bdf8]',
+//     borderColor: 'hover:border-[#38bdf8]',
+//     isTextIcon: false,
+//     iconClass: `<span className="group-hover:text-tailwind text-gray-400 dark:text-gray-400">
+//         <svg className='w-14 h-14 group-hover:scale-110 transition-all' viewBox="0 0 32 32" fill='currentColor' xmlns="http://www.w3.org/2000/svg"><title>file_type_tailwind</title><path d="M9,13.7q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q11.1,10.9,9,13.7ZM2,22.1q1.4-5.6,7-5.6c5.6,0,6.3,4.2,9.1,4.9q2.8.7,4.9-2.1-1.4,5.6-7,5.6c-5.6,0-6.3-4.2-9.1-4.9Q4.1,19.3,2,22.1Z" /></svg>
+//       </span>`,
+//     desc: 'A utility-first CSS framework for rapid UI development. Highly customizable and low-level. Special Move: Instant Styling.',
+//     stats: { exp: '3 Years', projects: '10+' }
+//   },
+//   supabase: {
+//     key: 'supabase',
+//     name: 'Supabase',
+//     type: 'Backend / BaaS',
+//     color: 'text-[#3ecf8e]',
+//     borderColor: 'hover:border-[#3ecf8e]',
+//     iconClass: '',
+//     desc: 'An open-source backend-as-a-service that provides authentication, database, storage and real-time APIs. A powerful Firebase alternative built on PostgreSQL. Special Move: Instant APIs.',
+//     stats: { exp: '1-2 Years', projects: '2' }
+//   },
+//   fabricjs: {
+//     key: 'fabricjs',
+//     name: 'Fabric.js',
+//     type: 'Canvas Library',
+//     color: 'text-[#139CE1]',
+//     borderColor: 'hover:border-[#139CE1]',
+//     iconClass: '',
+//     isTextIcon: true,
+//     textSymbol: 'F',
+//     desc: 'A powerful JavaScript library for working with HTML5 canvas. It simplifies drawing, object manipulation, and interactive graphics. Ideal for editors and design tools. Special Move: Object Manipulation.',
+//     stats: { exp: '1 Year', projects: '2' }
+//   },
+//   konvajs: {
+//     key: 'konvajs',
+//     name: 'Konva.js',
+//     type: 'Canvas Library',
+//     color: 'text-[#0D83CD]',
+//     borderColor: 'hover:border-[#0D83CD]',
+//     iconClass: '',
+//     desc: 'A powerful JavaScript library for working with HTML5 canvas. It simplifies drawing, object manipulation, and interactive graphics. Ideal for editors and design tools. Special Move: Object Manipulation.',
+//     stats: { exp: '3 Year', projects: '2' }
+//   },
+//   html: {
+//     key: 'html',
+//     name: 'HTML5',
+//     type: 'Markup',
+//     color: 'text-[#e34f26]',
+//     borderColor: 'hover:border-[#e34f26]',
+//     iconClass: 'fab fa-html5',
+//     desc: 'The standard markup language for documents designed to be displayed in a web browser. The skeleton of the web. Special Move: Semantic Structure.',
+//     stats: { exp: '6 Years', projects: 'All' }
+//   },
+//   js: {
+//     key: 'js',
+//     name: 'JavaScript',
+//     type: 'Language',
+//     color: 'text-[#f7df1e]',
+//     borderColor: 'hover:border-[#f7df1e]',
+//     iconClass: 'fab fa-js',
+//     desc: 'A programming language that conforms to the ECMAScript specification. High-level, often just-in-time compiled. Special Move: Async/Await.',
+//     stats: { exp: '5 Years', projects: '10+' }
+//   },
+//   ts: {
+//     key: 'ts',
+//     name: 'TypeScript',
+//     type: 'Language',
+//     color: 'text-[#3178c6]',
+//     borderColor: 'hover:border-[#3178c6]',
+//     iconClass: '',
+//     isTextIcon: true,
+//     textSymbol: 'TS',
+//     desc: 'A strict syntactical superset of JavaScript. Adds optional static typing to the language. Special Move: Type Safety Shield.',
+//     stats: { exp: '3 Years', projects: '5' }
+//   },
+//   git: {
+//     key: 'git',
+//     name: 'Git',
+//     type: 'Tool',
+//     color: 'text-[#f05032]',
+//     borderColor: 'hover:border-[#f05032]',
+//     iconClass: 'fab fa-git-alt',
+//     desc: 'A distributed version control system for tracking changes in source code. Special Move: Time Travel (Revert).',
+//     stats: { exp: '5 Years', projects: 'All' }
+//   }
+// };
+import TailwindIcon from '@/app/components/icons/TailwindIcon';
+import SupabaseIcon from '@/app/components/icons/SupabaseIcon';
+import KonvaIcon from '@/app/components/icons/KonvaIcon';
+
+export const TECH_DATA: Record<TechKey, TechItem> = {
   vue: {
     key: 'vue',
     name: 'Vue.js',
     type: 'Framework',
-    color: 'text-[#42b883]',
-    borderColor: 'hover:border-[#42b883]',
-    iconClass: 'fab fa-vuejs',
-    desc: 'A progressive framework for building user interfaces. Known for its gentle learning curve and high flexibility. Special Move: Two-Way Binding.',
-    stats: { exp: '5 Years', projects: '5' }
+
+    color: 'text-vue',
+    borderColor: 'hover:border-vue',
+    progressColor: 'bg-vue',
+
+    icon: {
+      type: 'fontawesome',
+      value: 'fab fa-vuejs',
+    },
+
+    description:
+      'A progressive framework for building user interfaces. Known for its gentle learning curve and high flexibility. Special Move: Two-Way Binding.',
+
+    stats: {
+      experience: '5 Years',
+      projects: '5',
+    },
   },
+
   react: {
     key: 'react',
     name: 'React',
     type: 'Library',
-    color: 'text-[#61dafb]',
-    borderColor: 'hover:border-[#61dafb]',
-    iconClass: 'fab fa-react',
-    desc: 'A JavaScript library for building user interfaces. Developed by Facebook. Special Move: Virtual DOM Manipulation.',
-    stats: { exp: '4 Years', projects: '3' }
+
+    color: 'text-react',
+    borderColor: 'hover:border-react',
+    progressColor: 'bg-react',
+
+    icon: {
+      type: 'fontawesome',
+      value: 'fab fa-react',
+    },
+
+    description:
+      'A JavaScript library for building user interfaces. Developed by Facebook. Special Move: Virtual DOM Manipulation.',
+
+    stats: {
+      experience: '4 Years',
+      projects: '3',
+    },
   },
+
   next: {
     key: 'next',
     name: 'Next.js',
     type: 'Framework',
-    color: 'text-white',
-    borderColor: 'hover:border-white',
-    iconClass: '',
-    isTextIcon: true,
-    textSymbol: 'N',
-    desc: 'The React Framework for Production. Enables server-side rendering and static site generation. Special Move: SSR Speed Boost.',
-    stats: { exp: '3 Years', projects: '4' }
+
+    color: 'text-next',
+    borderColor: 'hover:border-next',
+    progressColor: 'bg-next',
+
+    icon: {
+      type: 'text',
+      value: 'N',
+    },
+
+    description:
+      'The React Framework for Production. Enables server-side rendering and static site generation. Special Move: SSR Speed Boost.',
+
+    stats: {
+      experience: '3 Years',
+      projects: '4',
+    },
   },
+
   tailwind: {
     key: 'tailwind',
     name: 'Tailwind CSS',
     type: 'Styling',
-    color: 'text-[#38bdf8]',
-    borderColor: 'hover:border-[#38bdf8]',
-    iconClass: '',
-    desc: 'A utility-first CSS framework for rapid UI development. Highly customizable and low-level. Special Move: Instant Styling.',
-    stats: { exp: '3 Years', projects: '10+' }
+
+    color: 'text-tailwind',
+    borderColor: 'hover:border-tailwind',
+    progressColor: 'bg-tailwind',
+
+    icon: {
+      type: 'svg',
+      component: TailwindIcon,
+    },
+
+    description:
+      'A utility-first CSS framework for rapid UI development. Highly customizable and low-level. Special Move: Instant Styling.',
+
+    stats: {
+      experience: '3 Years',
+      projects: '10+',
+    },
   },
+
   supabase: {
     key: 'supabase',
     name: 'Supabase',
     type: 'Backend / BaaS',
-    color: 'text-[#3ecf8e]',
-    borderColor: 'hover:border-[#3ecf8e]',
-    iconClass: '',
-    desc: 'An open-source backend-as-a-service that provides authentication, database, storage and real-time APIs. A powerful Firebase alternative built on PostgreSQL. Special Move: Instant APIs.',
-    stats: { exp: '1-2 Years', projects: '2' }
+
+    color: 'text-supabase',
+    borderColor: 'hover:border-supabase',
+    progressColor: 'bg-supabase',
+
+    icon: {
+      type: 'svg',
+      component: SupabaseIcon,
+    },
+
+    description:
+      'An open-source backend-as-a-service that provides authentication, database, storage and real-time APIs.',
+
+    stats: {
+      experience: '1-2 Years',
+      projects: '2',
+    },
   },
-  fabricjs: {
-    key: 'fabricjs',
-    name: 'Fabric.js',
-    type: 'Canvas Library',
-    color: 'text-[#139CE1]',
-    borderColor: 'hover:border-[#139CE1]',
-    iconClass: '',
-    isTextIcon: true,
-    textSymbol: 'F',
-    desc: 'A powerful JavaScript library for working with HTML5 canvas. It simplifies drawing, object manipulation, and interactive graphics. Ideal for editors and design tools. Special Move: Object Manipulation.',
-    stats: { exp: '1 Year', projects: '2' }
-  },
+
   konvajs: {
     key: 'konvajs',
     name: 'Konva.js',
     type: 'Canvas Library',
-    color: 'text-[#0D83CD]',
-    borderColor: 'hover:border-[#0D83CD]',
-    iconClass: '',
-    desc: 'A powerful JavaScript library for working with HTML5 canvas. It simplifies drawing, object manipulation, and interactive graphics. Ideal for editors and design tools. Special Move: Object Manipulation.',
-    stats: { exp: '3 Year', projects: '2' }
+
+    color: 'text-konvajs',
+    borderColor: 'hover:border-konvajs',
+    progressColor: 'bg-konvajs',
+
+    icon: {
+      type: 'svg',
+      component: KonvaIcon,
+    },
+
+    description:
+      'A powerful JavaScript library for working with HTML5 canvas. Ideal for editors and design tools.',
+
+    stats: {
+      experience: '2 Years',
+      projects: '2',
+    },
   },
+
+  fabricjs: {
+    key: 'fabricjs',
+    name: 'Fabric.js',
+    type: 'Canvas Library',
+
+    color: 'text-fabricjs',
+    borderColor: 'hover:border-fabricjs',
+    progressColor: 'bg-fabricjs',
+
+    icon: {
+      type: 'text',
+      value: 'F',
+    },
+
+    description:
+      'A powerful JavaScript library for working with HTML5 canvas. It simplifies drawing, object manipulation, and interactive graphics.',
+
+    stats: {
+      experience: '3 Years',
+      projects: '2',
+    },
+  },
+
   html: {
     key: 'html',
     name: 'HTML5',
     type: 'Markup',
-    color: 'text-[#e34f26]',
-    borderColor: 'hover:border-[#e34f26]',
-    iconClass: 'fab fa-html5',
-    desc: 'The standard markup language for documents designed to be displayed in a web browser. The skeleton of the web. Special Move: Semantic Structure.',
-    stats: { exp: '6 Years', projects: 'All' }
+
+    color: 'text-html',
+    borderColor: 'hover:border-html',
+    progressColor: 'bg-html',
+
+    icon: {
+      type: 'fontawesome',
+      value: 'fab fa-html5',
+    },
+
+    description:
+      'The standard markup language for documents designed to be displayed in a web browser. Special Move: Semantic Structure.',
+
+    stats: {
+      experience: '6 Years',
+      projects: 'All',
+    },
   },
+
   js: {
     key: 'js',
     name: 'JavaScript',
     type: 'Language',
-    color: 'text-[#f7df1e]',
-    borderColor: 'hover:border-[#f7df1e]',
-    iconClass: 'fab fa-js',
-    desc: 'A programming language that conforms to the ECMAScript specification. High-level, often just-in-time compiled. Special Move: Async/Await.',
-    stats: { exp: '5 Years', projects: '10+' }
+
+    color: 'text-js',
+    borderColor: 'hover:border-js',
+    progressColor: 'bg-js',
+
+    icon: {
+      type: 'fontawesome',
+      value: 'fab fa-js',
+    },
+
+    description:
+      'A programming language that conforms to the ECMAScript specification. Special Move: Async/Await.',
+
+    stats: {
+      experience: '5 Years',
+      projects: '10+',
+    },
   },
+
   ts: {
     key: 'ts',
     name: 'TypeScript',
     type: 'Language',
-    color: 'text-[#3178c6]',
-    borderColor: 'hover:border-[#3178c6]',
-    iconClass: '',
-    isTextIcon: true,
-    textSymbol: 'TS',
-    desc: 'A strict syntactical superset of JavaScript. Adds optional static typing to the language. Special Move: Type Safety Shield.',
-    stats: { exp: '3 Years', projects: '5' }
+
+    color: 'text-ts',
+    borderColor: 'hover:border-ts',
+    progressColor: 'bg-ts',
+
+    icon: {
+      type: 'text',
+      value: 'TS',
+    },
+
+    description:
+      'A strict syntactical superset of JavaScript. Adds optional static typing to the language. Special Move: Type Safety Shield.',
+
+    stats: {
+      experience: '3 Years',
+      projects: '5',
+    },
   },
+
   git: {
     key: 'git',
     name: 'Git',
     type: 'Tool',
-    color: 'text-[#f05032]',
-    borderColor: 'hover:border-[#f05032]',
-    iconClass: 'fab fa-git-alt',
-    desc: 'A distributed version control system for tracking changes in source code. Special Move: Time Travel (Revert).',
-    stats: { exp: '5 Years', projects: 'All' }
-  }
-};
+
+    color: 'text-git',
+    borderColor: 'hover:border-git',
+    progressColor: 'bg-git',
+
+    icon: {
+      type: 'fontawesome',
+      value: 'fab fa-git-alt',
+    },
+
+    description:
+      'A distributed version control system for tracking changes in source code. Special Move: Time Travel (Revert).',
+
+    stats: {
+      experience: '5 Years',
+      projects: 'All',
+    },
+  },
+} satisfies Record<string, TechItem>;
 
 
 export const EXPERIENCE_DATA: ExperienceItem[] = [
@@ -192,6 +453,22 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
     highlightColor: 'gray-500',
   },
 ];
+
+/**
+ * Accès par clé libre.
+ *
+ * `TECH_DATA` est indexé par `TechKey`, mais l'état du jeu ne manipule que des
+ * chaînes : ce garde évite d'éparpiller des `as TechKey` dans l'interface, et
+ * transforme une clé inconnue en `undefined` plutôt qu'en plantage.
+ */
+export const isTechKey = (key: string): key is TechKey =>
+  Object.prototype.hasOwnProperty.call(TECH_DATA, key);
+
+export const techByKey = (key: string): TechItem | undefined =>
+  isTechKey(key) ? TECH_DATA[key] : undefined;
+
+/** Toutes les technos, dans l'ordre de déclaration. */
+export const TECH_LIST: TechItem[] = Object.values(TECH_DATA);
 
 export const QUESTS: QuestItem[] = [
   {

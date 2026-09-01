@@ -82,6 +82,22 @@ export default function Building({ rect }: { rect: BuildingRect }) {
       }),
     ];
 
+    /* Colonnade : des fûts plaqués sur la façade, du sol jusqu'à la sous-face
+       du toit. C'est ce qui distingue un édifice public d'une maison. */
+    if (style.columns) {
+      const span = w - 1.2;
+      const count = Math.max(2, Math.round(span / 1.6));
+      for (let i = 0; i <= count; i++) {
+        const x = -span / 2 + (span / count) * i;
+        if (Math.abs(x) < DOOR_W) continue; // on ne mure pas l'entrée
+        parts.push(
+          coloredBox([0.34, bodyH, 0.34], [x, bodyH / 2, front + 0.14], {
+            top: style.wall.hi, side: style.wall.dark, front: style.wall.hi,
+          }),
+        );
+      }
+    }
+
     for (const x of windowXs) {
       parts.push(
         coloredBox([0.72, 0.72, 0.08], [x, windowY, front + 0.02], {

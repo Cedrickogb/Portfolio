@@ -50,6 +50,11 @@ export const PALETTE = {
   roofTealLight: '#4fc9ba',
   roofTeal: '#2fa89a',
   roofTealDark: '#1e7a6f',
+  /** Cuivre : réservé au hall des trophées, pour qu'un monument ne se
+   *  confonde avec aucune maison du bourg. */
+  roofCopperLight: '#e6ab5c',
+  roofCopper: '#c98a3f',
+  roofCopperDark: '#96632a',
   /** Le quadrillage clair sur les toits, commun à tous les styles. */
   roofLine: '#e2f3d8',
 

@@ -62,9 +62,19 @@ const Hero: React.FC = () => {
           
         </div>
 
-        {/* Stats & CTA */}
-        <div className="flex flex-wrap items-center gap-6 mt-4">
-          <a href="/projects" className="group relative inline-flex items-center justify-center px-8 py-4 font-display text-sm text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
+        {/* Stats & CTA
+            Deux portes d'entrée, volontairement distinctes : le mode jeu pour
+            qui a le temps d'explorer, le parcours classique pour qui cherche
+            une information précise. Aucune des deux n'est un passage obligé —
+            un écran de choix avant le contenu ferait perdre le recruteur
+            pressé, et sortirait le texte de la page indexée. */}
+        <div className="flex flex-wrap items-center gap-4 mt-4">
+          <a href="/game" className="group relative inline-flex items-center justify-center px-8 py-4 font-display text-sm text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
+            ▶ Jouer
+            <span className="ml-3 font-mono text-lg font-normal opacity-70">mode jeu</span>
+          </a>
+
+          <a href="/projects" className="group relative inline-flex items-center justify-center border-2 border-gray-400 px-6 py-4 font-display text-xs text-gray-700 transition-colors hover:border-primary hover:text-primary dark:border-gray-600 dark:text-gray-300">
             Start Quest
             <i className="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
           </a>

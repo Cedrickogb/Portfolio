@@ -1,6 +1,6 @@
 'use client';
 
-import { PROFILE, QUESTS, TECH_DATA } from '@/data/constants';
+import { PROFILE, QUESTS, TECH_LIST } from '@/data/constants';
 import { useGameStore } from '@/game/store/useGameStore';
 import GameWindow from './GameWindow';
 
@@ -19,7 +19,7 @@ export default function LabPanel() {
     ['REGION', PROFILE.location],
     ['EXPERIENCE', PROFILE.experience],
     ['QUETES LIVREES', String(QUESTS.filter((q) => q.active).length)],
-    ['TECHNOLOGIES', String(Object.keys(TECH_DATA).length)],
+    ['TECHNOLOGIES', String(TECH_LIST.length)],
   ];
 
   return (

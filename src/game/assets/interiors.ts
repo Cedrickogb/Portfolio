@@ -47,6 +47,12 @@ export const INTERIOR_STYLES = {
     wall: { panel: P.roofTealDark, panelDark: P.stoneDark, upper: P.wallHi, rail: P.roofTealLight },
     accent: P.roofTeal,
   },
+  /** Le hall : dallage clair façon marbre, murs de pierre, accent cuivré. */
+  hall: {
+    floor: { base: P.stoneHi, alt: P.white, seam: P.stoneLight, pattern: 'tiles' },
+    wall: { panel: P.stoneLight, panelDark: P.stone, upper: P.white, rail: P.roofCopperLight },
+    accent: P.roofCopper,
+  },
 } as const satisfies Record<string, InteriorStyle>;
 
 export type InteriorStyleName = keyof typeof INTERIOR_STYLES;

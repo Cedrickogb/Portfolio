@@ -35,6 +35,8 @@
     "src/game/assets/font.ts",
     "src/game/assets/sign.ts",
     "src/tools/preview-assets.ts",
-    "src/game/assets/assets.test.ts"
+    "src/game/assets/assets.test.ts",
+    "src/game/engine/save.ts",
+    "src/game/engine/save.test.ts"
   ]
 }

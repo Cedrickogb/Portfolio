@@ -2,6 +2,7 @@
 
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { pressA, pressB, pressDir, releaseDir } from '@/game/engine/input';
+import { useGameStore } from '@/game/store/useGameStore';
 import type { Direction } from '@/game/engine/direction';
 
 const PAD_BTN =
@@ -33,6 +34,10 @@ function DirButton({ dir, label, className }: { dir: Direction; label: string; c
 
 /** Superposition tactile. Masquée sur pointeur fin (voir .game-touch dans globals.css). */
 export default function TouchControls() {
+  const started = useGameStore((s) => s.started);
+  // Les commandes n'ont rien à faire par-dessus l'écran titre.
+  if (!started) return null;
+
   return (
     <div className="game-touch pointer-events-none absolute inset-0 z-20">
       <div className="pointer-events-auto absolute bottom-4 left-4 grid grid-cols-3 grid-rows-3 gap-1 w-36 h-36">
@@ -41,6 +46,17 @@ export default function TouchControls() {
         <DirButton dir="right" label="▶" className="col-start-3 row-start-2" />
         <DirButton dir="down" label="▼" className="col-start-2 row-start-3" />
       </div>
+
+      {/* START : sur écran tactile il n'y a pas de touche Échap, et le menu
+          serait autrement inatteignable. */}
+      <button
+        type="button"
+        aria-label="Menu"
+        className={`${PAD_BTN} pointer-events-auto absolute bottom-6 left-1/2 h-9 w-16 -translate-x-1/2 rounded-full`}
+        onPointerDown={(e) => { e.preventDefault(); pressB(); }}
+      >
+        ≡
+      </button>
 
       <div className="pointer-events-auto absolute bottom-6 right-4 flex items-end gap-3">
         <button

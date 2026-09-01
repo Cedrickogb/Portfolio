@@ -19,6 +19,7 @@ import {
   SIGN_BOARD_Y,
   buildCounter,
   buildFence,
+  buildPedestal,
   buildPlant,
   buildShelf,
   buildTerminal,
@@ -160,6 +161,7 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
       shelf: buildShelf(style.accent),
       plant: buildPlant(),
       terminal: buildTerminal(style.accent),
+      pedestal: buildPedestal(style.accent),
       doormat: quad(),
       flowerTuft: buildFlowerTuft(),
       // Quad plaqué sur la face avant de la planche ; le décalage est cuit
@@ -254,6 +256,11 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
       </Instanced>
       <ShadowInstances positions={props.M ?? []} height={PROP_HEIGHT.terminal} size={[1, 0.5]} />
       <Instanced positions={props.M ?? []} geometry={geometries.terminal} y={0}>
+        <meshBasicMaterial vertexColors />
+      </Instanced>
+
+      <ShadowInstances positions={map.positions.trophy} height={PROP_HEIGHT.pedestal} size={[0.9, 0.44]} />
+      <Instanced positions={map.positions.trophy} geometry={geometries.pedestal} y={0}>
         <meshBasicMaterial vertexColors />
       </Instanced>
 
