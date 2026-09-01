@@ -1,0 +1,78 @@
+import { isWalkable, npcAt, signDialogueAt, warpAt, type NpcSpec, type ParsedMap, type Warp } from './grid';
+import { tileAhead, type Direction, type Tile } from './direction';
+
+/** Ce que le joueur demande à cette frame. */
+export interface Input {
+  /** Bouton A pressé depuis la frame précédente. */
+  a: boolean;
+  /** Direction maintenue, ou null. */
+  dir: Direction | null;
+}
+
+/** Partie de l'état du jeu dont dépendent les règles. */
+export interface Snapshot {
+  tile: Tile;
+  facing: Direction;
+  stepping: boolean;
+  dialogue: { lines: string[]; index: number; revealed: number } | null;
+}
+
+export type Intent =
+  | { kind: 'idle' }
+  | { kind: 'warp'; warp: Warp }
+  | { kind: 'talk-npc'; npc: NpcSpec }
+  | { kind: 'reveal-line' }
+  | { kind: 'advance-dialogue' }
+  | { kind: 'talk'; lines: string[] }
+  | { kind: 'turn'; dir: Direction }
+  | { kind: 'step'; dir: Direction; to: Tile };
+
+/**
+ * Règles du déplacement, sous forme de fonction pure : mêmes entrées, même
+ * sortie, aucun accès au store ni à three.js. C'est ce qui les rend testables
+ * hors navigateur — la boucle de rendu ne fait plus qu'appliquer le résultat.
+ */
+export function decide(input: Input, s: Snapshot, map: ParsedMap): Intent {
+  // Un dialogue ouvert gèle le déplacement. A termine la ligne, puis enchaîne.
+  if (s.dialogue) {
+    if (!input.a) return { kind: 'idle' };
+    const full = s.dialogue.lines[s.dialogue.index].length;
+    return s.dialogue.revealed < full ? { kind: 'reveal-line' } : { kind: 'advance-dialogue' };
+  }
+
+  // Un pas engagé va toujours jusqu'à la case suivante : pas d'arrêt à mi-chemin.
+  if (s.stepping) return { kind: 'idle' };
+
+  /* Téléportation au contact : on entre dans un bâtiment en marchant sur son
+     paillasson, pas en pressant une touche. Les destinations sont toujours
+     posées *à côté* d'une case de téléportation, jamais dessus — sans quoi
+     l'arrivée redéclencherait aussitôt le départ. */
+  const warp = warpAt(map, s.tile.x, s.tile.y);
+  if (warp) return { kind: 'warp', warp };
+
+  if (input.a) {
+    const front = tileAhead(s.tile, s.facing);
+
+    const npc = npcAt(map, front.x, front.y);
+    if (npc) return { kind: 'talk-npc', npc };
+
+    /* Derrière un comptoir, on parle à qui se tient de l'autre côté : sans ça,
+       il faudrait contourner le meuble pour engager la conversation. */
+    const behind = tileAhead(front, s.facing);
+    if (map.kinds[front.y]?.[front.x] === 'counter') {
+      const clerk = npcAt(map, behind.x, behind.y);
+      if (clerk) return { kind: 'talk-npc', npc: clerk };
+    }
+
+    const lines = signDialogueAt(map, front.x, front.y);
+    return lines ? { kind: 'talk', lines } : { kind: 'idle' };
+  }
+
+  if (!input.dir) return { kind: 'idle' };
+
+  const to = tileAhead(s.tile, input.dir);
+  // Cible bloquée : on pivote sur place, comme dans les jeux d'origine.
+  return isWalkable(map, to.x, to.y)
+    ? { kind: 'step', dir: input.dir, to }
+    : { kind: 'turn', dir: input.dir };
+}

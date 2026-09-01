@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "outDir": ".test-out",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "types": [
+      "node"
+    ]
+  },
+  "files": [
+    "src/game/engine/direction.ts",
+    "src/game/assets/buildings.ts",
+    "src/game/engine/grid.ts",
+    "src/game/engine/movement.ts",
+    "src/game/engine/movement.test.ts",
+    "src/data/maps/town-map.ts",
+    "src/data/maps/interiors.ts",
+    "src/game/assets/palette.ts",
+    "src/game/assets/raster.ts",
+    "src/game/assets/pixel.ts",
+    "src/game/assets/tiles.ts",
+    "src/game/assets/hero.ts",
+    "src/tools/png.ts",
+    "src/game/assets/font.ts",
+    "src/game/assets/sign.ts",
+    "src/tools/preview-assets.ts",
+    "src/game/assets/assets.test.ts"
+  ]
+}

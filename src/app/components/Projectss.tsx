@@ -1,5 +1,5 @@
 import React from 'react';
-import { QUESTS } from '../../../constants';
+import { QUESTS } from '@/data/constants';
 import pic2 from '../image/twitter-clone.webp'
 import pic3 from '../image/ncpc2.webp'
 import pic4 from '../image/aso1.webp'
@@ -7,7 +7,7 @@ import pic5 from '../image/mr-streaming.webp'
 import pic6 from '../image/musicHopper.webp'
 import pic7 from '../image/collabDraw.webp'
 import pic8 from '../image/trust-flow.webp'
-import { QuestItem } from '../../../types';
+import { QuestItem } from '@/data/types';
 import Image from 'next/image';
 
 
@@ -30,8 +30,8 @@ const Projects: React.FC = () => {
         {QUESTS
           .filter((quest) => quest.active)
           .map((quest) => (
-            <a href={`/projects/${quest.id}`}>
-              <article key={quest.id} className="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2">
+            <a key={quest.id} href={`/projects/${quest.id}`}>
+              <article className="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2">
                 {/* Glass Panel */}
                 <div className="bg-white/80 dark:bg-card-dark/60 backdrop-blur-md border border-gray-200 dark:border-gray-700/50 h-full rounded-2xl p-4 flex flex-col shadow-lg hover:shadow-primary/10 transition-all duration-300">
                   

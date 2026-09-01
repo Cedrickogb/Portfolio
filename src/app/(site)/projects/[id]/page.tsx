@@ -1,5 +1,5 @@
 // src/app/projects/[id]/page.tsx
-import { QUESTS } from '../../../../constants'; // Ajuste le chemin selon ton dossier
+import { QUESTS } from '@/data/constants'; // Ajuste le chemin selon ton dossier
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';

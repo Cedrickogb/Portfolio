@@ -35,7 +35,8 @@ export interface ExperienceItem {
   role: string;
   company: string;
   period: string;
-  location: string;
+  /** Optionnel : non renseigné tant que Cédrick ne l'a pas fourni. */
+  location?: string;
   description: string;
   achievements: string[];
   icon: string; // Material Symbol name

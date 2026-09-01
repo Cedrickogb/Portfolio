@@ -5,6 +5,12 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Le moteur de jeu vit hors de src/app : sans cette ligne, aucune de ses
+    // classes utilitaires n'est générée (le canvas se retrouve en hauteur 0).
+    "./src/game/**/*.{js,ts,jsx,tsx,mdx}",
+    // Les données portent des classes de couleur (`text-[#42b883]` par techno) :
+    // sans ce glob, les icônes du StackDex s'affichent toutes en noir.
+    "./src/data/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: 'class', // Permet le changement de thème basé sur une classe CSS
   theme: {
@@ -47,9 +53,9 @@ const config: Config = {
         display: ['"Press Start 2P"', 'cursive'],
         body: ['"Rajdhani"', 'sans-serif'],
         mono: ['"VT323"', 'monospace'],
-        sans: ['"Inter"', 'sans-serif'],
-        grotesk: ['"Space Grotesk"', 'sans-serif'],
-        noto: ['"Noto Sans"', 'sans-serif'],
+        sans: ['"Inter Variable"', '"Inter"', 'sans-serif'],
+        grotesk: ['"Space Grotesk Variable"', '"Space Grotesk"', 'sans-serif'],
+        noto: ['"Noto Sans Variable"', '"Noto Sans"', 'sans-serif'],
       },
       backgroundImage: {
         'grid-pattern': "linear-gradient(to right, #1f2937 1px, transparent 1px), linear-gradient(to bottom, #1f2937 1px, transparent 1px)",

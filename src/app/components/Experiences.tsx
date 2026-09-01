@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { EXPERIENCE_DATA } from '../../../constants';
+import { EXPERIENCE_DATA } from '@/data/constants';
 
 const Experience: React.FC = () => {
   return (
@@ -104,10 +104,12 @@ const Experience: React.FC = () => {
                     <span className="material-symbols-outlined text-base">calendar_month</span>
                     {job.period}
                   </span>
-                  <span className="flex items-center gap-1 text-hp-red">
-                    <span className="material-symbols-outlined text-base">location_on</span>
-                    {job.location}
-                  </span>
+                  {job.location && (
+                    <span className="flex items-center gap-1 text-hp-red">
+                      <span className="material-symbols-outlined text-base">location_on</span>
+                      {job.location}
+                    </span>
+                  )}
                 </div>
               </header>
 

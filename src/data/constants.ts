@@ -1,11 +1,32 @@
 import { TechItem, QuestItem, ExperienceItem } from './types';
-import pic2 from './src/app/image/twitter-clone.webp'
-import pic3 from './src/app/image/ncpc2.webp'
-import pic4 from './src/app/image/aso1.webp'
-import pic5 from './src/app/image/mr-streaming.webp'
-import pic6 from './src/app/image/musicHopper.webp'
-import pic7 from './src/app/image/collabDraw.webp'
-import pic8 from './src/app/image/trust-flow.webp'
+import pic2 from '../app/image/twitter-clone.webp'
+import pic3 from '../app/image/ncpc2.webp'
+import pic4 from '../app/image/aso1.webp'
+import pic5 from '../app/image/mr-streaming.webp'
+import pic6 from '../app/image/musicHopper.webp'
+import pic7 from '../app/image/collabDraw.webp'
+import pic8 from '../app/image/trust-flow.webp'
+
+/**
+ * Fiche personnage : l'identité affichée dans le laboratoire.
+ *
+ * Regroupée ici plutôt qu'écrite dans le composant, pour rester la source unique
+ * partagée avec le site classique. `Hero.tsx` porte encore son propre texte en
+ * JSX : à migrer vers ces valeurs quand il sera retouché.
+ */
+export const PROFILE = {
+  name: 'Cédrick OGOUBIYI',
+  role: 'Frontend Engineer',
+  location: 'Cotonou, Bénin',
+  experience: '4 ans',
+  bio: [
+    'Ingénieur frontend, quatre ans à livrer du logiciel en production.',
+    'Des studios de conception dans le navigateur chez Vertim Coders aux outils collaboratifs temps réel.',
+    'Et TrustFlow, ma plateforme SaaS de gestion de réputation pour les commerces d\'Afrique de l\'Ouest.',
+  ],
+  /** Fichier servi depuis public/. */
+  cv: '/cedrick-ogoubiyi-cv.pdf',
+} as const;
 
 export const TECH_DATA: Record<string, TechItem> = {
   vue: {
@@ -129,46 +150,47 @@ export const TECH_DATA: Record<string, TechItem> = {
 
 export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
-    id: 'senior-mage',
-    role: 'Senior Frontend Mage',
-    company: 'TechCorp Realm',
-    period: '2022 - Present',
-    location: 'Remote',
-    description: 'Led a guild of 5 developers to reconstruct the main platform citadel. Improved loading spells (performance) by 40%.',
+    id: 'vertim-coders',
+    role: 'Frontend Web Developer',
+    company: 'Vertim Coders',
+    period: 'Jul 2023 - Mar 2026',
+    description:
+      'Built web applications for made-to-measure product customization, focused on illuminated signage and building facades.',
     achievements: [
-      'Refactored legacy codebase (The Ancient Scrolls) into modern React architecture.',
-      'Deployed a new design system, increasing UI consistency across all realms.'
+      'Designed the data model and made the technology choices for several custom-configuration applications.',
+      'Developed intuitive client-facing configurators for visual customization of illuminated signs and facades.',
+      'Built admin dashboards handling order management for each application.',
+      'Optimized navigation and ergonomics across both platforms to maximize conversion.',
     ],
-    icon: 'flag',
-    highlightColor: 'primary'
+    icon: 'design_services',
+    highlightColor: 'primary',
   },
   {
-    id: 'frontend-dev',
-    role: 'Frontend Developer',
-    company: 'Startup Guild',
-    period: '2020 - 2022',
-    location: 'New York',
-    description: 'Collaborated with the design wizards to implement pixel-perfect user interfaces. Battled cross-browser bugs and emerged victorious.',
+    id: '41devs',
+    role: 'Frontend Web Developer',
+    company: '41Devs',
+    period: 'Apr 2023 - Jun 2023',
+    description:
+      'Developed the marketing site for a product promoting a mobile app that gathers health workers across Africa into a single community and supports medical learning.',
     achievements: [
-      'Developed 15+ client websites with Vue.js and Nuxt.',
-      'Optimized asset delivery pipeline, reducing load times by 2s.'
+      'Delivered the product showcase site for the organization behind the mobile app.',
     ],
-    icon: 'swords',
-    highlightColor: 'xp-blue'
+    icon: 'language',
+    highlightColor: 'xp-blue',
   },
   {
-    id: 'intern',
-    role: 'Web Intern',
-    company: 'Digital Agency',
-    period: '2019 - 2020',
-    location: 'Paris',
-    description: 'Assisted senior devs in daily quests. Learned the dark arts of CSS and JavaScript fundamentals.',
+    id: 'anip',
+    role: 'Quality Control Officer',
+    company: "ANIP — Agence Nationale d'Identification des Personnes",
+    period: 'Sep 2020 - Dec 2020',
+    description:
+      'Recruited for the Quality Control project, tasked with cleaning up and regulating the population records collected during the RAVIP census.',
     achievements: [
-      'Contributed to the internal component library.'
+      'Audited and corrected citizen identification records at scale.',
     ],
-    icon: 'shield',
-    highlightColor: 'gray-500' 
-  }
+    icon: 'fact_check',
+    highlightColor: 'gray-500',
+  },
 ];
 
 export const QUESTS: QuestItem[] = [

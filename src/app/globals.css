@@ -202,3 +202,34 @@ body::-webkit-scrollbar-thumb {
   background-color: #76C829;
   border-radius: 20px;
 }
+/* --- Mode jeu ------------------------------------------------------------ */
+
+/* Le tampon de rendu est volontairement en basse résolution : l'agrandissement
+   doit se faire en nearest neighbor, sinon tout l'intérêt du pixel disparaît. */
+.game-canvas canvas {
+  /* L'ordre compte : la dernière déclaration comprise par le navigateur gagne,
+     donc `pixelated` doit venir en dernier et `crisp-edges` servir de repli. */
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* Pas de défilement ni de zoom parasite sous les doigts pendant le jeu. */
+.game-canvas {
+  touch-action: none;
+}
+
+/* Le D-pad ne sert à rien sur pointeur fin : on le réserve au tactile. */
+@media (pointer: fine) {
+  .game-touch {
+    display: none;
+  }
+}
+
+/* Le balayage animé est une décoration : on le coupe si l'utilisateur a demandé
+   moins de mouvement. Le CRT statique, lui, reste (il ne bouge pas). */
+@media (prefers-reduced-motion: reduce) {
+  .scan-line-anim {
+    animation: none;
+    display: none;
+  }
+}
