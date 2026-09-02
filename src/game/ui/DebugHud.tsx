@@ -27,6 +27,14 @@ function useFps() {
 }
 
 export default function DebugHud({ buffer }: { buffer: string }) {
+  /* Poignée de test, seulement hors production : sans elle, un pilote de
+     navigateur ne peut qu'inférer l'état du jeu à partir du texte affiché — et
+     un panneau muet (menu ouvert sans rendu) devient indébogable. */
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') return;
+    (window as unknown as { game?: typeof useGameStore }).game = useGameStore;
+  }, []);
+
   const tile = useGameStore((s) => s.tile);
   const facing = useGameStore((s) => s.facing);
   const fps = useFps();

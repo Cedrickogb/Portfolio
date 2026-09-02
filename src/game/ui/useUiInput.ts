@@ -84,7 +84,14 @@ export function useUiInput() {
         case 'quests':
         case 'stacks':
         case 'cv':
+        case 'map':
           return s.openMenu(id);
+        case 'bike':
+          /* Le vélo ne change aucune règle de franchissement, seulement la
+             cadence — et il n'a cours ni en barque, ni sous un toit. Un
+             couloir de six cases ne se fait pas à vélo. */
+          if (s.travel === 'boat' || getMap(s.mapId).interior) return;
+          return s.setTravel(s.travel === 'bike' ? 'foot' : 'bike');
         case 'sound':
           return s.setMutedState(!s.muted);
         case 'classic':

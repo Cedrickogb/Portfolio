@@ -18,6 +18,9 @@ import {
   PROP_HEIGHT,
   SIGN_BOARD_Y,
   buildCounter,
+  buildBoulder,
+  buildBush,
+  buildCliff,
   buildFence,
   buildPedestal,
   buildPlant,
@@ -93,6 +96,11 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
         : make(TILES.grass, [width, height]),
       wall: textureFromRaster(rasterFromPixelArt(interiorWallArt(style)), { repeat: [1, 2] }),
       doormat: textureFromRaster(rasterFromPixelArt(doormatArt(style.accent))),
+      water: make(TILES.water),
+      dock: make(TILES.dock),
+      sand: make(TILES.sand),
+      rock: make(TILES.rock),
+      moor: make(TILES.moor),
       flower: make(TILES.grassFlower),
       tall: make(TILES.tallGrass),
       plaza: make(TILES.plaza),
@@ -131,6 +139,11 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
     return {
       path: quad(),
       plaza: quad(),
+      water: quad(),
+      dock: quad(),
+      sand: quad(),
+      rock: quad(),
+      moor: quad(),
       tall: quad(),
       flower: quad(),
       wood: quad(),
@@ -153,6 +166,9 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
         g.translate(0, 0, 0.501);
         return g;
       })(),
+      cliff: buildCliff(),
+      boulder: buildBoulder(),
+      bush: buildBush(),
       tree: buildTree(),
       lamp: buildLamp(),
       fence: buildFence(),
@@ -199,6 +215,25 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
       </Instanced>
       <Instanced positions={map.positions.path} geometry={geometries.path} y={0.01}>
         <meshBasicMaterial map={textures.path} />
+      </Instanced>
+      {/* L'eau se pose *au-dessus* du plan de sol. Enfoncée sous lui, comme dans
+          la première version, elle était purement et simplement invisible : le
+          plan d'herbe couvre toute la carte. Ce sont les grèves qui donnent la
+          berge, pas une différence de hauteur. */}
+      <Instanced positions={map.positions.sand} geometry={geometries.sand} y={0.006}>
+        <meshBasicMaterial map={textures.sand} />
+      </Instanced>
+      <Instanced positions={map.positions.rock} geometry={geometries.rock} y={0.006}>
+        <meshBasicMaterial map={textures.rock} />
+      </Instanced>
+      <Instanced positions={map.positions.moor} geometry={geometries.moor} y={0.006}>
+        <meshBasicMaterial map={textures.moor} />
+      </Instanced>
+      <Instanced positions={map.positions.water} geometry={geometries.water} y={0.008}>
+        <meshBasicMaterial map={textures.water} />
+      </Instanced>
+      <Instanced positions={map.positions.dock} geometry={geometries.dock} y={0.02}>
+        <meshBasicMaterial map={textures.dock} />
       </Instanced>
       {/* À l'intérieur, le plan de sol porte déjà le revêtement du pôle : poser
           des quads de plancher par-dessus le recouvrait de parquet, quel que
@@ -269,6 +304,9 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
       ))}
 
       {/* Ombres portées, projetées au sol avant les décors qui les jettent. */}
+      <ShadowInstances positions={map.positions.cliff} height={PROP_HEIGHT.cliff} size={[1, 1]} />
+      <ShadowInstances positions={props.B ?? []} height={PROP_HEIGHT.boulder} size={[0.9, 0.5]} mask={textures.roundShadow} />
+      <ShadowInstances positions={props.b ?? []} height={PROP_HEIGHT.bush} size={[0.9, 0.5]} mask={textures.roundShadow} />
       <ShadowInstances positions={props.T ?? []} height={PROP_HEIGHT.tree} size={[1.15, 0.62]} mask={textures.roundShadow} />
       <ShadowInstances positions={props.L ?? []} height={PROP_HEIGHT.lamp} size={[0.46, 0.28]} mask={textures.smallShadow} />
       <ShadowInstances positions={props.F ?? []} height={PROP_HEIGHT.fence} size={[1, 0.22]} />
@@ -277,6 +315,17 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
 
       {/* Décors : couleurs cuites dans la géométrie, aucun éclairage à calculer. */}
       <Instanced positions={map.positions.flower} geometry={geometries.flowerTuft} y={0}>
+        <meshBasicMaterial vertexColors />
+      </Instanced>
+      {/* La texture de roche s'applique à toutes les faces : c'est le grain,
+          pas la teinte, qui distingue la falaise d'un bloc de couleur. */}
+      <Instanced positions={map.positions.cliff} geometry={geometries.cliff} y={0}>
+        <meshBasicMaterial map={textures.rock} vertexColors />
+      </Instanced>
+      <Instanced positions={props.B ?? []} geometry={geometries.boulder} y={0}>
+        <meshBasicMaterial vertexColors />
+      </Instanced>
+      <Instanced positions={props.b ?? []} geometry={geometries.bush} y={0}>
         <meshBasicMaterial vertexColors />
       </Instanced>
       <Instanced positions={props.T ?? []} geometry={geometries.tree} y={0}>

@@ -40,7 +40,7 @@ export const QUESTS_INTERIOR: GameMap = {
     '#################',
   ],
   warps: {
-    '8,11': { to: 'town', at: { x: 16, y: 7 }, facing: 'down' },
+    '8,11': { to: 'world', at: { x: 14, y: 45 }, facing: 'down' },
   },
   npcs: {
     '8,4': {
@@ -84,7 +84,7 @@ export const STACKS_INTERIOR: GameMap = {
     '#################',
   ],
   warps: {
-    '8,11': { to: 'town', at: { x: 27, y: 8 }, facing: 'down' },
+    '8,11': { to: 'world', at: { x: 78, y: 45 }, facing: 'down' },
   },
   npcs: {
     '8,4': {
@@ -128,7 +128,7 @@ export const LAB_INTERIOR: GameMap = {
     '#################',
   ],
   warps: {
-    '8,11': { to: 'town', at: { x: 5, y: 7 }, facing: 'down' },
+    '8,11': { to: 'world', at: { x: 14, y: 15 }, facing: 'down' },
   },
   npcs: {
     '8,4': {
@@ -172,7 +172,7 @@ export const CONTACT_INTERIOR: GameMap = {
     '#################',
   ],
   warps: {
-    '8,11': { to: 'town', at: { x: 10, y: 17 }, facing: 'down' },
+    '8,11': { to: 'world', at: { x: 46, y: 53 }, facing: 'down' },
   },
   npcs: {
     '8,4': {
@@ -218,7 +218,7 @@ export const HALL_INTERIOR: GameMap = {
     '###################',
   ],
   warps: {
-    '9,13': { to: 'town', at: { x: 24, y: 9 }, facing: 'down' },
+    '9,13': { to: 'world', at: { x: 76, y: 15 }, facing: 'down' },
   },
   trophies: {
     '5,5': 'vertim-coders',

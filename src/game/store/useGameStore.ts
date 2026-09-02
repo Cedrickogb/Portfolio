@@ -4,7 +4,7 @@ import type { Direction } from '@/game/engine/direction';
 
 
 /** Menu ouvert à la fin d'un dialogue. */
-export type MenuKind = 'quests' | 'stacks' | 'contact' | 'cv' | 'start';
+export type MenuKind = 'quests' | 'stacks' | 'contact' | 'cv' | 'start' | 'map';
 
 interface DialogueState {
   lines: string[];
@@ -25,9 +25,6 @@ interface GameState {
   /** Carte courante. */
   mapId: string;
   /** Case d'arrivée imposée après une téléportation. */
-  pendingSpawn: { tile: Tile; facing: Direction } | null;
-  /** Vrai pendant le fondu au noir d'une transition. */
-  warping: boolean;
   /** Menu de liste ouvert, s'il y en a un. */
   menu: MenuKind | null;
   /** Ligne sélectionnée dans le menu courant. */
@@ -43,6 +40,8 @@ interface GameState {
   techsSeen: string[];
   /** Vrai une fois la sauvegarde relue : avant, on n'écrit rien. */
   hydrated: boolean;
+  /** Une partie précédente a été retrouvée : l'écran titre propose de reprendre. */
+  resumable: boolean;
   /** Faux tant que l'écran titre n'a pas été franchi. */
   started: boolean;
   /** Son coupé. Persisté avec la sauvegarde. */
@@ -56,8 +55,7 @@ interface GameState {
   face: (dir: Direction) => void;
   beginStep: (to: Tile, now: number) => void;
   endStep: () => void;
-  warpTo: (mapId: string, tile: Tile, facing: Direction) => void;
-  consumeSpawn: () => void;
+  warpTo: (mapId: string, tile: Tile, facing: Direction, interior: boolean) => void;
   openMenu: (menu: MenuKind) => void;
   closeMenu: () => void;
   setMenuCursor: (index: number) => void;
@@ -82,9 +80,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   facing: 'down',
   step: null,
   dialogue: null,
-  mapId: 'town',
-  pendingSpawn: null,
-  warping: false,
+  mapId: 'world',
   menu: null,
   menuCursor: 0,
   farewell: null,
@@ -93,6 +89,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   questsSeen: [],
   techsSeen: [],
   hydrated: false,
+  resumable: false,
   started: false,
   muted: false,
   travel: 'foot',
@@ -100,18 +97,31 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   spawnAt: (tile) => set({ tile, step: null, dialogue: null, questId: null, techKey: null, menu: null }),
 
-  warpTo: (mapId, tile, facing) =>
+  /**
+   * Franchissement d'une porte.
+   *
+   * La carte **et** la case d'arrivée changent dans la même mise à jour. La
+   * version précédente ne posait qu'une intention (`pendingSpawn`) qu'un effet
+   * du joueur consommait ensuite : or le joueur vit dans le rendu du canvas,
+   * qui est un *autre* réconciliateur React que celui du DOM. L'intention lui
+   * parvenait donc une image avant la nouvelle carte — il se plaçait aux
+   * coordonnées de l'intérieur alors qu'il était encore dehors, et quand la
+   * carte arrivait enfin, l'intention était déjà consommée : retour au point
+   * de départ. Sortir d'un bâtiment renvoyait au spawn du monde.
+   *
+   * Deux sources de vérité qui se croisent, ça ne se rattrape pas par un garde
+   * de plus ; il n'en faut qu'une, et c'est le store.
+   */
+  warpTo: (mapId, tile, facing, interior) =>
     set((s) => ({
       mapId,
-      pendingSpawn: { tile, facing },
-      warping: true,
+      tile,
+      facing,
       step: null,
       dialogue: null,
-      // On n'entre pas dans un bâtiment en barque.
-      travel: s.travel === 'boat' ? 'foot' : s.travel,
+      // On n'entre ni en barque ni à vélo dans un bâtiment.
+      travel: interior || s.travel === 'boat' ? 'foot' : s.travel,
     })),
-
-  consumeSpawn: () => set({ pendingSpawn: null, warping: false }),
 
   openMenu: (menu) => set({ menu, menuCursor: 0 }),
 
@@ -156,15 +166,15 @@ export const useGameStore = create<GameState>((set, get) => ({
   resetProgress: (mapId, tile) =>
     set({
       mapId,
-      pendingSpawn: { tile, facing: 'down' },
-      warping: true,
+      tile,
+      facing: 'down',
+      step: null,
       questsSeen: [],
       techsSeen: [],
       menu: null,
       questId: null,
       techKey: null,
       dialogue: null,
-      step: null,
     }),
 
   openQuest: (id) =>

@@ -18,6 +18,8 @@ import ContactPanel from '@/game/ui/ContactPanel';
 import LabPanel from '@/game/ui/LabPanel';
 import TechPanel from '@/game/ui/TechPanel';
 import TrophyPanel from '@/game/ui/TrophyPanel';
+import TerritoryBanner from '@/game/ui/TerritoryBanner';
+import WorldMapPanel from '@/game/ui/WorldMapPanel';
 import WarpFade from '@/game/ui/WarpFade';
 import TitleScreen from '@/game/ui/TitleScreen';
 import DebugHud from '@/game/ui/DebugHud';
@@ -97,6 +99,8 @@ export default function Game() {
       <QuestPanel />
       <TechPanel />
       <TrophyPanel />
+      <TerritoryBanner />
+      <WorldMapPanel />
       <WarpFade />
       <TouchControls />
       <TitleScreen />

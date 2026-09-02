@@ -67,7 +67,11 @@ export type TileKind =
   | 'npc'
   | 'trophy'
   | 'water'
-  | 'dock';
+  | 'dock'
+  | 'sand'
+  | 'rock'
+  | 'moor'
+  | 'cliff';
 
 /**
  * Modes de déplacement.
@@ -80,6 +84,7 @@ export type Travel = 'foot' | 'bike' | 'boat';
 
 const ON_LAND: ReadonlySet<TileKind> = new Set<TileKind>([
   'grass', 'path', 'plaza', 'tall', 'flower', 'wood', 'door', 'dock',
+  'sand', 'rock', 'moor',
 ]);
 
 /** En barque : l'eau et les pontons, rien d'autre. */
@@ -104,8 +109,14 @@ const LEGEND: Record<string, TileKind> = {
   'C': 'counter',
   'N': 'npc',
   'X': 'trophy',
+  '/': 'cliff',
+  'B': 'prop',
+  'b': 'prop',
   '~': 'water',
   'Q': 'dock',
+  's': 'sand',
+  'r': 'rock',
+  'g': 'moor',
 };
 
 export interface GameMap {
@@ -150,6 +161,10 @@ export interface ParsedMap {
     trophy: Tile[];
     water: Tile[];
     dock: Tile[];
+    sand: Tile[];
+    rock: Tile[];
+    moor: Tile[];
+    cliff: Tile[];
     /** Décors bloquants, groupés par caractère de légende ('T', 'L', 'F'). */
     props: Record<string, Tile[]>;
   };
@@ -251,7 +266,7 @@ export function parseMap(map: GameMap): ParsedMap {
   const kinds: TileKind[][] = [];
   const positions: ParsedMap['positions'] = {
     path: [], plaza: [], tall: [], flower: [], wood: [], door: [],
-    wall: [], sign: [], counter: [], trophy: [], water: [], dock: [], props: {},
+    wall: [], sign: [], counter: [], trophy: [], water: [], dock: [], sand: [], rock: [], moor: [], cliff: [], props: {},
   };
   const signAt: Record<string, string> = {};
   const npcTiles: Tile[] = [];

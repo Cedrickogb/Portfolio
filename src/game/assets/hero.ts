@@ -36,6 +36,9 @@ export const HERO_ATLAS_H = HERO.frameH * HERO.rows;
 /** Ligne de l'atlas pour chaque orientation. */
 export const HERO_ROW: Record<Direction, number> = { down: 0, left: 1, right: 2, up: 3 };
 
+/** Montures possibles. Chacune produit son propre atlas. */
+export type Mount = 'none' | 'bike' | 'boat';
+
 /** Décalage de jambes par colonne : le cycle de marche. */
 const LEG_PHASE = [0, 1, 0, -1] as const;
 
@@ -121,6 +124,96 @@ const HEAD_W = 10;
 const BODY_X = 4;
 const BODY_W = 8;
 
+/**
+ * Vélo, dessiné **par-dessus** le personnage.
+ *
+ * Premier essai : un vélo glissé sous le héros, dans les trois rangées que
+ * laissaient les jambes. Résultat illisible — deux taches sombres aux pieds.
+ * Une bicyclette ne se lit qu'à ses roues ; il leur faut de la place, donc
+ * elles recouvrent les jambes et le cycliste est assis, pas debout.
+ */
+function drawBike(r: Raster, ox: number, oy: number, view: View, phase: number, P: HeroLook): void {
+  const B = PALETTE;
+  const y = (v: number) => oy + v;
+  /* Le moyeu alterne clair/sombre au rythme du cycle : c'est ce scintillement
+     qui fait percevoir la rotation, faute de pouvoir dessiner des rayons. */
+  const hub = phase === 0 ? B.stoneLight : B.stoneHi;
+
+  /** Roue de profil : un anneau de 5x4, creux, avec un moyeu d'un pixel. */
+  /* Pneus en gris sombre, pas en noir : le contour de la silhouette est déjà
+     noir, et une roue noire s'y fondait — le vélo n'était plus qu'une masse. */
+  const wheel = (cx: number) => {
+    fillRect(r, ox + cx - 2, y(12), 1, 2, B.stoneDark);
+    fillRect(r, ox + cx + 2, y(12), 1, 2, B.stoneDark);
+    fillRect(r, ox + cx - 1, y(11), 3, 1, B.stoneDark);
+    fillRect(r, ox + cx - 1, y(14), 3, 1, B.stoneDark);
+    fillRect(r, ox + cx, y(12), 1, 1, hub);
+  };
+
+  if (view === 'side') {
+    wheel(3);
+    wheel(12);
+    fillRect(r, ox + 4, y(12), 8, 1, B.roofRed);      // cadre
+    fillRect(r, ox + 4, y(11), 3, 1, B.ink);          // selle
+    fillRect(r, ox + 11, y(9), 1, 3, B.stoneDark);    // potence
+    fillRect(r, ox + 10, y(9), 4, 1, B.ink);          // guidon
+    // Jambe avant repliée sur la pédale, qui suit la phase.
+    fillRect(r, ox + 7, y(10), 2, 2, P.pants);
+    fillRect(r, ox + 8, y(12 + (phase === 1 ? 0 : 1)), 2, 1, P.shoe);
+    return;
+  }
+
+  /* De face ou de dos, un vélo se résume au guidon et à la roue avant : le
+     reste est masqué par le cycliste. Dessiner les deux roues donnerait une
+     silhouette de tracteur. */
+  fillRect(r, ox + 7, y(11), 2, 4, B.stoneDark);      // roue vue en bout
+  fillRect(r, ox + 7, y(12), 2, 1, hub);
+  /* Garde-boue rouge : de face, le vélo se réduit à une barre noire sans lui.
+     C'est la seule tache de couleur qui rattache cette vue au profil. */
+  fillRect(r, ox + 6, y(11), 4, 1, B.roofRed);
+  fillRect(r, ox + 3, y(10), 10, 1, B.ink);           // guidon
+  fillRect(r, ox + 2, y(10), 1, 1, B.stoneDark);
+  fillRect(r, ox + 13, y(10), 1, 1, B.stoneDark);
+  fillRect(r, ox + 5, y(11), 2, 2, P.pants);          // genoux de part et d'autre
+  fillRect(r, ox + 9, y(11), 2, 2, P.pantsShade);
+  fillRect(r, ox + 5, y(13), 2, 1, P.shoe);
+  fillRect(r, ox + 9, y(13), 2, 1, P.shoe);
+}
+
+/**
+ * Barque, dessinée **par-dessus** le personnage.
+ *
+ * L'ordre compte : la coque doit masquer les jambes, sinon le rameur a l'air
+ * de marcher sur l'eau — ce que montrait exactement la première traversée.
+ * La rame bat au rythme du cycle de marche, seule chose qui distingue une
+ * barque qui avance d'une barque à l'arrêt.
+ */
+function drawBoat(r: Raster, ox: number, oy: number, view: View, phase: number): void {
+  const B = PALETTE;
+  const y = (v: number) => oy + v;
+
+  if (view === 'side') {
+    fillRect(r, ox + 1, y(11), 14, 1, B.woodLight);   // plat-bord
+    fillRect(r, ox + 1, y(12), 14, 2, B.wood);
+    fillRect(r, ox + 3, y(14), 10, 1, B.woodDark);    // carène
+    fillRect(r, ox + 0, y(10), 1, 2, B.woodLight);    // poupe relevée
+    fillRect(r, ox + 15, y(10), 1, 2, B.woodLight);   // proue relevée
+    fillRect(r, ox + 2, y(12), 12, 1, B.woodDark);    // banc
+    // Rame : la pale monte et descend au rythme du cycle.
+    const oar = y(11 + (phase === 1 ? 0 : phase === -1 ? 3 : 2));
+    fillRect(r, ox + 12, oar, 4, 1, B.woodDark);
+    return;
+  }
+
+  fillRect(r, ox + 2, y(11), 12, 1, B.woodLight);
+  fillRect(r, ox + 2, y(12), 12, 2, B.wood);
+  fillRect(r, ox + 3, y(14), 10, 1, B.woodDark);
+  fillRect(r, ox + 3, y(12), 10, 1, B.woodDark);      // banc
+  // Une rame de chaque bord, en opposition de phase.
+  fillRect(r, ox + 0, y(12 + (phase === 1 ? 0 : 1)), 3, 1, B.woodDark);
+  fillRect(r, ox + 13, y(12 + (phase === -1 ? 0 : 1)), 3, 1, B.woodDark);
+}
+
 function drawHero(r: Raster, ox: number, oy: number, view: View, phase: number, P: HeroLook): void {
   const y = (v: number) => oy + v;
 
@@ -181,24 +274,28 @@ function drawHero(r: Raster, ox: number, oy: number, view: View, phase: number, 
 }
 
 /** Une frame isolée, contour compris. */
-function heroFrame(view: View, phase: number, look: HeroLook): Raster {
+function heroFrame(view: View, phase: number, look: HeroLook, mount: Mount): Raster {
   const frame = createRaster(HERO.frameW, HERO.frameH);
   drawHero(frame, 0, 0, view, phase, look);
+  /* Les montures se dessinent après le héros : elles doivent lui masquer les
+     jambes, pas se glisser derrière. */
+  if (mount === 'bike') drawBike(frame, 0, 0, view, phase, look);
+  if (mount === 'boat') drawBoat(frame, 0, 0, view, phase);
   return outline(frame, PALETTE.ink);
 }
 
 /** Atlas complet : 4 orientations x 4 frames de marche. */
-export function heroAtlas(look: HeroLook = LOOKS.player): Raster {
+export function heroAtlas(look: HeroLook = LOOKS.player, mount: Mount = 'none'): Raster {
   const atlas = createRaster(HERO_ATLAS_W, HERO_ATLAS_H);
 
   for (let col = 0; col < HERO.cols; col++) {
     const phase = LEG_PHASE[col];
     const x = col * HERO.frameW;
 
-    blit(atlas, heroFrame('down', phase, look), x, HERO_ROW.down * HERO.frameH);
-    blit(atlas, heroFrame('up', phase, look), x, HERO_ROW.up * HERO.frameH);
+    blit(atlas, heroFrame('down', phase, look, mount), x, HERO_ROW.down * HERO.frameH);
+    blit(atlas, heroFrame('up', phase, look, mount), x, HERO_ROW.up * HERO.frameH);
 
-    const side = heroFrame('side', phase, look);
+    const side = heroFrame('side', phase, look, mount);
     blit(atlas, side, x, HERO_ROW.right * HERO.frameH);
     // Gauche = miroir de droite : une seule vue de profil à maintenir.
     blit(atlas, mirrorX(side), x, HERO_ROW.left * HERO.frameH);

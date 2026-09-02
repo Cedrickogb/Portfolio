@@ -27,14 +27,16 @@ export function useSaveGame() {
       const tile = isWalkable(map, saved.tile.x, saved.tile.y) ? saved.tile : map.spawn;
 
       store.hydrate({
+        resumable: true,
         mapId: saved.mapId,
-        pendingSpawn: { tile, facing: saved.facing },
+        tile,
+        facing: saved.facing,
         questsSeen: saved.questsSeen,
         techsSeen: saved.techsSeen,
         muted: saved.muted,
       });
     } else {
-      store.hydrate({ mapId: DEFAULT_MAP });
+      store.hydrate({ mapId: DEFAULT_MAP, tile: getMap(DEFAULT_MAP).spawn, facing: 'down' });
     }
 
     return useGameStore.subscribe((s) => {

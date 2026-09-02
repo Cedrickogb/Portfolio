@@ -19,12 +19,13 @@
     ]
   },
   "files": [
+    "src/game/config.ts",
     "src/game/engine/direction.ts",
     "src/game/assets/buildings.ts",
     "src/game/engine/grid.ts",
     "src/game/engine/movement.ts",
     "src/game/engine/movement.test.ts",
-    "src/data/maps/town-map.ts",
+    "src/data/maps/world-map.ts",
     "src/data/maps/interiors.ts",
     "src/game/assets/palette.ts",
     "src/game/assets/raster.ts",

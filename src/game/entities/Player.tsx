@@ -3,9 +3,15 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MathUtils, type Group, type Mesh, type MeshBasicMaterial } from 'three';
-import { CAMERA_OFFSET, SHADOW_OPACITY, SHADOW_Y, STEP_MS, TILE_TEXELS, shadowOffset } from '@/game/config';
-import { STEP_MS_BY_TRAVEL } from '@/game/config';
-import { HERO, HERO_HEIGHT, HERO_ROW, HERO_SHADOW_H, HERO_SHADOW_W, heroAtlas, heroShadowRaster } from '@/game/assets/hero';
+import {
+  CAMERA_OFFSET,
+  SHADOW_OPACITY,
+  SHADOW_Y,
+  STEP_MS_BY_TRAVEL,
+  TILE_TEXELS,
+  shadowOffset,
+} from '@/game/config';
+import { HERO, HERO_HEIGHT, HERO_ROW, HERO_SHADOW_H, HERO_SHADOW_W, LOOKS, heroAtlas, heroShadowRaster } from '@/game/assets/hero';
 import { PALETTE } from '@/game/assets/palette';
 import { textureFromRaster } from '@/game/assets/texture';
 import { consumeA, heldDir } from '@/game/engine/input';
@@ -13,6 +19,7 @@ import { sfx } from '@/game/audio/sfx';
 import { decide } from '@/game/engine/movement';
 import type { ParsedMap } from '@/game/engine/grid';
 import { playerVisual } from '@/game/engine/runtime';
+import { getMap } from '@/data/maps';
 import { useGameStore } from '@/game/store/useGameStore';
 
 /* Inclinaison du sprite pour qu'il fasse face à la caméra. La caméra étant
@@ -32,9 +39,15 @@ const [SHADOW_DX, SHADOW_DZ] = shadowOffset(HERO_HEIGHT);
 export default function Player({ map }: { map: ParsedMap }) {
   const group = useRef<Group>(null);
   const sprite = useRef<Mesh>(null);
-  const spawnAt = useGameStore((s) => s.spawnAt);
 
-  const atlas = useMemo(() => textureFromRaster(heroAtlas()), []);
+  /* Un atlas par monture : le vélo n'est pas une couche posée par-dessus le
+     sprite, c'est un autre dessin — sinon les jambes passeraient devant le
+     cadre. Deux atlas de 64x64, la mémoire s'en moque. */
+  const travel = useGameStore((s) => s.travel);
+  const atlas = useMemo(
+    () => textureFromRaster(heroAtlas(LOOKS.player, travel === 'foot' ? 'none' : travel)),
+    [travel],
+  );
   const shadow = useMemo(() => textureFromRaster(heroShadowRaster()), []);
 
   useEffect(() => {
@@ -45,19 +58,6 @@ export default function Player({ map }: { map: ParsedMap }) {
       shadow.dispose();
     };
   }, [atlas, shadow]);
-
-  /* À l'arrivée sur une carte, la case de départ vient de la téléportation qui
-     nous y a amené ; à défaut, du 'P' de la carte. */
-  useEffect(() => {
-    const { pendingSpawn, consumeSpawn } = useGameStore.getState();
-    const tile = pendingSpawn?.tile ?? map.spawn;
-    spawnAt(tile);
-    if (pendingSpawn) {
-      useGameStore.setState({ facing: pendingSpawn.facing });
-      consumeSpawn();
-    }
-    playerVisual.set(tile.x, 0, tile.y);
-  }, [map, spawnAt]);
 
   useFrame(() => {
     const now = performance.now();
@@ -82,7 +82,17 @@ export default function Player({ map }: { map: ParsedMap }) {
       case 'advance-dialogue': s.advanceDialogue(); break;
       case 'talk': s.openDialogue(intent.lines); break;
       case 'talk-npc': s.openDialogue(intent.npc.lines, intent.npc.menu, intent.npc.farewell); break;
-      case 'warp': s.warpTo(intent.warp.to, intent.warp.at, intent.warp.facing ?? 'down'); break;
+      case 'warp':
+        /* La carte de destination est lue ici, pas dans le store : c'est le
+           seul endroit qui sait vers quoi l'on part, et un intérieur descend
+           de vélo. */
+        s.warpTo(
+          intent.warp.to,
+          intent.warp.at,
+          intent.warp.facing ?? 'down',
+          getMap(intent.warp.to).interior,
+        );
+        break;
       case 'board':
         s.setTravel('boat');
         s.openDialogue(['Tu montes dans la barque.']);

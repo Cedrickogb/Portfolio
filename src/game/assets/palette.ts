@@ -32,6 +32,26 @@ export const PALETTE = {
   stone: '#98a38d',
   stoneDark: '#77836e',
 
+  // Eau
+  waterHi: '#8fd6e8',
+  water: '#4b9fc4',
+  waterDeep: '#2f6f92',
+
+  // Grèves
+  sandHi: '#f2e2b6',
+  sand: '#dcc68d',
+  sandDark: '#bda568',
+
+  // Roche du plateau
+  rockHi: '#b9ad96',
+  rock: '#95886f',
+  rockDark: '#6f6552',
+
+  // Lande fraîche du vallon
+  moorHi: '#7fc08a',
+  moor: '#5fa06d',
+  moorDark: '#437a4f',
+
   // Terre battue
   dirtLight: '#d2b98a',
   dirt: '#b89a68',

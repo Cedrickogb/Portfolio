@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import { DEFAULT_MAP, getMap } from '@/data/maps';
 import { PROFILE } from '@/data/constants';
+import { territoryAt } from '@/data/territories';
 import { startMusic, unlockAudio } from '@/game/audio';
 import { sfx } from '@/game/audio/sfx';
+import { flushInput } from '@/game/engine/input';
 import { useGameStore } from '@/game/store/useGameStore';
 
 /**
@@ -18,19 +20,20 @@ import { useGameStore } from '@/game/store/useGameStore';
 export default function TitleScreen() {
   const hydrated = useGameStore((s) => s.hydrated);
   const started = useGameStore((s) => s.started);
-  const questsSeen = useGameStore((s) => s.questsSeen);
-  const techsSeen = useGameStore((s) => s.techsSeen);
   const [choosing, setChoosing] = useState(false);
 
-  const hasSave = questsSeen.length > 0 || techsSeen.length > 0;
+  /* Une partie retrouvée suffit à proposer de reprendre : se fonder sur les
+     fiches déjà lues privait du choix un joueur qui n'avait fait que marcher. */
+  const hasSave = useGameStore((s) => s.resumable);
 
   const begin = async (fresh: boolean) => {
     await unlockAudio();
     const store = useGameStore.getState();
     if (fresh) store.resetProgress(DEFAULT_MAP, getMap(DEFAULT_MAP).spawn);
     store.start();
+    flushInput(); // la touche qui a lancé la partie ne doit rien déclencher de plus
     sfx.confirm();
-    if (!store.muted) startMusic();
+    if (!store.muted) startMusic(territoryAt(store.tile.x, store.tile.y).track);
   };
 
   useEffect(() => {

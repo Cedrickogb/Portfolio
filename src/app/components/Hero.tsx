@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col items-start gap-4">
         <div className="space-y-4">
-          <h2 className="font-mono text-xl md:text-2xl text-primary animate-pulse">
+          <h2 className="font-mono text-lg md:text-xl text-primary animate-pulse">
             <span className="mr-2">&gt;</span> System_Ready...
           </h2>
           <h1 className="font-display text-2xl md:text-4xl lg:text-5xl leading-tight text-gray-900 dark:text-white drop-shadow-[0_2px_0_rgba(0,0,0,0.1)] dark:drop-shadow-[0_2px_0_rgba(0,0,0,1)] transition-colors">
@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
               4 years shipping production-grade apps: from browser-based{' '}
               <span className="text-gray-900 dark:text-white font-bold transition-colors">design studios</span> (Vertim Coders) to{' '}
               <span className="text-gray-900 dark:text-white font-bold transition-colors">real-time collaborative tools</span> and my own{' '}
-              <span className="text-primary">B2B SaaS</span> — TrustFlow, a reputation management platform for local businesses in West Africa.
+              <span className="text-primary">B2B SaaS</span> TrustFlow, a reputation management platform for local businesses in West Africa.
               <span className="inline-block w-2 h-5 bg-primary ml-1 cursor-blink align-middle"></span>
             </p>
 
@@ -70,8 +70,8 @@ const Hero: React.FC = () => {
             pressé, et sortirait le texte de la page indexée. */}
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <a href="/game" className="group relative inline-flex items-center justify-center px-8 py-4 font-display text-sm text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
-            ▶ Jouer
-            <span className="ml-3 font-mono text-lg font-normal opacity-70">mode jeu</span>
+            ▶ Play
+            <span className="ml-3 font-mono text-lg font-normal opacity-70">game mode</span>
           </a>
 
           <a href="/projects" className="group relative inline-flex items-center justify-center border-2 border-gray-400 px-6 py-4 font-display text-xs text-gray-700 transition-colors hover:border-primary hover:text-primary dark:border-gray-600 dark:text-gray-300">

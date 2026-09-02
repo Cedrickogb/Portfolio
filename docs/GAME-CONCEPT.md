@@ -696,6 +696,161 @@ un bâtiment par projet et le StackDex dans le Labo. Les bâtiments sont devenus
 des **pôles** (LAB, QUESTS, STACKS, CONTACT) avec la liste au comptoir — c'est
 mieux, et c'est ce qui est en place.
 
+### Phase 3b — Le monde · fait
+
+La carte cesse d'être un bourg pour devenir un **monde de 96x64**, découpé en
+cinq territoires reliés par des routes.
+
+- [x] **Territoires** : Vallon du Labo, Quartier des Quêtes, Bourg, Plateau des
+      Stacks, Île des Trophées — plus **Le Détroit** pour la traversée. Chacun
+      annonce son nom à l'entrée et **change la musique**.
+- [x] **Six pistes** partageant le même séquenceur : seules changent l'échelle,
+      la basse, l'onde et le tempo. Assez pour sentir qu'on a changé de région,
+      bien moins coûteux qu'autant de fichiers. Le changement se fait sans
+      couper le flux — un arrêt-relance ferait un silence à chaque frontière.
+- [x] **Vélo** : ne change aucune règle de franchissement, seulement la cadence.
+      Mesuré en jeu : **12 cases en 2 s à pied, 20 à vélo**. Sur une carte de
+      cette taille, c'est ce qui sépare la corvée de la promenade.
+- [x] **Barque et détroit.** L'île des trophées est **volontairement injoignable
+      à pied**. Le franchissement devient contextuel : à pied on suit les
+      chemins, en barque on ne suit que l'eau, et le ponton est la seule case
+      commune aux deux mondes — donc le seul endroit où l'on embarque.
+
+**La contrainte est vérifiée par le test, pas par la relecture.** Un parcours en
+largeur confirme à chaque exécution que l'île reste inaccessible à pied, et un
+second parcours *à deux modes* — terre, puis eau depuis chaque ponton atteint,
+en alternance jusqu'à stabilisation — confirme qu'aucun contenu n'est pour
+autant abandonné. Un raccourci ouvert par mégarde priverait la barque de sa
+raison d'être sans que rien ne le signale ; une île trop bien isolée rendrait le
+hall inatteignable. Les deux échouent désormais bruyamment.
+
+Le générateur de carte applique la même discipline : rien ne peut écraser une
+case déjà occupée, et les emprises de bâtiment sont vérifiées rectangulaires
+avant écriture. Trois collisions ont été attrapées ainsi pendant la conception —
+dont un panneau posé *dans* un bâtiment et un pont d'une seule case laissé entre
+l'eau et la bordure de carte.
+
+**Corrigé au passage** : « Nouvelle partie » ne déplaçait pas le joueur s'il se
+trouvait déjà sur la carte du monde — l'effet de placement ne réagissait qu'au
+changement de carte. Et l'écran titre ne proposait « Continuer » qu'à qui avait
+ouvert une fiche : un joueur ayant seulement marché n'avait pas le choix.
+
+### Phase 3c — Relief, montures et carte du monde · fait
+
+Retour de Cédrick après la première visite du monde : *« la map est juste plus
+grande, il n'y a pas vraiment le dynamisme que je recherchais »*, le quai et la
+barque introuvables, le vélo sans effet visible, et l'envie d'un plan général
+dans le menu. Quatre reproches, quatre causes distinctes.
+
+- [x] **L'eau était enterrée.** Les nappes d'eau étaient posées à `y = -0,06`,
+      sous le plan d'herbe qui couvre toute la carte : le détroit existait dans
+      les données, était traversable, et n'apparaissait nulle part à l'écran.
+      Remontées à `y = 0,008`, avec une **grève de sable** partout où la terre
+      touche l'eau — c'est le liseré clair qui fait lire un rivage.
+- [x] **Falaises.** Un gradin de 0,8 tuile, infranchissable, taillé au bord des
+      plateaux. Le dessus est en **roche, pas en herbe** : la caméra n'ayant
+      aucun décalage horizontal, les faces est et ouest sont vues par la tranche
+      et chaque gradin masque la face avant de son voisin du nord. Une muraille
+      orientée nord-sud ne montrait donc que ses dessus — verts, comme le sol,
+      donc invisible. C'est le genre d'erreur qu'aucune relecture n'attrape et
+      qu'une capture d'écran tranche en une seconde.
+- [x] **Les gradins se taillent dans le sol, jamais dans une route.** Là où une
+      route croise la ligne de falaise, l'ouverture se creuse d'elle-même et
+      devient la rampe d'accès : aucune passe n'est percée à la main, donc
+      aucune ne peut être oubliée.
+- [x] **Sols par taches, plus par damier.** Le premier jet teintait le sol des
+      territoires avec une formule arithmétique (`(x*3 + y*5) % 7`). En jeu, ça
+      donnait des rayures diagonales et des cases isolées qui lisaient comme des
+      gravats. Un bruit grossier — une valeur par bloc de 3x3 — dessine la
+      tache, un bruit fin en déchire le bord. Même traitement pour les
+      rectangles de hautes herbes, rongés au bruit sur leur pourtour.
+- [x] **Rochers et buissons**, deux décors bas qui meublent sans jamais masquer
+      le joueur.
+- [x] **Vélo et barque dessinés.** Deux atlas de plus, choisis par le mode de
+      déplacement. Les montures se dessinent **par-dessus** le héros : la coque
+      doit masquer les jambes, sinon le rameur marche sur l'eau. Les pneus sont
+      en gris sombre et non en noir — le contour de la silhouette est déjà noir
+      et une roue noire s'y fondait.
+- [x] **Carte du monde dans le menu START**, peinte depuis les données de la
+      carte, une case par pixel : elle ne peut pas mentir sur la géographie,
+      elle *est* la géographie. Un canvas plutôt qu'une grille d'éléments —
+      96x64 demandait six mille nœuds pour une image qui ne bouge jamais.
+- [x] **Poches inatteignables comptées par le générateur.** Une falaise mal
+      placée n'isole pas un bâtiment — les assertions existantes le verraient —
+      mais peut enfermer un bout de prairie où personne n'ira jamais. Ce n'est
+      pas une panne, c'est du décor mort : le générateur en affiche le compte à
+      chaque exécution (0 aujourd'hui).
+
+**Corrigé au passage** : la touche qui quitte l'écran titre restait dans la file
+d'entrées et actionnait la première entrée du menu dès son ouverture — appuyer
+sur B après « PRESS START » ouvrait le menu *et* le Journal de quêtes dans la
+foulée. Un changement de contexte repart désormais d'une file vide.
+
+### Correctif — la plaque du hall, ou l'erreur qui attendait son bâtiment · fait
+
+Signalé par Cédrick : **la plaque du hall est cachée à moitié par le toit.**
+
+`eaveOcclusion` *divisait* par la pente de la caméra au lieu de la multiplier.
+Le rayon qui va d'un point de façade vers la caméra s'élève de
+`CAMERA_OFFSET.y / CAMERA_OFFSET.z` ≈ 1,43 par unité avancée : pour sortir de
+sous le toit il doit franchir tout le débord avant d'atteindre la sous-face, la
+hauteur perdue vaut donc `débord × 1,43`, pas `débord ÷ 1,43`.
+
+L'erreur réservait 0,7 fois le débord au lieu de 1,43 — moitié de ce qu'il faut.
+Sur les quatre maisons, débord ~0,3, l'écart tenait dans la marge de sécurité et
+ne se voyait pas. Sur le hall, débord 0,55, il mangeait les deux tiers de la
+plaque. Une erreur de signe dans une formule géométrique n'est pas visible
+au moment où on l'écrit : elle attend le cas qui la révèle.
+
+Conséquence en cascade : avec la bonne marge, trois façades devenaient trop
+basses pour loger porte (1,1) **et** plaque (0,5) sous l'ombre du débord. Les
+hauteurs de corps sont donc désormais **déduites de cette contrainte** —
+lab 2 → 2,2, stacks 2,05 → 2,35, contact 2,1 → 2,25 — et non choisies à l'œil.
+
+- [x] **Test géométrique** : pour chaque style, on suit le rayon parti du haut
+      de la plaque et on exige qu'il ait franchi le débord avant la sous-face,
+      puis que la plaque reste au-dessus de la porte. La propriété physique,
+      pas son algèbre — écrire `assert(eave === débord × pente)` n'aurait fait
+      que recopier le bug s'il avait été dans l'autre sens. Tout nouveau style
+      de bâtiment est couvert d'office.
+
+### Correctif — deux réconciliateurs, une position · fait
+
+Signalé par Cédrick : **on ne ressort pas devant la porte du bâtiment, on est
+renvoyé au point de départ du monde.**
+
+La position d'arrivée n'était pas posée par le store mais par un effet du
+joueur, à partir d'une *intention* (`pendingSpawn`) que le store déposait. Or le
+joueur vit dans le rendu du canvas, qui est un **autre réconciliateur React**
+que celui du DOM : l'intention lui parvenait une image avant la nouvelle carte.
+La trace le dit sans ambiguïté :
+
+```
+[placement] map= Monde              pending= {14,45}   ← posé pendant qu'on est encore dehors
+[placement] map= Monde              pending= null      ← intention consommée
+[placement] map= Registre des quetes pending= null     ← la carte arrive, plus rien à consommer
+                                                        → repli sur le spawn de la carte
+```
+
+À l'entrée le symptôme était invisible parce que le spawn de l'intérieur tombe
+justement sur la case d'arrivée : le repli donnait par hasard le bon résultat.
+
+Deux sources de vérité qui se croisent ne se rattrapent pas par un garde de
+plus. `warpTo` pose désormais **carte, case et orientation dans la même mise à
+jour**, et l'effet de placement a disparu — la boucle de rendu lisait déjà la
+case logique à chaque image, elle n'avait besoin de personne pour la lui dire.
+`pendingSpawn`, `consumeSpawn` et `warping` sont supprimés avec lui.
+
+- [x] **Le vélo ne franchit plus les portes.** Entrer dans un bâtiment remet
+      pied à terre, comme la barque le faisait déjà, et l'entrée « Vélo » du
+      menu reste visible mais éteinte à l'intérieur — la masquer décalerait
+      toutes les suivantes d'un cran.
+- [x] **Test de données** : chaque sortie d'intérieur doit tomber à exactement
+      une case du paillasson qui y mène — ni plus loin (on ressortirait
+      ailleurs), ni dessus (on rentrerait aussitôt). Le bug venait du câblage,
+      pas de la donnée, mais une destination erronée donnerait exactement le
+      même symptôme, en silence.
+
 ### Phase 4 — Systèmes de jeu · en cours
 
 **Fait — sauvegarde et menu START.**

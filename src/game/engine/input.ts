@@ -36,6 +36,20 @@ export function releaseAll() {
   dirTap = null;
 }
 
+/**
+ * Vide la file d'entrées sans l'interpréter.
+ *
+ * La touche qui quitte l'écran titre est aussi un « A » pour le monde : elle
+ * restait en file et actionnait la première entrée du menu dès son ouverture.
+ * Un changement de contexte doit donc repartir d'une file vide — la pression
+ * appartenait à l'écran qu'on vient de quitter.
+ */
+export function flushInput() {
+  releaseAll();
+  aQueued = false;
+  bQueued = false;
+}
+
 /** Direction actuellement demandée, ou null. */
 export function heldDir(): Direction | null {
   return held.length ? held[held.length - 1] : null;

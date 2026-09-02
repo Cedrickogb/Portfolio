@@ -164,6 +164,116 @@ export const wallpaper: PixelArt = {
   ],
 };
 
+export const water: PixelArt = {
+  palette: { 'w': PALETTE.water, 'W': PALETTE.waterHi, 'c': PALETTE.waterDeep },
+  pixels: [
+    'cwwwwwwwcwwwwwww',
+    'cwwwwwwwcwwwwwww',
+    'wwwwwcwwwwwWwcww',
+    'wwwwwcwwwwwwwcww',
+    'wwcwwwwwwwcwwwww',
+    'wwcwwwwwwwcwwwww',
+    'wwwwwwwcwwWwwwwc',
+    'wwwwWwwcwwwwwwwc',
+    'wwwwcwwwwwwwcwww',
+    'wwwwcwwwwwwwcwwW',
+    'wcwwwwwwwcwwwwww',
+    'wcwWwwwwwcwwwwww',
+    'wwwwwwcwwwwwwwcw',
+    'wwwwwwcwwwwwwwcw',
+    'wwwcwwwwWwwcwwww',
+    'wwWcwwwwwwwcwwww',
+  ],
+};
+
+export const dock: PixelArt = {
+  palette: { 'p': PALETTE.wood, 'g': PALETTE.woodDark, 's': PALETTE.woodLight },
+  pixels: [
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'ssssssssssssssss',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'ssssssssssssssss',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+    'gpppppppgppppppp',
+  ],
+};
+
+export const sand: PixelArt = {
+  palette: { 's': PALETTE.sand, 'h': PALETTE.sandHi, 'd': PALETTE.sandDark },
+  pixels: [
+    'hsssssssssssssss',
+    'sshsssdsssssssss',
+    'sssshsssssssdsss',
+    'sssssshsssssssss',
+    'sssssssshsssssss',
+    'sdsssssssshsssss',
+    'sssssssdsssshsss',
+    'sssssssssssssdhs',
+    'ssssssssssssssss',
+    'ssssssssssssssss',
+    'shdsssssssssssss',
+    'ssshssssdsssssss',
+    'ssssshssssssssds',
+    'ssssssshssssssss',
+    'ssssssssshssssss',
+    'sssdssssssshssss',
+  ],
+};
+
+export const rock: PixelArt = {
+  palette: { 'r': PALETTE.rock, 'h': PALETTE.rockHi, 'd': PALETTE.rockDark },
+  pixels: [
+    'drrrrrrrrdrdrrrr',
+    'rrrrrrddrrrrrhrr',
+    'rdrrrdrrrhrrdrdr',
+    'rrrdrhrdrrrrdrrr',
+    'rddrrrrrrrdrrdrr',
+    'rrrrrrrrdrrrrrhr',
+    'rrrdrrdrrrhrrrdd',
+    'rrrrdrhrrdrrrdrr',
+    'rrdrdrrrrrrdrrrd',
+    'drrrrrrrrddrrrrh',
+    'rrrrrdrdrrrhrrrr',
+    'drrrrdrhrrrdrrdr',
+    'rrrdrrdrrrrrdrrr',
+    'rdrrrrrrrrdrdrrr',
+    'rrrrrrrddrrrhrrr',
+    'rrdrrrdrhrrrrdrd',
+  ],
+};
+
+export const moor: PixelArt = {
+  palette: { 'm': PALETTE.moor, 'h': PALETTE.moorHi, 'd': PALETTE.moorDark },
+  pixels: [
+    'dmmmmmmmmmmhmdmm',
+    'mmdmmmhmmmmmmmmd',
+    'mhmmdmmmmmmmhmmm',
+    'mmmmmmdhmmmmmmmm',
+    'mmhmmmmmdmmmmhmm',
+    'mmmmmmmmhmdmmmmm',
+    'mmmhmmmmmmmmdmhm',
+    'mdmmmmmmmhmmmmdm',
+    'mmmdhmmmmmmmmmmh',
+    'mmmmmdmmmmhmmmmm',
+    'mmmmmhmdmmmmmmmm',
+    'hmmmmmmmmdmhmmmm',
+    'mmmmmmhmmmmdmmmm',
+    'dhmmmmmmmmmmhdmm',
+    'mmdmmmmhmmmmmmmd',
+    'mmhmdmmmmmmmmhmm',
+  ],
+};
+
 export const TILES = {
   grass,
   grassFlower,
@@ -172,6 +282,11 @@ export const TILES = {
   path,
   woodFloor,
   wallpaper,
+  water,
+  dock,
+  sand,
+  rock,
+  moor,
 } as const;
 
 export type TileName = keyof typeof TILES;

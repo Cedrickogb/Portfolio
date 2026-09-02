@@ -111,6 +111,18 @@ export const shadowOffset = (height: number): [number, number] => [
  * Une enseigne posée trop haut sur la façade disparaît derrière le débord : le
  * toit la coupe en deux. La marge nécessaire n'est pas une valeur à régler à
  * l'œil, elle se déduit du débord et de l'inclinaison de la caméra.
+ *
+ * Le rayon qui va d'un point de façade vers la caméra s'élève de
+ * `CAMERA_OFFSET.y / CAMERA_OFFSET.z` par unité avancée vers elle. Pour sortir
+ * de sous le toit, il doit franchir tout le débord **avant** d'atteindre la
+ * sous-face : la hauteur perdue est donc le débord *multiplié* par cette pente.
+ *
+ * La première version divisait. Elle réservait 0,7 fois le débord au lieu de
+ * 1,43 — soit à peine la moitié de ce qu'il faut. Sur les quatre maisons, dont
+ * le débord est petit, l'écart tenait dans la marge de sécurité et ne se voyait
+ * pas ; sur le hall, débord 0,55 et colonnade, il mangeait les deux tiers de la
+ * plaque. Une erreur de ce genre ne se rattrape pas à l'œil : elle attend le
+ * bâtiment qui la révèle.
  */
 export const eaveOcclusion = (overhang: number): number =>
-  overhang / (CAMERA_OFFSET[1] / CAMERA_OFFSET[2]);
+  overhang * (CAMERA_OFFSET[1] / CAMERA_OFFSET[2]);

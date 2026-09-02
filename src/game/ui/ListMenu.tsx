@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react';
 import { QUESTS, TECH_LIST } from '@/data/constants';
+import { getMap } from '@/data/maps';
 import { useGameStore } from '@/game/store/useGameStore';
 import GameWindow from './GameWindow';
 import TechIcon from '@/app/components/tech/TechIcon';
@@ -29,6 +30,11 @@ export default function ListMenu() {
   const questsSeen = useGameStore((s) => s.questsSeen);
   const techsSeen = useGameStore((s) => s.techsSeen);
   const muted = useGameStore((s) => s.muted);
+  const travel = useGameStore((s) => s.travel);
+  /* Sous un toit, le vélo n'a pas cours : l'entrée reste visible mais éteinte.
+     La masquer déplacerait toutes les suivantes d'un cran, et le joueur
+     chercherait ensuite « Son » à la place du vélo. */
+  const indoors = useGameStore((s) => getMap(s.mapId).interior);
 
   const quests = useMemo(() => QUESTS.filter((q) => q.active), []);
   const techs = TECH_LIST;
@@ -61,13 +67,28 @@ export default function ListMenu() {
                     <span className={`font-mono text-xl ${i === cursor ? 'text-primary' : 'text-transparent'}`}>
                       ▶
                     </span>
-                    <span className="font-mono text-2xl leading-none text-gray-100">
+                    <span
+                      className={`font-mono text-2xl leading-none ${
+                        entry.id === 'bike' && indoors ? 'text-gray-500' : 'text-gray-100'
+                      }`}
+                    >
                       {entry.label}
                       {/* L'espace est écrit, pas seulement dessiné : `ml-2` crée
                           une marge visuelle mais laisse « Sonactivé » au lecteur
                           d'écran. */}
                       {entry.id === 'sound' && (
                         <span className="ml-2 text-primary">{muted ? ' coupé' : ' activé'}</span>
+                      )}
+                      {entry.id === 'bike' && (
+                        <span className={`ml-2 ${indoors ? 'text-gray-500' : 'text-primary'}`}>
+                          {indoors
+                            ? ' pas a l\u2019interieur'
+                            : travel === 'boat'
+                              ? ' en barque'
+                              : travel === 'bike'
+                                ? ' en selle'
+                                : ' a pied'}
+                        </span>
                       )}
                     </span>
                   </button>

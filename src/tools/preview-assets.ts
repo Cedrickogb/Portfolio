@@ -26,6 +26,8 @@ const tiles = Object.entries(TILES).map(([name, art]) => ({
   raster: scaleRaster(rasterFromPixelArt(art), ZOOM),
 }));
 const hero = scaleRaster(heroAtlas(), ZOOM);
+const heroBike = scaleRaster(heroAtlas(undefined, 'bike'), ZOOM);
+const heroBoat = scaleRaster(heroAtlas(undefined, 'boat'), ZOOM);
 const shadow = scaleRaster(heroShadowRaster(), ZOOM);
 const signs = ['LAB', 'QUESTS', 'STACKS', 'CONTACT'].map((l) => scaleRaster(signRaster(l), ZOOM));
 const postSign = scaleRaster(postSignRaster(), ZOOM);
@@ -46,7 +48,7 @@ const width = Math.max(tilesRowW, hero.width, signs[0].width, stylesRowW, perRow
 const signsH = signs.length * (signs[0].height + GAP);
 const stylesH = styles[0].roof.height + GAP;
 const height =
-  GAP + swatchRows * swatch + GAP + tiles[0].raster.height + GAP + hero.height + GAP +
+  GAP + swatchRows * swatch + GAP + tiles[0].raster.height + GAP + hero.height * 3 + GAP * 2 + GAP +
   shadow.height + GAP + signsH + stylesH;
 
 const sheet: Raster = createRaster(width, height);
@@ -71,6 +73,10 @@ y += tiles[0].raster.height + GAP;
 
 blit(sheet, hero, GAP, y);
 y += hero.height + GAP;
+blit(sheet, heroBike, GAP, y);
+y += heroBike.height + GAP;
+blit(sheet, heroBoat, GAP, y);
+y += heroBoat.height + GAP;
 
 blit(sheet, shadow, GAP, y);
 y += shadow.height + GAP;

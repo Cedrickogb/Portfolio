@@ -23,6 +23,8 @@ export const START_ENTRIES = [
   { id: 'quests', label: 'Journal de quêtes' },
   { id: 'stacks', label: 'StackDex' },
   { id: 'cv', label: 'Fiche & CV' },
+  { id: 'map', label: 'Carte du monde' },
+  { id: 'bike', label: 'Vélo' },
   { id: 'sound', label: 'Son' },
   { id: 'classic', label: 'Mode classique' },
   { id: 'reset', label: 'Nouvelle partie' },

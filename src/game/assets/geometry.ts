@@ -83,8 +83,59 @@ export const PROP_HEIGHT = {
   lamp: 1.84,
   sign: 0.88,
   fence: 0.55,
+  cliff: 0.8,
+  boulder: 0.62,
+  bush: 0.58,
   flower: 0.22,
 } as const;
+
+/** Hauteur d'un gradin de falaise. */
+export const CLIFF_H = 0.8;
+
+/**
+ * Falaise : le seul vrai relief de la carte.
+ *
+ * Une carte plate reste lisible mais paraît morte, quel que soit le nombre
+ * d'arbres qu'on y sème — le regard n'a aucune ligne d'horizon intermédiaire
+ * où s'accrocher. Un gradin de 0,8 tuile suffit : à 55° de caméra, il découvre
+ * une face de roche haute d'environ une demi-tuile à l'écran, assez pour lire
+ * « plateau » sans jamais masquer un personnage placé derrière.
+ *
+ * Le dessus est en roche, pas en herbe. Première version : couronne d'herbe
+ * sur le gradin. Résultat, une falaise orientée nord-sud devenait invisible —
+ * la caméra n'a aucun décalage horizontal, donc les faces est et ouest sont
+ * vues par la tranche, et chaque gradin masque la face avant de son voisin du
+ * nord. D'une muraille entière on ne voyait que des dessus... verts, comme le
+ * sol. En roche, la crête se lit sur toute sa longueur, quelle que soit son
+ * orientation.
+ */
+export const buildCliff = (): BufferGeometry =>
+  assemble([
+    coloredBox([1, CLIFF_H, 1], [0, CLIFF_H / 2, 0], {
+      top: P.rockHi, side: P.rockDark, front: P.rock,
+    }),
+    /* Pied assombri : une face de roche unie se lit comme un panneau posé là.
+       La bande sombre du bas donne l'assise. La boîte rapportée est un cheveu
+       plus large que le gradin, sinon leurs faces coïncident et se disputent
+       le tampon de profondeur. */
+    coloredBox([1.01, 0.22, 1.01], [0, 0.11, 0], {
+      top: P.rockDark, side: P.rockDark, front: P.rockDark,
+    }),
+  ]);
+
+/** Rocher : deux blocs décalés, pour que la silhouette ne soit pas un cube. */
+export const buildBoulder = (): BufferGeometry =>
+  assemble([
+    coloredBox([0.84, 0.34, 0.74], [0, 0.17, 0], { top: P.rock, side: P.rockDark, front: P.rock }),
+    coloredBox([0.52, 0.3, 0.48], [0.06, 0.44, -0.04], { top: P.rockHi, side: P.rockDark, front: P.rock }),
+  ]);
+
+/** Buisson : bas et large, il remplit les sous-bois sans masquer le joueur. */
+export const buildBush = (): BufferGeometry =>
+  assemble([
+    coloredBox([0.82, 0.34, 0.82], [0, 0.17, 0], { top: P.tallGrass, side: P.tallGrassDark, front: P.tallGrass }),
+    coloredBox([0.5, 0.26, 0.5], [-0.08, 0.43, 0.06], { top: P.grassHi, side: P.grassDark, front: P.grassLight }),
+  ]);
 
 /**
  * Arbre : tronc élancé sous une canopée en trois gradins.
