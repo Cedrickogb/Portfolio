@@ -74,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
             {/* Controls */}
             <div className="flex items-center gap-4">
                  {/* Theme Toggle */}
-                 <LangToggle />
+                 {/* <LangToggle /> */}
 
                  {/* Theme Toggle */}
                  <button 
@@ -100,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
 
         {/* Mobile Toggle */}
         <div className="flex items-center justify-center gap-4 md:hidden">
-          <LangToggle />
+          {/* <LangToggle /> */}
 
           <button 
             onClick={toggleTheme}

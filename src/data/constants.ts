@@ -161,6 +161,7 @@ export const PROFILE = {
 import TailwindIcon from '@/app/components/icons/TailwindIcon';
 import SupabaseIcon from '@/app/components/icons/SupabaseIcon';
 import KonvaIcon from '@/app/components/icons/KonvaIcon';
+import ThreejsIcon from '@/app/components/icons/ThreejsIcon';
 
 export const TECH_DATA: Record<TechKey, TechItem> = {
   vue: {
@@ -320,6 +321,29 @@ export const TECH_DATA: Record<TechKey, TechItem> = {
 
     stats: {
       experience: '3 Years',
+      projects: '2',
+    },
+  },
+
+  threejs: {
+    key: 'threejs',
+    name: 'Three.js',
+    type: '3D Library',
+
+    color: 'text-white',
+    borderColor: 'hover:border-white',
+    progressColor: 'bg-white',
+
+    icon: {
+      type: 'svg',
+      component: ThreejsIcon,
+    },
+
+    description:
+      'A powerful JavaScript 3D library for creating interactive and immersive 3D experiences in the browser. Ideal for games, visualizations, animations, and creative web experiences.',
+
+    stats: {
+      experience: '2 Years',
       projects: '2',
     },
   },

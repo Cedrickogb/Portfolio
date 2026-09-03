@@ -7,6 +7,7 @@ export type TechKey =
   | 'tailwind'
   | 'supabase'
   | 'fabricjs'
+  | 'threejs'
   | 'konvajs'
   | 'html'
   | 'js'
