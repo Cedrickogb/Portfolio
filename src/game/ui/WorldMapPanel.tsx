@@ -6,6 +6,7 @@ import { getMap } from '@/data/maps';
 import { PALETTE } from '@/game/assets/palette';
 import type { TileKind } from '@/game/engine/grid';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT } from '@/i18n/LangProvider';
 import GameWindow from './GameWindow';
 
 /**
@@ -49,6 +50,7 @@ export default function WorldMapPanel() {
   const mapId = useGameStore((s) => s.mapId);
   const tile = useGameStore((s) => s.tile);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const t = useT();
 
   const world = useMemo(() => getMap('world'), []);
   const outside = mapId === 'world';
@@ -86,7 +88,7 @@ export default function WorldMapPanel() {
 
   return (
     <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/85 p-3 sm:p-6">
-      <GameWindow title="Carte du monde" hint="B : fermer" width="max-w-4xl">
+      <GameWindow title={t('panel.map.title')} hint={t('panel.close.b')} width="max-w-4xl">
         <div className="overflow-auto">
           <div
             className="relative mx-auto"
@@ -102,17 +104,17 @@ export default function WorldMapPanel() {
               style={{ imageRendering: 'pixelated' }}
             />
 
-            {TERRITORIES.filter((t) => t.id !== 'village').map((t) => (
+            {TERRITORIES.filter((territory) => territory.id !== 'village').map((territory) => (
               <span
-                key={t.id}
+                key={territory.id}
                 className="pointer-events-none absolute whitespace-nowrap border border-black/60 bg-black/75 px-1 font-display text-[7px] leading-4 text-primary-light"
                 style={{
-                  left: (t.rect.x + t.rect.w / 2) * CELL,
-                  top: (t.rect.y + t.rect.h / 2) * CELL,
+                  left: (territory.rect.x + territory.rect.w / 2) * CELL,
+                  top: (territory.rect.y + territory.rect.h / 2) * CELL,
                   transform: 'translate(-50%, -50%)',
                 }}
               >
-                {t.name}
+                {t(territory.nameKey)}
               </span>
             ))}
 

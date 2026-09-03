@@ -1,8 +1,10 @@
 'use client';
 
+import { useT } from '@/i18n/LangProvider';
 import React, { useState, useEffect } from 'react';
 
 const Contact: React.FC = () => {
+  const t = useT();
   const [formProgress, setFormProgress] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
@@ -50,7 +52,7 @@ const Contact: React.FC = () => {
     //       {/* Opponent Stats (HUD) */}
     //       <div className="w-full md:w-80 bg-white/90 dark:bg-black/60 border-2 border-gray-300 dark:border-gray-700 rounded-lg p-3 backdrop-blur-md self-start mt-4 md:mt-12 animate-fade-in shadow-lg">
     //         <div className="flex justify-between items-baseline mb-1">
-    //           <h2 className="font-bold text-lg uppercase tracking-wider text-gray-800 dark:text-white battle-text-shadow font-grotesk">Gym Leader Cédrick</h2>
+    //           <h2 className="font-bold text-lg uppercase tracking-wider text-gray-800 dark:text-white battle-text-shadow font-grotesk">{t('contact.leader')}</h2>
     //           <span className="text-battle-green font-bold text-sm">Lv.99</span>
     //         </div>
     //         <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-4 p-0.5 border border-gray-300 dark:border-gray-600 relative group cursor-help">
@@ -103,7 +105,7 @@ const Contact: React.FC = () => {
     //         <div className="mb-6 md:mb-0">
     //           <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded p-4 bg-gray-50/50 dark:bg-black/30 h-full min-h-[120px]">
     //             <p className="text-gray-800 dark:text-white text-lg leading-relaxed font-medium font-noto">
-    //               A wild <span className="text-battle-green font-bold">Recruiter</span> appeared!
+    //               A wild <span className="text-battle-green font-bold">{t('contact.recruiter')}</span> appeared!
     //             </p>
     //             <p className="text-gray-500 dark:text-gray-300 mt-2 text-base">
     //               What will <span className="text-black dark:text-white font-bold underline decoration-battle-green decoration-2">YOU</span> do?
@@ -115,7 +117,7 @@ const Contact: React.FC = () => {
     //         {/* Player HUD */}
     //         <div className="mt-4 bg-gray-100 dark:bg-gray-900/50 p-3 rounded border border-gray-200 dark:border-gray-800">
     //           <div className="flex justify-between items-center mb-1">
-    //             <span className="font-bold text-gray-700 dark:text-gray-200 uppercase text-sm font-grotesk">Challenger</span>
+    //             <span className="font-bold text-gray-700 dark:text-gray-200 uppercase text-sm font-grotesk">{t('contact.challenger')}</span>
     //             <span className="text-xs text-gray-500 font-mono">Lv. 1</span>
     //           </div>
     //           <div className="flex items-center gap-2">
@@ -138,7 +140,7 @@ const Contact: React.FC = () => {
     //           {/* Move Slot 1 */}
     //           <div className="col-span-1 group relative">
     //             <div className="flex justify-between items-end mb-1">
-    //               <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest group-focus-within:text-battle-green transition-colors font-grotesk">Identity</label>
+    //               <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest group-focus-within:text-battle-green transition-colors font-grotesk">{t('contact.name')}</label>
     //               <span className="text-[10px] font-mono text-gray-400 group-focus-within:text-battle-green">PP 10/10</span>
     //             </div>
     //             <div className="relative">
@@ -157,7 +159,7 @@ const Contact: React.FC = () => {
     //           {/* Move Slot 2 */}
     //           <div className="col-span-1 group relative">
     //             <div className="flex justify-between items-end mb-1">
-    //               <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest group-focus-within:text-battle-green transition-colors font-grotesk">Frequency</label>
+    //               <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest group-focus-within:text-battle-green transition-colors font-grotesk">{t('contact.email')}</label>
     //               <span className="text-[10px] font-mono text-gray-400 group-focus-within:text-battle-green">PP 5/5</span>
     //             </div>
     //             <div className="relative">
@@ -176,7 +178,7 @@ const Contact: React.FC = () => {
     //           {/* Special Move Slot */}
     //           <div className="col-span-1 md:col-span-2 group relative">
     //             <div className="flex justify-between items-end mb-1">
-    //               <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest group-focus-within:text-battle-green transition-colors font-grotesk">Attack Strategy</label>
+    //               <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest group-focus-within:text-battle-green transition-colors font-grotesk">{t('contact.message')}</label>
     //               <span className="text-[10px] font-mono text-gray-400 group-focus-within:text-battle-green">PP 1/1</span>
     //             </div>
     //             <div className="relative">
@@ -221,7 +223,7 @@ const Contact: React.FC = () => {
 
     //     {/* Footer hint */}
     //     <div className="text-center">
-    //       <p className="text-gray-500 dark:text-gray-600 text-xs font-mono">Press 'Enter' to confirm selection. Effectiveness varies by type match-up.</p>
+    //       <p className="text-gray-500 dark:text-gray-600 text-xs font-mono">{t('contact.intro')}</p>
     //     </div>
     //   </div>
     // </section>

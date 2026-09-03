@@ -1,5 +1,6 @@
 import { QUESTS, TECH_LIST } from '@/data/constants';
 import type { MenuKind } from '@/game/store/useGameStore';
+import type { StringKey } from '@/i18n/strings';
 
 /**
  * Contenu des menus de comptoir, en un seul endroit.
@@ -20,17 +21,18 @@ export const techEntries = () => TECH_LIST;
  * toujours sélectionnable.
  */
 export const START_ENTRIES = [
-  { id: 'quests', label: 'Journal de quêtes' },
-  { id: 'stacks', label: 'StackDex' },
-  { id: 'cv', label: 'Fiche & CV' },
-  { id: 'map', label: 'Carte du monde' },
-  { id: 'bike', label: 'Vélo' },
-  { id: 'view', label: 'Vue' },
-  { id: 'ambience', label: 'Ambiance' },
-  { id: 'sound', label: 'Son' },
-  { id: 'classic', label: 'Mode classique' },
-  { id: 'reset', label: 'Nouvelle partie' },
-] as const;
+  { id: 'quests', label: 'menu.quests' },
+  { id: 'stacks', label: 'menu.stacks' },
+  { id: 'cv', label: 'menu.cv' },
+  { id: 'map', label: 'menu.map' },
+  { id: 'bike', label: 'menu.bike' },
+  { id: 'view', label: 'menu.view' },
+  { id: 'ambience', label: 'menu.ambience' },
+  { id: 'sound', label: 'menu.sound' },
+  { id: 'lang', label: 'menu.lang' },
+  { id: 'classic', label: 'menu.classic' },
+  { id: 'reset', label: 'menu.reset' },
+] as const satisfies readonly { id: string; label: StringKey }[];
 
 export type StartEntryId = (typeof START_ENTRIES)[number]['id'];
 

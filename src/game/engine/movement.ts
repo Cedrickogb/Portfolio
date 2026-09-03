@@ -1,5 +1,6 @@
 import { isDock, isWalkable, npcAt, signDialogueAt, warpAt, type NpcSpec, type ParsedMap, type Travel, type Warp } from './grid';
 import { tileAhead, type Direction, type Tile } from './direction';
+import type { Lang } from '../../i18n/lang';
 
 /** Ce que le joueur demande à cette frame. */
 export interface Input {
@@ -15,6 +16,11 @@ export interface Snapshot {
   facing: Direction;
   travel: Travel;
   stepping: boolean;
+  /* La langue *est* un état dont dépend le résultat : lire un panneau ne rend
+     pas le même texte selon le visiteur. La passer ici garde `decide` pure —
+     l'alternative serait d'aller chercher la langue dans un contexte React
+     depuis une fonction de règles, ce qui la rendrait intestable. */
+  lang: Lang;
   dialogue: { lines: string[]; index: number; revealed: number } | null;
 }
 
@@ -93,7 +99,7 @@ export function decide(input: Input, s: Snapshot, map: ParsedMap): Intent {
       if (clerk) return { kind: 'talk-npc', npc: clerk };
     }
 
-    const lines = signDialogueAt(map, front.x, front.y);
+    const lines = signDialogueAt(map, front.x, front.y, s.lang);
     return lines ? { kind: 'talk', lines } : { kind: 'idle' };
   }
 

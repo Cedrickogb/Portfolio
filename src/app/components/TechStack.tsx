@@ -1,11 +1,14 @@
 'use client';
 
+import { useT, useTr } from '@/i18n/LangProvider';
 import React, { useState } from 'react';
 import { TECH_DATA, techByKey } from '@/data/constants';
 import { TechItem } from '@/data/types';
 import TechIcon from './tech/TechIcon';
 
 const TechStack: React.FC = () => {
+  const t = useT();
+  const tr = useTr();
   const [selectedTech, setSelectedTech] = useState<TechItem | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
 
@@ -284,7 +287,7 @@ const TechStack: React.FC = () => {
                   <div className="h-full flex flex-col justify-center items-center">
                     {analyzing ? (
                         <div className="w-full h-full flex items-center justify-center">
-                             <span className="font-mono text-green-400 animate-pulse text-xl">ANALYZING...</span>
+                             <span className="font-mono text-green-400 animate-pulse text-xl">{t('stacks.analyzing')}</span>
                         </div>
                     ) : selectedTech ? (
                          <div className="w-full h-full flex flex-col text-left font-mono text-xs overflow-hidden">
@@ -345,7 +348,7 @@ const TechStack: React.FC = () => {
                                     <span className="text-green-300">{selectedTech.stats.experience}</span>
                                   </div>
                                   <div className="bg-green-900/30 p-1 rounded border border-green-800/50">
-                                    <span className="block text-green-600">PROJECTS</span>
+                                    <span className="block text-green-600">{t('stacks.projects')}</span>
                                     <span className="text-green-300">{selectedTech.stats.projects}</span>
                                   </div>
                                 </div>
@@ -354,7 +357,7 @@ const TechStack: React.FC = () => {
                     ) : (
                         <div className="text-center">
                             <i className="fas fa-microchip text-4xl text-green-500 mb-4 animate-bounce"></i>
-                            <h3 className="font-display text-green-500 text-sm mb-2">SYSTEM READY</h3>
+                            <h3 className="font-display text-green-500 text-sm mb-2">{t('stacks.ready')}</h3>
                             <p className="font-mono text-green-400 text-xs leading-relaxed">
                                 Select a technology cartridge from the collection to analyze its data.
                             </p>

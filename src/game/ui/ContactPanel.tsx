@@ -2,15 +2,17 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT } from '@/i18n/LangProvider';
+import type { StringKey } from '@/i18n/strings';
 import GameWindow from './GameWindow';
 
 type Status = 'idle' | 'sending' | 'sent' | 'invalid' | 'not-configured' | 'failed';
 
-const MESSAGES: Record<Exclude<Status, 'idle' | 'sending'>, string> = {
-  sent: 'Message transmis. Réponse sous peu.',
-  invalid: 'Vérifie le nom, l’adresse et le message.',
-  'not-configured': 'L’envoi n’est pas encore branché sur une boîte mail.',
-  failed: 'Le serveur n’a pas pu transmettre. Réessaie plus tard.',
+const MESSAGE_KEY: Record<Exclude<Status, 'idle' | 'sending'>, StringKey> = {
+  sent: 'contact.ok',
+  invalid: 'contact.invalid',
+  'not-configured': 'contact.unconfigured',
+  failed: 'contact.failed',
 };
 
 const FIELD =
@@ -28,6 +30,7 @@ const FALLBACK = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
  * formulaire qui fait semblant d'envoyer est pire que pas de formulaire.
  */
 export default function ContactPanel() {
+  const t = useT();
   const menu = useGameStore((s) => s.menu);
   const closeMenu = useGameStore((s) => s.closeMenu);
   const [status, setStatus] = useState<Status>('idle');
@@ -77,25 +80,25 @@ export default function ContactPanel() {
 
   return (
     <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/80 p-3 sm:p-8">
-      <GameWindow title="Centre de contact" hint="Échap : fermer" width="max-w-xl">
+      <GameWindow title={t('panel.contact.title')} hint={t('panel.close')} width="max-w-xl">
         <form onSubmit={submit} className="space-y-3">
           <label className="block">
             <span className="mb-1 block font-display text-[8px] tracking-widest text-gray-400">
-              NOM
+              {t('panel.form.name')}
             </span>
             <input ref={nameRef} name="name" required maxLength={80} className={FIELD} />
           </label>
 
           <label className="block">
             <span className="mb-1 block font-display text-[8px] tracking-widest text-gray-400">
-              ADRESSE
+              {t('panel.form.email')}
             </span>
             <input name="email" type="email" required maxLength={120} className={FIELD} />
           </label>
 
           <label className="block">
             <span className="mb-1 block font-display text-[8px] tracking-widest text-gray-400">
-              MESSAGE
+              {t('panel.form.message')}
             </span>
             <textarea name="message" required rows={4} maxLength={2000} className={`${FIELD} resize-none`} />
           </label>
@@ -106,7 +109,7 @@ export default function ContactPanel() {
               disabled={status === 'sending'}
               className="pixel-border-primary bg-primary px-4 py-3 font-display text-[10px] text-black disabled:opacity-60"
             >
-              {status === 'sending' ? 'Envoi…' : 'Envoyer'}
+              {t(status === 'sending' ? 'contact.sending' : 'contact.send')}
             </button>
 
             {status !== 'idle' && status !== 'sending' && (
@@ -114,12 +117,12 @@ export default function ContactPanel() {
                 role="status"
                 className={`font-mono text-xl ${status === 'sent' ? 'text-primary' : 'text-hp-red'}`}
               >
-                {MESSAGES[status]}
+                {t(MESSAGE_KEY[status])}
                 {status === 'not-configured' && FALLBACK && (
                   <>
                     {' '}
                     <a href={`mailto:${FALLBACK}`} className="underline">
-                      Écrire directement
+                      {t('panel.contact.write')}
                     </a>
                   </>
                 )}

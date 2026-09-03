@@ -3,6 +3,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
+import { LangProvider } from '@/i18n/LangProvider';
+import { getLang } from '@/i18n/server';
 
 /* Polices auto-hébergées via Fontsource : les fichiers viennent de node_modules,
    donc aucune requête tierce à l'exécution et aucun appel réseau au build.
@@ -25,8 +27,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  /* La langue est lue ici, une fois, et descend par contexte : le site comme le
+     jeu la reçoivent du même endroit, et l'attribut `lang` du document — que
+     lisent les lecteurs d'écran et les moteurs — est juste dès le premier
+     octet. */
+  const lang = getLang();
+
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         {/* Polices d'icônes : encore en CDN, à internaliser plus tard si le poids gêne. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        {children}
+        <LangProvider initial={lang}>{children}</LangProvider>
         <SpeedInsights />
         <Analytics />
       </body>

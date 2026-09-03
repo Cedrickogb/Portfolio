@@ -22,6 +22,7 @@ import { playerVisual } from '@/game/engine/runtime';
 import { AMBIENCE } from '@/game/world/dayNight';
 import { getMap } from '@/data/maps';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useLang } from '@/i18n/LangProvider';
 
 /* Inclinaison du sprite pour qu'il fasse face à la caméra. La caméra étant
    fixe en orientation, l'angle se calcule une fois : pas de billboard par
@@ -45,6 +46,11 @@ export default function Player({ map }: { map: ParsedMap }) {
      sprite, c'est un autre dessin — sinon les jambes passeraient devant le
      cadre. Deux atlas de 64x64, la mémoire s'en moque. */
   const travel = useGameStore((s) => s.travel);
+  /* La langue est lue par référence : la boucle de rendu tourne hors React et
+     ne doit pas se réabonner à chaque image. */
+  const { lang } = useLang();
+  const langRef = useRef(lang);
+  langRef.current = lang;
   const shadowDim = useGameStore((s) => AMBIENCE[s.phase].shadow);
   const atlas = useMemo(
     () => textureFromRaster(heroAtlas(LOOKS.player, travel === 'foot' ? 'none' : travel)),
@@ -75,7 +81,14 @@ export default function Player({ map }: { map: ParsedMap }) {
 
     const intent = decide(
       { a: consumeA(), dir: heldDir() },
-      { tile: s.tile, facing: s.facing, travel: s.travel, stepping: s.step !== null, dialogue: s.dialogue },
+      {
+        tile: s.tile,
+        facing: s.facing,
+        travel: s.travel,
+        stepping: s.step !== null,
+        dialogue: s.dialogue,
+        lang: langRef.current,
+      },
       map,
     );
 
@@ -83,7 +96,13 @@ export default function Player({ map }: { map: ParsedMap }) {
       case 'reveal-line': s.revealLine(); break;
       case 'advance-dialogue': s.advanceDialogue(); break;
       case 'talk': s.openDialogue(intent.lines); break;
-      case 'talk-npc': s.openDialogue(intent.npc.lines, intent.npc.menu, intent.npc.farewell); break;
+      case 'talk-npc':
+        s.openDialogue(
+          intent.npc.lines[langRef.current],
+          intent.npc.menu,
+          intent.npc.farewell?.[langRef.current],
+        );
+        break;
       case 'warp':
         /* La carte de destination est lue ici, pas dans le store : c'est le
            seul endroit qui sait vers quoi l'on part, et un intérieur descend

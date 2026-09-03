@@ -1,9 +1,12 @@
 'use client';
 
+import { useT, useTr } from '@/i18n/LangProvider';
 import React from 'react';
 import { EXPERIENCE_DATA } from '@/data/constants';
 
 const Experience: React.FC = () => {
+  const t = useT();
+  const tr = useTr();
   return (
     <section id="experience" className="relative z-10 w-full max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-[1fr_2fr] gap-8">
       {/* Sidebar / Stats */}
@@ -22,14 +25,14 @@ const Experience: React.FC = () => {
 
         <div className="bg-white/80 dark:bg-black/80 border-4 border-gray-300 dark:border-gray-600 rounded p-6 relative pixel-border shadow-xl dark:shadow-none backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4 border-b-2 border-dashed border-gray-300 dark:border-gray-700 pb-2">
-            <span className="font-display text-xs text-primary uppercase tracking-widest">Player Stats</span>
-            <span className="font-mono text-gray-500 text-sm">Class: Engineer</span>
+            <span className="font-display text-xs text-primary uppercase tracking-widest">{t('exp.title')}</span>
+            <span className="font-mono text-gray-500 text-sm">{t('exp.class')}</span>
           </div>
           
           <div className="flex flex-col gap-4">
             <div className="space-y-1">
               <div className="flex justify-between font-mono text-xs text-gray-500 dark:text-gray-400">
-                <span>Frontend EXP</span>
+                <span>{t('exp.frontend')}</span>
                 <span>Level 99</span>
               </div>
               <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded-full border border-gray-300 dark:border-gray-700 overflow-hidden">
@@ -39,7 +42,7 @@ const Experience: React.FC = () => {
             
             <div className="space-y-1">
               <div className="flex justify-between font-mono text-xs text-gray-500 dark:text-gray-400">
-                <span>Backend Knowledge</span>
+                <span>{t('exp.backend')}</span>
                 <span>Level 45</span>
               </div>
               <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded-full border border-gray-300 dark:border-gray-700 overflow-hidden">
@@ -49,7 +52,7 @@ const Experience: React.FC = () => {
             
             <div className="space-y-1">
               <div className="flex justify-between font-mono text-xs text-gray-500 dark:text-gray-400">
-                <span>Design Magic</span>
+                <span>{t('exp.design')}</span>
                 <span>Level 70</span>
               </div>
               <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded-full border border-gray-300 dark:border-gray-700 overflow-hidden">
@@ -59,7 +62,7 @@ const Experience: React.FC = () => {
           </div>
 
           <div className="mt-6 pt-4 border-t-2 border-dashed border-gray-300 dark:border-gray-700">
-            <h3 className="font-display text-xs text-loot-gold uppercase mb-3">Inventory (Skills)</h3>
+            <h3 className="font-display text-xs text-loot-gold uppercase mb-3">{t('exp.inventory')}</h3>
             <div className="flex flex-wrap gap-2">
               <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-[10px] font-mono text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-help transition-colors" title="Mastery">React.js</span>
               <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-[10px] font-mono text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-help transition-colors" title="Mastery">TypeScript</span>
@@ -90,7 +93,7 @@ const Experience: React.FC = () => {
             {/* Card */}
             <div className={`bg-white/90 dark:bg-gray-900/80 border-2 border-gray-200 dark:border-gray-700 p-6 rounded relative pixel-border transition-colors duration-300 shadow-sm hover:shadow-lg ${job.highlightColor === 'primary' ? 'group-hover:border-primary' : job.highlightColor === 'xp-blue' ? 'group-hover:border-xp-blue' : 'group-hover:border-gray-500'}`}>
               {job.id === 'senior-mage' && (
-                <div className="absolute -top-3 right-4 bg-primary text-black font-display text-[10px] px-2 py-1 border border-black pixel-border-primary">QUEST COMPLETED</div>
+                <div className="absolute -top-3 right-4 bg-primary text-black font-display text-[10px] px-2 py-1 border border-black pixel-border-primary">{t('exp.completed')}</div>
               )}
               
               <header className="mb-4">
@@ -140,7 +143,7 @@ const Experience: React.FC = () => {
             <span className="material-symbols-outlined text-gray-500 text-sm">egg</span>
           </div>
           <div className="py-1">
-            <p className="font-mono text-sm text-gray-500 italic">Tutorial Complete: Player entered the job market.</p>
+            <p className="font-mono text-sm text-gray-500 italic">{t('exp.tutorial')}</p>
           </div>
         </div>
       </div>

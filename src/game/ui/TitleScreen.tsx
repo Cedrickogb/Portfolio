@@ -8,6 +8,7 @@ import { startMusic, unlockAudio } from '@/game/audio';
 import { sfx } from '@/game/audio/sfx';
 import { flushInput } from '@/game/engine/input';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT, useTr } from '@/i18n/LangProvider';
 
 /**
  * Écran titre.
@@ -18,6 +19,8 @@ import { useGameStore } from '@/game/store/useGameStore';
  * ce geste est refusé — et c'est tant mieux.
  */
 export default function TitleScreen() {
+  const t = useT();
+  const tr = useTr();
   const hydrated = useGameStore((s) => s.hydrated);
   const started = useGameStore((s) => s.started);
   const [choosing, setChoosing] = useState(false);
@@ -58,19 +61,19 @@ export default function TitleScreen() {
           Uppercase<span className="text-white">+</span>
         </h1>
         <p className="font-mono text-2xl text-gray-400">
-          {PROFILE.name} — {PROFILE.role}
+          {PROFILE.name} — {tr(PROFILE.role)}
         </p>
       </div>
 
       {!hydrated ? (
-        <p className="font-display text-[10px] text-gray-500">CHARGEMENT…</p>
+        <p className="font-display text-[10px] text-gray-500">{t('game.loading')}</p>
       ) : !choosing ? (
         <button
           type="button"
           onClick={() => (hasSave ? setChoosing(true) : void begin(false))}
           className="font-display text-xs text-primary animate-pulse"
         >
-          ▶ PRESS START
+          {t('game.press')}
         </button>
       ) : (
         <div className="flex flex-col gap-3">
@@ -79,20 +82,20 @@ export default function TitleScreen() {
             onClick={() => void begin(false)}
             className="pixel-border-primary bg-primary px-6 py-3 font-display text-[10px] text-black"
           >
-            Continuer
+            {t('game.continue')}
           </button>
           <button
             type="button"
             onClick={() => void begin(true)}
             className="border-2 border-battle-border-dark px-6 py-3 font-display text-[10px] text-gray-300 hover:border-primary hover:text-primary"
           >
-            Nouvelle partie
+            {t('game.new')}
           </button>
         </div>
       )}
 
       <p className="font-mono text-lg text-gray-600">
-        Flèches ou ZQSD pour marcher · A pour parler · B pour le menu
+        {t('game.title.hint')}
       </p>
     </div>
   );

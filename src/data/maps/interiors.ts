@@ -46,21 +46,35 @@ export const QUESTS_INTERIOR: GameMap = {
     '8,4': {
       look: 'clerk',
       menu: 'quests',
-      lines: [
-        "Bienvenue au registre des quetes.",
-        "Chaque projet livre y est consigne, avec sa pile technique.",
-        "Je te sors la liste tout de suite.",
-      ],
-      farewell: [
-        "Le registre reste ouvert. Reviens quand tu veux.",
-      ],
+      lines: {
+        en: [
+          "Welcome to the quest registry.",
+          "Every shipped project is logged here, with its stack.",
+          "Let me pull up the list.",
+        ],
+        fr: [
+          "Bienvenue au registre des quêtes.",
+          "Chaque projet livré y est consigné, avec sa pile technique.",
+          "Je te sors la liste tout de suite.",
+        ],
+      },
+      farewell: {
+        en: ["The registry stays open. Come back any time."],
+        fr: ["Le registre reste ouvert. Reviens quand tu veux."],
+      },
     },
   },
   dialogues: {
-    '1': [
-      "Registre des quetes.",
-      "Adresse-toi au comptoir pour consulter la liste.",
-    ],
+    '1': {
+      en: [
+        "Quest registry.",
+        "Ask at the counter to see the list.",
+      ],
+      fr: [
+        "Registre des quêtes.",
+        "Adresse-toi au comptoir pour consulter la liste.",
+      ],
+    },
   },
 };
 
@@ -90,21 +104,35 @@ export const STACKS_INTERIOR: GameMap = {
     '8,4': {
       look: 'keeper',
       menu: 'stacks',
-      lines: [
-        "Ici on tient l'inventaire des technologies.",
-        "Chacune a ses annees de pratique et ses projets.",
-        "Regarde par toi-meme.",
-      ],
-      farewell: [
-        "L'inventaire est a jour. A la prochaine.",
-      ],
+      lines: {
+        en: [
+          "This is where the technology inventory is kept.",
+          "Each one carries its years of practice and its projects.",
+          "See for yourself.",
+        ],
+        fr: [
+          "Ici on tient l'inventaire des technologies.",
+          "Chacune a ses années de pratique et ses projets.",
+          "Regarde par toi-même.",
+        ],
+      },
+      farewell: {
+        en: ["The inventory is up to date. See you around."],
+        fr: ["L'inventaire est à jour. À la prochaine."],
+      },
     },
   },
   dialogues: {
-    '1': [
-      "Inventaire des stacks.",
-      "Le comptoir donne acces a la fiche de chaque techno.",
-    ],
+    '1': {
+      en: [
+        "Stack inventory.",
+        "The counter opens the sheet for every technology.",
+      ],
+      fr: [
+        "Inventaire des stacks.",
+        "Le comptoir donne accès a la fiche de chaque techno.",
+      ],
+    },
   },
 };
 
@@ -134,21 +162,35 @@ export const LAB_INTERIOR: GameMap = {
     '8,4': {
       look: 'self',
       menu: 'cv',
-      lines: [
-        "Le poste de travail. C'est d'ici que tout sort.",
-        "Quatre ans a livrer du logiciel en production,",
-        "des configurateurs web jusqu'a une plateforme SaaS.",
-        "Prends le CV, il est a jour.",
-      ],
-      farewell: [
-        "Bonne exploration.",
-      ],
+      lines: {
+        en: [
+          "The workbench. Everything ships from here.",
+          "Four years putting software into production,",
+          "from web configurators to a SaaS platform.",
+          "Take the CV, it is up to date.",
+        ],
+        fr: [
+          "Le poste de travail. C'est d'ici que tout sort.",
+          "Quatre ans à livrer du logiciel en production,",
+          "des configurateurs web jusqu'à une plateforme SaaS.",
+          "Prends le CV, il est à jour.",
+        ],
+      },
+      farewell: {
+        en: ["Enjoy the tour."],
+        fr: ["Bonne exploration."],
+      },
     },
   },
   dialogues: {
-    '1': [
-      "Laboratoire. Poste de travail, notes et CV.",
-    ],
+    '1': {
+      en: [
+        "Laboratory. Workbench, notes and CV.",
+      ],
+      fr: [
+        "Laboratoire. Poste de travail, notes et CV.",
+      ],
+    },
   },
 };
 
@@ -178,21 +220,35 @@ export const CONTACT_INTERIOR: GameMap = {
     '8,4': {
       look: 'nurse',
       menu: 'contact',
-      lines: [
-        "Bienvenue au centre de contact.",
-        "On peut restaurer un projet a pleine sante,",
-        "ou simplement en discuter autour d'un cafe.",
-        "Laisse-moi ton message, il sera transmis.",
-      ],
-      farewell: [
-        "C'est note. Bonne route.",
-      ],
+      lines: {
+        en: [
+          "Welcome to the contact centre.",
+          "We can restore a project to full health,",
+          "or just talk it over with a coffee.",
+          "Leave me your message, it will reach him.",
+        ],
+        fr: [
+          "Bienvenue au centre de contact.",
+          "On peut restaurer un projet à pleine santé,",
+          "ou simplement en discuter autour d'un café.",
+          "Laisse-moi ton message, il sera transmis.",
+        ],
+      },
+      farewell: {
+        en: ["Noted. Safe travels."],
+        fr: ["C'est noté. Bonne route."],
+      },
     },
   },
   dialogues: {
-    '1': [
-      "Centre de contact. Laisse un message au comptoir.",
-    ],
+    '1': {
+      en: [
+        "Contact centre. Leave a message at the counter.",
+      ],
+      fr: [
+        "Centre de contact. Laisse un message au comptoir.",
+      ],
+    },
   },
 };
 
@@ -228,9 +284,15 @@ export const HALL_INTERIOR: GameMap = {
     '13,5': 'anip',
   },
   dialogues: {
-    '1': [
-      "Hall des trophees.",
-      "Une stele par etape du parcours. Approche-toi pour lire.",
-    ],
+    '1': {
+      en: [
+        "Trophy hall.",
+        "One stele per step of the journey. Walk up to read.",
+      ],
+      fr: [
+        "Hall des trophées.",
+        "Une stèle par étape du parcours. Approche-toi pour lire.",
+      ],
+    },
   },
 };

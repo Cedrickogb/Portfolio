@@ -1,6 +1,14 @@
 import React from 'react';
+import { PROFILE } from '@/data/constants';
+import { getLang } from '@/i18n/server';
+import { t } from '@/i18n/strings';
 
 const Hero: React.FC = () => {
+  /* Composant serveur : la langue vient du cookie, lu à la requête — le premier
+     rendu est donc déjà dans la bonne langue, sans bascule sous les yeux du
+     visiteur. */
+  const lang = getLang();
+
   return (
     <section id="hero" className="relative min-h-screen py-20 flex items-center justify-center overflow-hidden">
       {/* Background Decor */}
@@ -34,25 +42,39 @@ const Hero: React.FC = () => {
 
             {/* Header */}
             <div className="flex items-center justify-between mb-4 border-b-2 border-dashed border-gray-300 dark:border-gray-700 pb-2">
-              <span className="font-display text-xs text-primary uppercase tracking-widest">Character Bio</span>
-              <span className="font-mono text-gray-500 text-sm">Class: Frontend Engineer</span>
+              <span className="font-display text-xs text-primary uppercase tracking-widest">
+                {t(lang, 'hero.bio.title')}
+              </span>
+              <span className="font-mono text-gray-500 text-sm">{t(lang, 'hero.bio.class')}</span>
             </div>
 
             {/* Content */}
             <p className="font-body text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed pr-0 sm:pr-20 transition-colors">
-              I'm a <span className="text-gray-900 dark:text-white font-bold transition-colors">Frontend Engineer</span> based in{' '}
-              <span className="text-primary">Cotonou, Bénin</span> — building interfaces and products that work in the real world.
+              {t(lang, 'hero.line1.a')}
+              <span className="text-gray-900 dark:text-white font-bold transition-colors">
+                {t(lang, 'hero.line1.role')}
+              </span>
+              {t(lang, 'hero.line1.b')}
+              <span className="text-primary">{PROFILE.location}</span>
+              {t(lang, 'hero.line1.c')}
               <br /><br />
-              4 years shipping production-grade apps: from browser-based{' '}
-              <span className="text-gray-900 dark:text-white font-bold transition-colors">design studios</span> (Vertim Coders) to{' '}
-              <span className="text-gray-900 dark:text-white font-bold transition-colors">real-time collaborative tools</span> and my own{' '}
-              <span className="text-primary">B2B SaaS</span> TrustFlow, a reputation management platform for local businesses in West Africa.
+              {t(lang, 'hero.line2.a')}
+              <span className="text-gray-900 dark:text-white font-bold transition-colors">
+                {t(lang, 'hero.line2.studios')}
+              </span>
+              {t(lang, 'hero.line2.b')}
+              <span className="text-gray-900 dark:text-white font-bold transition-colors">
+                {t(lang, 'hero.line2.tools')}
+              </span>
+              {t(lang, 'hero.line2.c')}
+              <span className="text-primary">B2B SaaS</span>
+              {t(lang, 'hero.line2.d')}
               <span className="inline-block w-2 h-5 bg-primary ml-1 cursor-blink align-middle"></span>
             </p>
 
             {/* Press A Prompt */}
             <div className="mt-6 flex justify-end">
-              <span className="font-mono text-xs text-gray-500 animate-pulse mr-2 self-center">Press A to Continue</span>
+              <span className="font-mono text-xs text-gray-500 animate-pulse mr-2 self-center">{t(lang, 'hero.press')}</span>
               <div className="w-8 h-8 rounded-full border-2 border-gray-400 dark:border-gray-500 flex items-center justify-center text-gray-500 font-display text-xs">A</div>
             </div>
 
@@ -71,7 +93,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <a href="/game" className="group relative inline-flex items-center justify-center px-8 py-4 font-display text-sm text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
             ▶ Play
-            <span className="ml-3 font-mono text-lg font-normal opacity-70">game mode</span>
+            <span className="ml-3 font-mono text-lg font-normal opacity-70">{t(lang, 'hero.game')}</span>
           </a>
 
           <a href="/projects" className="group relative inline-flex items-center justify-center border-2 border-gray-400 px-6 py-4 font-display text-xs text-gray-700 transition-colors hover:border-primary hover:text-primary dark:border-gray-600 dark:text-gray-300">

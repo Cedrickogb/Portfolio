@@ -2,6 +2,7 @@
 
 import { PROFILE, QUESTS, TECH_LIST } from '@/data/constants';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT, useTr } from '@/i18n/LangProvider';
 import GameWindow from './GameWindow';
 
 /**
@@ -12,19 +13,21 @@ import GameWindow from './GameWindow';
  */
 export default function LabPanel() {
   const menu = useGameStore((s) => s.menu);
+  const t = useT();
+  const tr = useTr();
   if (menu !== 'cv') return null;
 
   const stats = [
-    ['CLASSE', PROFILE.role],
-    ['REGION', PROFILE.location],
-    ['EXPERIENCE', PROFILE.experience],
-    ['QUETES LIVREES', String(QUESTS.filter((q) => q.active).length)],
-    ['TECHNOLOGIES', String(TECH_LIST.length)],
+    [t('panel.lab.class'), tr(PROFILE.role)],
+    [t('panel.lab.region'), PROFILE.location],
+    [t('panel.lab.experience'), tr(PROFILE.experience)],
+    [t('panel.lab.quests'), String(QUESTS.filter((q) => q.active).length)],
+    [t('panel.lab.techs'), String(TECH_LIST.length)],
   ];
 
   return (
     <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/80 p-3 sm:p-8">
-      <GameWindow title={PROFILE.name} hint="B ou Échap : fermer" width="max-w-xl">
+      <GameWindow title={PROFILE.name} hint={t('panel.close')} width="max-w-xl">
         <dl className="mb-4 space-y-1">
           {stats.map(([label, value]) => (
             <div key={label} className="flex items-baseline gap-3">
@@ -37,7 +40,7 @@ export default function LabPanel() {
         </dl>
 
         <div className="mb-4 space-y-1 border-t-2 border-dashed border-battle-border-dark pt-3">
-          {PROFILE.bio.map((line) => (
+          {tr(PROFILE.bio).map((line) => (
             <p key={line} className="font-mono text-xl leading-snug text-gray-300">
               {line}
             </p>
@@ -49,7 +52,7 @@ export default function LabPanel() {
           download
           className="pixel-border-primary inline-block bg-primary px-4 py-3 font-display text-[10px] text-black"
         >
-          Télécharger le CV ↓
+          {t('panel.cv.download')} ↓
         </a>
       </GameWindow>
     </div>

@@ -98,28 +98,56 @@ export const WORLD_MAP: GameMap = {
     '76,14': { to: 'hall', at: { x: 9, y: 12 }, facing: 'up' },
   },
   dialogues: {
-    '4': [
-      "Bourg d'Uppercase+, au carrefour des routes.",
-      "Le velo se prend dans le menu : B, puis « Velo ».",
-      "A l'est, un ponton. L'ile ne s'atteint qu'en barque.",
-    ],
-    '1': [
-      "Vallon du labo. Le poste de travail et le CV.",
-      "La route du sud redescend vers le bourg.",
-    ],
-    '6': [
-      "Quartier des quetes : le registre des projets livres.",
-    ],
-    '2': [
-      "Plateau des stacks : l'inventaire des technologies.",
-    ],
-    '3': [
-      "Suis la route de l'est jusqu'au ponton,",
-      "puis traverse le detroit en barque.",
-    ],
-    '5': [
-      "Ile des trophees. Le parcours professionnel,",
-      "une stele par etape. Approche-toi pour lire.",
-    ],
+    '4': {
+      en: [
+        "Uppercase Town, where the roads meet.",
+        "The bike is in the menu: B, then \u201cBike\u201d.",
+        "East, a dock. The isle is only reached by boat.",
+      ],
+      fr: [
+        "Bourg d'Uppercase+, au carrefour des routes.",
+        "Le vélo se prend dans le menu : B, puis « Vélo ».",
+        "À l'est, un ponton. L'île ne s'atteint qu'en barque.",
+      ],
+    },
+    '1': {
+      en: [
+        "Lab Valley. The workbench and the CV.",
+        "The south road runs back down to town.",
+      ],
+      fr: [
+        "Vallon du labo. Le poste de travail et le CV.",
+        "La route du sud redescend vers le bourg.",
+      ],
+    },
+    '6': {
+      en: ["Quest District: the registry of shipped projects."],
+      fr: ["Quartier des quêtes : le registre des projets livrés."],
+    },
+    '2': {
+      en: ["Stack Plateau: the technology inventory."],
+      fr: ["Plateau des stacks : l'inventaire des technologies."],
+    },
+    '3': {
+      en: [
+        "Follow the east road to the dock,",
+        "then row across the strait.",
+      ],
+      fr: [
+        "Suis la route de l'est jusqu'au ponton,",
+        "puis traverse le détroit en barque.",
+      ],
+    },
+    '5': {
+      en: [
+        "Trophy Isle. The professional journey,",
+        "one stele per step. Walk up to read.",
+      ],
+      fr: [
+        "Île des trophées. Le parcours professionnel,",
+        "une stèle par étape. Approche-toi pour lire.",
+      ],
+    },
   },
+
 };

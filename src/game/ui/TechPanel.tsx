@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { TECH_LIST, techByKey } from '@/data/constants';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT, useTr } from '@/i18n/LangProvider';
 import GameWindow from './GameWindow';
 import StatBar from './StatBar';
 import TechIcon from '@/app/components/tech/TechIcon';
@@ -10,6 +11,8 @@ import { techFacts, yearsScale } from './techFacts';
 
 /** Fiche d'une technologie, façon entrée de bestiaire. Contenu : `TECH_DATA`. */
 export default function TechPanel() {
+  const t = useT();
+  const tr = useTr();
   const techKey = useGameStore((s) => s.techKey);
   const tech = techKey ? techByKey(techKey) : undefined;
   const scale = useMemo(() => yearsScale(TECH_LIST), []);
@@ -19,7 +22,7 @@ export default function TechPanel() {
 
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/85 p-3 sm:p-8">
-      <GameWindow title={tech.name} hint="A ou B : fermer" width="max-w-xl">
+      <GameWindow title={tech.name} hint={t('panel.close.ab')} width="max-w-xl">
         <div className="mb-4 flex items-center gap-4">
           <span className="flex h-20 w-20 shrink-0 items-center justify-center border-4 border-battle-border-dark bg-battle-panel-dark">
             <TechIcon tech={tech} mini={true} className="text-4xl w-10 h-10" />

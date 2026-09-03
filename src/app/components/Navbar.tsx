@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import LangToggle from '@/i18n/LangToggle';
+import { useT } from '@/i18n/LangProvider';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
@@ -9,12 +11,17 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const t = useT();
 
+  /* Les intitulés de navigation gardent leur habillage « jeu » — Start, Skills,
+     Quests — parce qu'ils font partie de l'identité du site et se lisent dans
+     les deux langues. Seuls les mots qui changent vraiment de sens passent par
+     le dictionnaire. */
   const navLinks = [
     { name: 'Start', href: '/' },
     { name: 'Skills', href: '/stacks' },
     { name: 'Quests', href: '/projects' },
-    { name: 'Contact', href: '/contacts' },
+    { name: t('nav.contacts'), href: '/contacts' },
     { name: '▶ Play', href: '/game' },
   ];
 
@@ -67,10 +74,13 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
             {/* Controls */}
             <div className="flex items-center gap-4">
                  {/* Theme Toggle */}
+                 <LangToggle />
+
+                 {/* Theme Toggle */}
                  <button 
                     onClick={toggleTheme}
                     className="p-2 rounded text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-                    aria-label="Toggle Theme"
+                    aria-label={t('nav.theme')}
                  >
                     {theme === 'dark' ? (
                         <i className="fas fa-sun"></i>
@@ -90,8 +100,11 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
 
         {/* Mobile Toggle */}
         <div className="flex items-center justify-center gap-4 md:hidden">
+          <LangToggle />
+
           <button 
             onClick={toggleTheme}
+            aria-label={t('nav.theme')}
             className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
           >
             {theme === 'dark' ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}

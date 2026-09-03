@@ -786,6 +786,56 @@ d'entrées et actionnait la première entrée du menu dès son ouverture — app
 sur B après « PRESS START » ouvrait le menu *et* le Journal de quêtes dans la
 foulée. Un changement de contexte repart désormais d'une file vide.
 
+### Phase 6 — Une seule langue à la fois · v1
+
+Demandé par Cédrick : **le site est en anglais, le jeu et ses dialogues en
+français ; un bouton doit basculer l'ensemble.**
+
+**L'anglais est la langue par défaut**, celle que voient les moteurs de
+recherche et le premier visiteur : le portfolio s'adresse d'abord à des
+recruteurs anglophones. Le français est un choix explicite, retenu d'une visite
+à l'autre.
+
+**Cookie, pas `localStorage`.** Le stockage local n'est lisible qu'après
+hydratation : une page rendue au serveur partirait donc toujours en anglais
+puis basculerait sous les yeux du visiteur francophone. Le cookie accompagne la
+requête — le premier pixel est déjà dans la bonne langue. Prix payé : les pages
+qui le lisent deviennent dynamiques, Next ne les pré-génère plus. Pour un
+portfolio dont le contenu tient en mémoire, c'est le bon échange.
+
+**Deux chemins, une source.** Les composants serveur lisent le cookie
+(`getLang()`), les composants client lisent un contexte (`useT`). La bascule
+écrit le cookie, met à jour le contexte — le jeu, entièrement client, change
+à l'instant — puis appelle `router.refresh()`, qui rejoue le rendu serveur avec
+le nouveau cookie sans recharger la page ni perdre la partie en cours.
+
+**La complétude est un problème de types, pas de discipline.** L'anglais définit
+les clés, le français est déclaré `Record<StringKey, string>` : une traduction
+oubliée est une erreur de compilation, pas un mot anglais qui traîne dans une
+page française. Même principe dans les données du jeu — répliques de personnage
+et panneaux portent `Translated<string[]>`, et `parseMap` refuse un personnage
+muet dans une seule langue.
+
+- [x] Interface du jeu : menus, panneaux, écran titre, indications de commandes,
+      bandeaux de territoire, plaques gravées du hall (« SORTIE » / « EXIT »).
+- [x] Tous les dialogues et panneaux du monde, dans les deux langues. Le
+      français a récupéré ses accents au passage : ils étaient proscrits du
+      temps où je croyais les afficher à la fonte 3x5, alors que ces textes
+      passent par du HTML.
+- [x] Chrome du site : navigation, fiche du personnage, statistiques, centre de
+      contact, StackDex.
+- [x] `t()` pure, testée : couverture des deux langues, aucune chaîne vide,
+      aucun marqueur de travail oublié, et une garde contre la traduction
+      abandonnée en route (moins de 20 % de lignes identiques d'une langue à
+      l'autre).
+
+**Ce qui reste en anglais dans les deux langues** — et c'est délibéré pour
+cette v1 : les textes longs des *données*, c'est-à-dire les descriptions de
+projets, leurs piles techniques et les réalisations du parcours. Ce n'est plus
+un travail d'ingénierie mais d'écriture, et ces paragraphes-là parlent au nom
+de Cédrick : ils lui reviennent, ou me reviennent en relecture. Le mécanisme
+est prêt (`Translated`, resolvers), il ne manque que le texte.
+
 ### Réglage — voir le corps suivre le regard · fait
 
 Précision de Cédrick : **« si je regarde à gauche, le corps du perso doit

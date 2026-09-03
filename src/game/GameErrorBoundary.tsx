@@ -5,6 +5,10 @@ import Link from 'next/link';
 
 interface Props {
   children: ReactNode;
+  /* Une frontière d'erreur est un composant de classe : pas de hooks, donc pas
+     de contexte de langue. Les textes lui sont passés déjà traduits par son
+     parent, qui est un composant de fonction. */
+  labels: { crashed: string; back: string };
 }
 
 interface State {
@@ -33,13 +37,13 @@ export default class GameErrorBoundary extends Component<Props, State> {
 
     return (
       <div className="w-screen h-[100dvh] flex flex-col items-center justify-center gap-6 bg-black px-6 text-center">
-        <p className="font-display text-xs text-hp-red">LE JEU A PLANTÉ</p>
+        <p className="font-display text-xs text-hp-red">{this.props.labels.crashed}</p>
         <p className="font-mono text-lg text-gray-400 max-w-xl break-words">{error.message}</p>
         <Link
           href="/"
           className="font-display text-[10px] bg-primary text-black px-4 py-3 hover:translate-y-[-2px] transition-transform"
         >
-          ← Retour au site
+          {this.props.labels.back}
         </Link>
       </div>
     );

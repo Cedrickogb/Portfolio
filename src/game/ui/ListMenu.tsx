@@ -3,7 +3,8 @@
 import { useMemo } from 'react';
 import { QUESTS, TECH_LIST } from '@/data/constants';
 import { getMap } from '@/data/maps';
-import { AMBIENCE } from '@/game/world/dayNight';
+import { useT } from '@/i18n/LangProvider';
+import { PHASE_KEY, TRAVEL_KEY } from './labels';
 import { useGameStore } from '@/game/store/useGameStore';
 import GameWindow from './GameWindow';
 import TechIcon from '@/app/components/tech/TechIcon';
@@ -41,6 +42,7 @@ export default function ListMenu() {
   const viewMode = useGameStore((s) => s.view);
   const phaseAuto = useGameStore((s) => s.phaseAuto);
 
+  const t = useT();
   const quests = useMemo(() => QUESTS.filter((q) => q.active), []);
   const techs = TECH_LIST;
   const scale = useMemo(() => yearsScale(techs), [techs]);
@@ -50,8 +52,10 @@ export default function ListMenu() {
   return (
     <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/75 p-3 sm:p-8">
       <GameWindow
-        title={menu === 'quests' ? 'Journal de quêtes' : menu === 'stacks' ? 'StackDex' : 'Menu'}
-        hint={menu === 'stacks' ? '↑↓←→ choisir · A ouvrir · B fermer' : '↑↓ choisir · A ouvrir · B fermer'}
+        title={t(
+          menu === 'quests' ? 'panel.quests.title' : menu === 'stacks' ? 'panel.stacks.title' : 'menu.title',
+        )}
+        hint={t(menu === 'stacks' ? 'menu.hint.grid' : 'menu.hint')}
         width={menu === 'stacks' ? 'max-w-3xl' : 'max-w-xl'}
       >
         {menu === 'start' ? (
@@ -79,36 +83,34 @@ export default function ListMenu() {
                           : 'text-gray-100'
                       }`}
                     >
-                      {entry.label}
+                      {t(entry.label)}
                       {/* L'espace est écrit, pas seulement dessiné : `ml-2` crée
                           une marge visuelle mais laisse « Sonactivé » au lecteur
                           d'écran. */}
                       {entry.id === 'sound' && (
-                        <span className="ml-2 text-primary">{muted ? ' coupé' : ' activé'}</span>
+                        <span className="ml-2 text-primary">
+                          {t(muted ? 'menu.sound.off' : 'menu.sound.on')}
+                        </span>
                       )}
                       {entry.id === 'view' && (
                         <span className={`ml-2 ${spatial ? 'text-primary' : 'text-gray-500'}`}>
-                          {spatial
-                            ? viewMode === 'first'
-                              ? ' 1re personne'
-                              : ' 3e personne'
-                            : ' salles en 3D'}
+                          {t(
+                            !spatial
+                              ? 'menu.view.na'
+                              : viewMode === 'first'
+                                ? 'menu.view.first'
+                                : 'menu.view.third',
+                          )}
                         </span>
                       )}
                       {entry.id === 'ambience' && (
                         <span className="ml-2 text-primary">
-                          {` ${AMBIENCE[phase].label}${phaseAuto ? ' (heure reelle)' : ''}`}
+                          {` ${t(PHASE_KEY[phase])}${phaseAuto ? t('menu.ambience.auto') : ''}`}
                         </span>
                       )}
                       {entry.id === 'bike' && (
                         <span className={`ml-2 ${indoors ? 'text-gray-500' : 'text-primary'}`}>
-                          {indoors
-                            ? ' pas a l\u2019interieur'
-                            : travel === 'boat'
-                              ? ' en barque'
-                              : travel === 'bike'
-                                ? ' en selle'
-                                : ' a pied'}
+                          {t(indoors ? 'menu.bike.indoors' : TRAVEL_KEY[travel])}
                         </span>
                       )}
                     </span>
@@ -120,11 +122,11 @@ export default function ListMenu() {
             {/* La progression n'est pas décorative : c'est ce qui donne envie de
                 finir le tour, et la preuve que la partie a bien été retenue. */}
             <p className="mt-4 border-t-2 border-dashed border-battle-border-dark pt-3 font-mono text-xl text-gray-400">
-              Quêtes lues{' '}
+              {t('menu.seen.quests')}{' '}
               <span className="text-primary">
                 {questsSeen.length}/{quests.length}
               </span>
-              {'  ·  '}Technos vues{' '}
+              {'  ·  '}{t('menu.seen.techs')}{' '}
               <span className="text-primary">
                 {techsSeen.length}/{techs.length}
               </span>

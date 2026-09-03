@@ -16,14 +16,23 @@ import pic8 from '../app/image/trust-flow.webp'
  */
 export const PROFILE = {
   name: 'Cédrick OGOUBIYI',
-  role: 'Frontend Engineer',
+  /* Les champs de prose portent les deux langues côte à côte : le type
+     `Translated` interdit d'en oublier une, et l'affichage choisit. */
+  role: { en: 'Frontend Engineer', fr: 'Ingénieur frontend' },
   location: 'Cotonou, Bénin',
-  experience: '4 ans',
-  bio: [
-    'Ingénieur frontend, quatre ans à livrer du logiciel en production.',
-    'Des studios de conception dans le navigateur chez Vertim Coders aux outils collaboratifs temps réel.',
-    'Et TrustFlow, ma plateforme SaaS de gestion de réputation pour les commerces d\'Afrique de l\'Ouest.',
-  ],
+  experience: { en: '4 years', fr: '4 ans' },
+  bio: {
+    en: [
+      'Frontend engineer, four years shipping software to production.',
+      'From in-browser design studios at Vertim Coders to real-time collaborative tools.',
+      'And TrustFlow, my own SaaS reputation platform for West African businesses.',
+    ],
+    fr: [
+      'Ingénieur frontend, quatre ans à livrer du logiciel en production.',
+      'Des studios de conception dans le navigateur chez Vertim Coders aux outils collaboratifs temps réel.',
+      'Et TrustFlow, ma plateforme SaaS de gestion de réputation pour les commerces d\'Afrique de l\'Ouest.',
+    ],
+  },
   /** Fichier servi depuis public/. */
   cv: '/cedrick-ogoubiyi-cv.pdf',
 } as const;

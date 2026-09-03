@@ -39,6 +39,7 @@ const snap = (over: Partial<Snapshot> = {}): Snapshot => ({
   travel: 'foot',
   stepping: false,
   dialogue: null,
+  lang: 'en',
   ...over,
 });
 
@@ -104,7 +105,7 @@ check('on parle au personnage par-dessus le comptoir', () => {
   assert.equal(inn.kinds[npc.y + 1][npc.x], 'counter', 'pas de comptoir entre les deux');
   const r = decide(
     { a: true, dir: null },
-    { tile: standing, facing: 'up', travel: 'foot', stepping: false, dialogue: null },
+    { tile: standing, facing: 'up', travel: 'foot', stepping: false, dialogue: null, lang: 'en' },
     inn,
   );
   assert.equal(r.kind, 'talk-npc');
@@ -113,14 +114,15 @@ check('on parle au personnage par-dessus le comptoir', () => {
 check('le personnage du registre ouvre le menu des quetes', () => {
   const npc = inn.npcs[`${inn.npcTiles[0].x},${inn.npcTiles[0].y}`];
   assert.equal(npc.menu, 'quests');
-  assert.ok(npc.lines.length > 0, 'personnage muet');
+  assert.ok(npc.lines.en.length > 0, 'personnage muet en anglais');
+  assert.ok(npc.lines.fr.length > 0, 'personnage muet en francais');
 });
 
 check('un paillasson declenche la teleportation', () => {
   const door = inn.positions.door[0];
   const r = decide(
     { a: false, dir: null },
-    { tile: door, facing: 'down', travel: 'foot', stepping: false, dialogue: null },
+    { tile: door, facing: 'down', travel: 'foot', stepping: false, dialogue: null, lang: 'en' },
     inn,
   );
   assert.equal(r.kind, 'warp');
@@ -143,7 +145,7 @@ console.log('\ncontenu de la carte');
 check('chaque panneau a des repliques', () => {
   assert.ok(map.positions.sign.length > 0, 'aucun panneau dans la carte');
   for (const p of map.positions.sign) {
-    const lines = signDialogueAt(map, p.x, p.y);
+    const lines = signDialogueAt(map, p.x, p.y, 'en');
     assert.ok(lines && lines.length > 0, `panneau ${tileKey(p.x, p.y)} sans replique`);
   }
 });
@@ -243,7 +245,7 @@ check('les paillassons sont praticables', () => {
 check('A au spawn parle au panneau place devant', () => {
   // Le prototype place volontairement un panneau dans l'axe du regard initial.
   const front = tileAhead(map.spawn, 'down');
-  const lines = signDialogueAt(map, front.x, front.y);
+  const lines = signDialogueAt(map, front.x, front.y, 'en');
   assert.ok(lines, `aucun panneau en ${tileKey(front.x, front.y)}`);
   const r = decide({ a: true, dir: null }, snap({ facing: 'down' }), map);
   assert.deepEqual(r, { kind: 'talk', lines });
@@ -266,11 +268,42 @@ check('A face a un panneau ouvre le bon dialogue', () => {
   const s = snap({ tile: { x: sign.x, y: sign.y - 1 }, facing: 'down' });
   const r = decide({ a: true, dir: null }, s, map);
   assert.equal(r.kind, 'talk');
-  assert.deepEqual(r.kind === 'talk' ? r.lines : null, signDialogueAt(map, sign.x, sign.y));
+  assert.deepEqual(r.kind === 'talk' ? r.lines : null, signDialogueAt(map, sign.x, sign.y, 'en'));
 });
 
 check('A dans le vide ne declenche rien', () => {
   assert.deepEqual(decide({ a: true, dir: null }, snap({ facing: 'up' }), map), { kind: 'idle' });
+});
+
+console.log('\nlangues');
+
+check('chaque panneau parle les deux langues', () => {
+  /* Un panneau sans version anglaise laisserait un texte francais dans une
+     partie anglaise — exactement la dissonance qu'on cherche a supprimer. */
+  for (const carte of [map, inn, parseMap(HALL_INTERIOR)]) {
+    for (const [ch, spec] of Object.entries(carte.dialogues)) {
+      for (const lang of ['en', 'fr'] as const) {
+        const lignes = spec[lang];
+        assert.ok(lignes.length > 0, `${carte.name} panneau ${ch} : rien en ${lang}`);
+        for (const l of lignes) assert.ok(l.trim().length > 0, `${carte.name} ${ch} ${lang} : ligne vide`);
+      }
+    }
+  }
+});
+
+check('un panneau rend un texte different selon la langue', () => {
+  const front = tileAhead(map.spawn, 'down');
+  const en = signDialogueAt(map, front.x, front.y, 'en');
+  const fr = signDialogueAt(map, front.x, front.y, 'fr');
+  assert.ok(en && fr);
+  assert.notDeepEqual(en, fr, 'les deux langues rendent le meme texte');
+});
+
+check('la langue de l instantane decide du texte lu', () => {
+  const r = decide({ a: true, dir: null }, snap({ facing: 'down', lang: 'fr' }), map);
+  assert.equal(r.kind, 'talk');
+  const front = tileAhead(map.spawn, 'down');
+  assert.deepEqual(r.kind === 'talk' ? r.lines : null, signDialogueAt(map, front.x, front.y, 'fr'));
 });
 
 console.log('\nmarche libre (hall en 3D)');

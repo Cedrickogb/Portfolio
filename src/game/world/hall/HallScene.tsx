@@ -26,6 +26,7 @@ import { boomLength, fits, slide } from '@/game/engine/walk';
 import { getMap } from '@/data/maps';
 import { AMBIENCE } from '@/game/world/dayNight';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useLang, useT } from '@/i18n/LangProvider';
 import Avatar from './Avatar';
 import {
   DOOR_H,
@@ -106,6 +107,10 @@ export default function HallScene({ map }: { map: ParsedMap }) {
   const camera = useRef<ThreePerspectiveCamera>(null);
   const avatar = useRef<Group>(null);
 
+  const t = useT();
+  const { lang } = useLang();
+  const langRef = useRef(lang);
+  langRef.current = lang;
   const view = useGameStore((s) => s.view);
   const phase = useGameStore((s) => s.phase);
   /* Seul état de la marche qui remonte jusqu'à React : le pas est une
@@ -172,10 +177,10 @@ export default function HallScene({ map }: { map: ParsedMap }) {
         map.height,
       ),
       wall: pixel(textureFromRaster(rasterFromPixelArt(interiorWallArt(style))), 1, 1),
-      banner: textureFromRaster(bannerRaster('Hall des trophees')),
-      exit: textureFromRaster(labelRaster('Sortie')),
+      banner: textureFromRaster(bannerRaster(t('hall.banner'))),
+      exit: textureFromRaster(labelRaster(t('hall.exit'))),
     };
-  }, [style, map.width, map.height]);
+  }, [style, map.width, map.height, t]);
 
   /* Cartels : un par stèle, gravés à la fonte du jeu. */
   const plaques = useMemo(
@@ -332,7 +337,7 @@ export default function HallScene({ map }: { map: ParsedMap }) {
         const f = forwardOf(yaw.current);
         const ax = Math.round(pos.current.x + f.x);
         const ay = Math.round(pos.current.y + f.z);
-        const lines = signDialogueAt(map, ax, ay);
+        const lines = signDialogueAt(map, ax, ay, langRef.current);
         if (lines) s.openDialogue(lines);
       }
     }

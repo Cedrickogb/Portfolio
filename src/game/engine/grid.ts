@@ -1,5 +1,6 @@
 import { DEFAULT_STYLE, isBuildingStyle, type BuildingStyleName } from '../assets/buildings';
 import type { Direction } from './direction';
+import type { Lang, Translated } from '../../i18n/lang';
 
 export interface Tile {
   x: number;
@@ -39,9 +40,12 @@ export interface Warp {
 export type NpcMenu = 'quests' | 'stacks' | 'contact' | 'cv';
 
 export interface NpcSpec {
-  lines: string[];
+  /* Les répliques portent les deux langues : le type interdit d'en oublier
+     une, et c'est la seule façon d'être sûr qu'aucun personnage ne se mette
+     à parler français dans une partie anglaise. */
+  lines: Translated<string[]>;
   /** Réplique de congé, jouée en refermant le menu du comptoir. */
-  farewell?: string[];
+  farewell?: Translated<string[]>;
   /** Menu ouvert une fois le dialogue terminé. */
   menu?: NpcMenu;
   /** Variante de couleurs du sprite. */
@@ -123,7 +127,7 @@ export interface GameMap {
   name: string;
   rows: string[];
   /** Répliques indexées par le caractère de la tuile ('1'..'9'). */
-  dialogues: Record<string, string[]>;
+  dialogues: Record<string, Translated<string[]>>;
   /** Bâtiments, indexés par le coin haut-gauche de l'emprise : "x,y". */
   buildings?: Record<string, BuildingSpec>;
   /** Téléportations, indexées par la case qui les déclenche : "x,y". */
@@ -182,7 +186,7 @@ export interface ParsedMap {
   npcs: Record<string, NpcSpec>;
   npcTiles: Tile[];
   trophies: Record<string, string>;
-  dialogues: Record<string, string[]>;
+  dialogues: Record<string, Translated<string[]>>;
 }
 
 export const tileKey = (x: number, y: number) => `${x},${y}`;
@@ -322,14 +326,31 @@ export function parseMap(map: GameMap): ParsedMap {
 
   const npcs = map.npcs ?? {};
   for (const t of npcTiles) {
-    if (!npcs[tileKey(t.x, t.y)]) {
+    const spec = npcs[tileKey(t.x, t.y)];
+    if (!spec) {
       throw new Error(`Personnage en ${tileKey(t.x, t.y)} sans réplique dans « ${map.name} »`);
+    }
+    /* Muet dans une seule langue, c'est muet : la moitié des visiteurs
+       tomberait sur un personnage qui n'a rien à dire. */
+    for (const lang of ['en', 'fr'] as const) {
+      if (spec.lines[lang]?.length) continue;
+      throw new Error(
+        `Personnage en ${tileKey(t.x, t.y)} sans réplique « ${lang} » dans « ${map.name} »`,
+      );
     }
   }
   const npcKeys = new Set(npcTiles.map((t) => tileKey(t.x, t.y)));
   for (const key of Object.keys(npcs)) {
     if (!npcKeys.has(key)) {
       throw new Error(`Réplique déclarée en ${key} mais aucun 'N' à cette case dans « ${map.name} »`);
+    }
+  }
+
+  const dialogues = map.dialogues ?? {};
+  for (const [ch, spec] of Object.entries(dialogues)) {
+    for (const lang of ['en', 'fr'] as const) {
+      if (spec[lang]?.length) continue;
+      throw new Error(`Panneau « ${ch} » sans texte « ${lang} » dans « ${map.name} »`);
     }
   }
 
@@ -383,9 +404,16 @@ export function isWalkable(map: ParsedMap, x: number, y: number, travel: Travel 
 export const isDock = (map: ParsedMap, x: number, y: number): boolean =>
   x >= 0 && y >= 0 && x < map.width && y < map.height && map.kinds[y][x] === 'dock';
 
-export function signDialogueAt(map: ParsedMap, x: number, y: number): string[] | null {
+export function signDialogueAt(
+  map: ParsedMap,
+  x: number,
+  y: number,
+  lang: Lang,
+): string[] | null {
   const ch = map.signAt[tileKey(x, y)];
-  return ch ? map.dialogues[ch] ?? null : null;
+  if (!ch) return null;
+  const spec = map.dialogues[ch];
+  return spec ? spec[lang] : null;
 }
 
 export const npcAt = (map: ParsedMap, x: number, y: number): NpcSpec | null =>

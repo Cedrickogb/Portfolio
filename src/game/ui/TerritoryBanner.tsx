@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { territoryAt } from '@/data/territories';
 import { setTrack } from '@/game/audio';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT } from '@/i18n/LangProvider';
 
 /**
  * Bandeau de territoire, et bascule de la musique.
@@ -21,6 +22,7 @@ export default function TerritoryBanner() {
   const mapId = useGameStore((s) => s.mapId);
   const tile = useGameStore((s) => s.tile);
   const [shown, setShown] = useState<string | null>(null);
+  const t = useT();
   const previous = useRef<string | null>(null);
 
   const outside = mapId === 'world';
@@ -31,10 +33,10 @@ export default function TerritoryBanner() {
     previous.current = territory.id;
     if (!muted) setTrack(territory.track);
 
-    setShown(territory.name);
+    setShown(t(territory.nameKey));
     const id = window.setTimeout(() => setShown(null), 2600);
     return () => window.clearTimeout(id);
-  }, [started, territory, muted]);
+  }, [started, territory, muted, t]);
 
   if (!shown) return null;
 

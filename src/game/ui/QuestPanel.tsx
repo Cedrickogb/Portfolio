@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { QUESTS } from '@/data/constants';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT, useTr } from '@/i18n/LangProvider';
 import GameWindow from './GameWindow';
 
 /**
@@ -12,6 +13,8 @@ import GameWindow from './GameWindow';
  * Rien n'est recopié : ajouter un projet au portfolio l'ajoute au jeu.
  */
 export default function QuestPanel() {
+  const t = useT();
+  const tr = useTr();
   const questId = useGameStore((s) => s.questId);
   const quest = QUESTS.find((q) => q.id === questId);
 
@@ -19,7 +22,7 @@ export default function QuestPanel() {
 
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/85 p-3 sm:p-8">
-      <GameWindow title={quest.title} hint="B ou Échap : fermer" width="max-w-2xl">
+      <GameWindow title={quest.title} hint={t('panel.close')} width="max-w-2xl">
         <div className="pixel-scroll max-h-[62vh] overflow-y-auto pr-1">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="border-2 border-battle-border-dark bg-battle-panel-dark px-2 py-1 font-display text-[8px] tracking-widest text-gray-300">

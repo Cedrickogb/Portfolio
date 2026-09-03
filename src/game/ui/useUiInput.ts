@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { consumeA, consumeB, consumeDirTap } from '@/game/engine/input';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useLang } from '@/i18n/LangProvider';
 import { menuColumns, menuEntryId, menuLength } from './menuEntries';
 import { DEFAULT_MAP, getMap } from '@/data/maps';
 import { nextPhase, phaseAt } from '@/game/world/dayNight';
@@ -27,6 +28,15 @@ export type UiLayer = 'detail' | 'menu' | 'dialogue' | 'world';
  * logique vivait dans des écouteurs clavier.
  */
 export function useUiInput() {
+  /* La bascule de langue vit dans le contexte React, pas dans le store du jeu :
+     elle est partagée avec le site. Le gestionnaire d'entrée la reçoit donc en
+     référence, pour rester une simple boucle sans abonnement. */
+  const { lang, toggle } = useLang();
+  const toggleLang = useRef(toggle);
+  toggleLang.current = toggle;
+  const langRef = useRef(lang);
+  langRef.current = lang;
+
   useEffect(() => {
     let raf = 0;
 
@@ -105,6 +115,8 @@ export function useUiInput() {
           return s.setPhase(nextPhase(s.phase), false);
         case 'sound':
           return s.setMutedState(!s.muted);
+        case 'lang':
+          return toggleLang.current();
         case 'classic':
           window.location.href = '/';
           return;

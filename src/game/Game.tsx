@@ -28,8 +28,10 @@ import DebugHud from '@/game/ui/DebugHud';
 import TouchControls from '@/game/ui/TouchControls';
 import { getMap, validateWarps } from '@/data/maps';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useT } from '@/i18n/LangProvider';
 
 export default function Game() {
+  const t = useT();
   const shell = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   const mapId = useGameStore((s) => s.mapId);
@@ -142,7 +144,7 @@ export default function Game() {
           href="/"
           className="pointer-events-auto font-display text-[10px] bg-gray-900/80 border-2 border-gray-600 px-3 py-2 text-gray-200 hover:text-primary hover:border-primary transition-colors"
         >
-          ← Site
+          {t('game.back')}
         </Link>
         {/* Les commandes changent avec le lieu : dans une salle en volume, les
             flèches latérales font pivoter au lieu de translater. Afficher la
@@ -150,14 +152,14 @@ export default function Game() {
         <p className="hidden sm:block font-mono text-sm text-gray-400 bg-black/50 px-2 py-1 text-right">
           {spatial ? (
             <>
-              ↑↓ : avancer · ←→ : pivoter<br />
-              souris glissée : regarder autour<br />
-              B puis « Vue » : 1re / 3e personne
+              {t('hint.move3d')}<br />
+              {t('hint.look3d')}<br />
+              {t('hint.view3d')}
             </>
           ) : (
             <>
-              Flèches / ZQSD / WASD : marcher<br />
-              A, Entrée ou Espace : parler
+              {t('hint.walk')}<br />
+              {t('hint.talk')}
             </>
           )}
         </p>
