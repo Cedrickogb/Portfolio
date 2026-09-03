@@ -335,12 +335,12 @@ const TechStack: React.FC = () => {
                                 </div>
                                 <div className="text-right">
                                     <h2 className="text-green-400 font-bold uppercase text-sm">{selectedTech.name}</h2>
-                                    <span className="text-green-600 text-[10px] uppercase">{selectedTech.type}</span>
+                                    <span className="text-green-600 text-[10px] uppercase">{tr(selectedTech.type)}</span>
                                 </div>
                             </div>
                             <div className="flex-grow pixel-scroll overflow-y-auto pr-1 mb-2">
                                 <p className="text-green-300 text-[15px] leading-relaxed mb-4">
-                                  {selectedTech.description}
+                                  {tr(selectedTech.description)}
                                 </p>
                                 <div className="grid grid-cols-2 gap-2 text-[13px]">
                                   <div className="bg-green-900/30 p-1 rounded border border-green-800/50">

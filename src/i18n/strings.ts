@@ -48,6 +48,7 @@ const en = {
   'contact.leader': 'Gym Leader Cédrick',
   'exp.download': 'Download',
   'stacks.ready': 'SYSTEM READY',
+  'stacks.special': 'SPECIAL ATTACK',
 
   /* --- expérience -------------------------------------------------------- */
   'exp.title': 'Player Stats',
@@ -62,6 +63,13 @@ const en = {
   /* --- projets ----------------------------------------------------------- */
   'quests.title': 'Quest Log',
   'quests.subtitle': 'Projects shipped to production.',
+  'quests.select': 'Select a mission to view details. Completed quests demonstrate mastery in web development.',
+  'quests.back': '← Back to Quests',
+  'quests.section.quest': 'Quest',
+  'quests.section.skills': 'Skills & Gears',
+  'quests.section.achievements': 'Achievements',
+  'quests.download': 'DOWNLOAD',
+  'quests.start': 'START',
   'quests.stack': 'Stack',
   'quests.features': 'Key features',
   'quests.visit': 'Open the project',
@@ -219,6 +227,7 @@ const fr: Record<StringKey, string> = {
   'contact.leader': 'Champion d’arène Cédrick',
   'exp.download': 'Télécharger',
   'stacks.ready': 'SYSTÈME PRÊT',
+  'stacks.special': 'ATTAQUE SPÉCIALE',
 
   'exp.title': 'Statistiques',
   'exp.class': 'Classe : ingénieur',
@@ -231,6 +240,13 @@ const fr: Record<StringKey, string> = {
 
   'quests.title': 'Journal de quêtes',
   'quests.subtitle': 'Des projets livrés en production.',
+  'quests.select': 'Sélectionne une mission pour voir les détails. Les quêtes terminées démontrent une maîtrise du développement web.',
+  'quests.back': '← Retour aux quêtes',
+  'quests.section.quest': 'Quête',
+  'quests.section.skills': 'Compétences & équipement',
+  'quests.section.achievements': 'Exploits',
+  'quests.download': 'TÉLÉCHARGER',
+  'quests.start': 'DÉMARRER',
   'quests.stack': 'Stack',
   'quests.features': 'Fonctions clés',
   'quests.visit': 'Ouvrir le projet',

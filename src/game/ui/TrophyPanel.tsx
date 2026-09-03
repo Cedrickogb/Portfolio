@@ -4,6 +4,7 @@ import { EXPERIENCE_DATA } from '@/data/constants';
 import { getMap } from '@/data/maps';
 import { trophyNear } from '@/game/engine/grid';
 import { useGameStore } from '@/game/store/useGameStore';
+import { useTr } from '@/i18n/LangProvider';
 import GameWindow from './GameWindow';
 
 /**
@@ -18,6 +19,7 @@ import GameWindow from './GameWindow';
  * disparaît au fil des pas.
  */
 export default function TrophyPanel() {
+  const tr = useTr();
   const mapId = useGameStore((s) => s.mapId);
   const tile = useGameStore((s) => s.tile);
   const started = useGameStore((s) => s.started);
@@ -38,15 +40,15 @@ export default function TrophyPanel() {
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-center p-3 sm:p-6">
       <GameWindow title={job.company} width="max-w-3xl">
         <div className="mb-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <span className="font-mono text-2xl text-primary">{job.role}</span>
+          <span className="font-mono text-2xl text-primary">{tr(job.role)}</span>
           <span className="font-mono text-xl text-gray-400">{job.period}</span>
           {job.location && <span className="font-mono text-xl text-gray-500">{job.location}</span>}
         </div>
 
-        <p className="mb-3 font-mono text-xl leading-snug text-gray-200">{job.description}</p>
+        <p className="mb-3 font-mono text-xl leading-snug text-gray-200">{tr(job.description)}</p>
 
         <ul className="space-y-1">
-          {job.achievements.map((line) => (
+          {tr(job.achievements).map((line) => (
             <li key={line} className="flex gap-2 font-mono text-lg leading-snug text-gray-300">
               <span className="shrink-0 text-primary">▸</span>
               {line}

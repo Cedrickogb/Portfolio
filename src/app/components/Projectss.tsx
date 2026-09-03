@@ -8,10 +8,14 @@ import pic6 from '../image/musicHopper.webp'
 import pic7 from '../image/collabDraw.webp'
 import pic8 from '../image/trust-flow.webp'
 import { QuestItem } from '@/data/types';
+import { getLang } from '@/i18n/server';
+import { pick } from '@/i18n/lang';
+import { t } from '@/i18n/strings';
 import Image from 'next/image';
 
 
 const Projects: React.FC = () => {
+  const lang = getLang();
   return (
     <section id="projects" className="relative z-10 max-w-7xl mx-auto px-6 py-20 flex flex-col items-center">
       {/* Background blobs */}
@@ -22,7 +26,7 @@ const Projects: React.FC = () => {
           <span className="text-primary">QUEST</span> LOG
         </h1>
         <p className="text-gray-600 dark:text-gray-400 max-w-4xl mx-auto font-mono text-xl border-l-2 border-primary-lime pl-4 text-left md:text-center md:border-l-0 md:border-b-2 md:pb-2 md:pl-0 inline-block transition-colors">
-          Select a mission to view details. Completed quests demonstrate mastery in web development.
+          {t(lang, 'quests.select')}
         </p>
       </header>
 
@@ -61,7 +65,7 @@ const Projects: React.FC = () => {
                     </div>
                     
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 font-sans leading-relaxed transition-colors">
-                      {quest.description}
+                      {pick(quest.description, lang)}
                     </p>
 
                     <div className="mt-auto">

@@ -3,6 +3,9 @@ import { QUESTS } from '@/data/constants'; // Ajuste le chemin selon ton dossier
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getLang } from '@/i18n/server';
+import { pick } from '@/i18n/lang';
+import { t } from '@/i18n/strings';
 
 interface ProjectDetailPageProps {
   params: {
@@ -11,6 +14,7 @@ interface ProjectDetailPageProps {
 }
 
 export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  const lang = getLang();
   // On cherche le projet qui correspond à l'ID passé dans l'URL
   const project = QUESTS.find((quest) => quest.id === params.id);
 
@@ -29,7 +33,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
          href="/projects" 
          className="text-primary hover:underline mb-8 inline-block font-mono text-sm"
       >
-         ← Back to Quests
+         {t(lang, 'quests.back')}
       </Link>
 
       <div className='relative flex justify-between'>
@@ -66,7 +70,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                         rel="noopener noreferrer"
                         className="px-4 py-2  md:px-6 md:py-3 font-display text-sm text-black transition-all duration-200 bg-primary pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]"
                      >
-                        {project.isWeb == false ? "DOWNLOAD" : "START"}
+                        {project.isWeb == false ? t(lang, 'quests.download') : t(lang, 'quests.start')}
                      </a>
                   </div>
                </div>
@@ -78,11 +82,11 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   
                   <div className='bg-white/90 dark:bg-gray-900/90 border-4 border-gray-300 dark:border-gray-600 rounded p-6 relative pixel-border group-hover:border-gray-900 dark:group-hover:border-white transition-colors duration-300 shadow-xl dark:shadow-none'>
                      <div className="flex items-center justify-between mb-4 border-b-2 border-dashed border-gray-300 dark:border-gray-700 pb-2">
-                        <h3 className='font-display text-lg md:text-xl text-primary' >Quest</h3>
+                        <h3 className='font-display text-lg md:text-xl text-primary' >{t(lang, 'quests.section.quest')}</h3>
                      </div>
 
                      <p className="text-base md:text-lg font-medium leading-relaxed font-body">
-                        {project.description}
+                        {pick(project.description, lang)}
                         <span className="inline-block w-2 h-5 bg-primary ml-1 cursor-blink align-middle"></span>
                      </p>
                   </div>
@@ -91,15 +95,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                <div id='skills-gears' className="prose md:py-4 dark:prose-invert max-w-none font-sans text-gray-600 dark:text-gray-300">
                   <div className='bg-white/90 dark:bg-gray-900/90 border-4 border-gray-300 dark:border-gray-600 rounded p-6 relative pixel-border group-hover:border-gray-900 dark:group-hover:border-white transition-colors duration-300 shadow-xl dark:shadow-none'>
                      <div className="flex items-center justify-between mb-4 border-b-2 border-dashed border-gray-300 dark:border-gray-700 pb-2">
-                        <h3 className='font-display text-lg md:text-xl text-primary' >Skills & Gears</h3>
+                        <h3 className='font-display text-lg md:text-xl text-primary' >{t(lang, 'quests.section.skills')}</h3>
                      </div>
 
                      <div className="text-base md:text-lg font-medium leading-relaxed font-body">
                         <ul className="list-disc list-inside space-y-1">
-                           {project.tags.map((tag, id) => (
+                           {pick(project.tags, lang).map((tag, id) => (
                            <li key={tag+id} className='items-center'>
                               {tag}
-                              {id == project.tags.length - 1 &&
+                              {id == pick(project.tags, lang).length - 1 &&
                                  <span className="inline-block w-2 h-5 bg-primary ml-1 cursor-blink align-middle"></span>
                               }
                            </li>
@@ -113,15 +117,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                <div id='achievements' className="prose md:py-4 dark:prose-invert max-w-none font-sans text-gray-600 dark:text-gray-300">
                   <div className='bg-white/90 dark:bg-gray-900/90 border-4 border-gray-300 dark:border-gray-600 rounded p-6 relative pixel-border group-hover:border-gray-900 dark:group-hover:border-white transition-colors duration-300 shadow-xl dark:shadow-none'>
                      <div className="flex items-center justify-between mb-4 border-b-2 border-dashed border-gray-300 dark:border-gray-700 pb-2">
-                        <h3 className='font-display text-lg md:text-xl text-primary'>Achievements</h3>
+                        <h3 className='font-display text-lg md:text-xl text-primary'>{t(lang, 'quests.section.achievements')}</h3>
                      </div>
 
                      <div className="text-base md:text-lg font-medium leading-relaxed font-body">
                         <ul className="list-disc list-inside space-y-1">
-                           {project.features?.map((feature, id) => (
+                           {pick(project.features, lang)?.map((feature, id) => (
                            <li key={feature+id} className='items-center'>
                               {feature}
-                              {id == project.features?.length - 1 &&
+                              {id == pick(project.features, lang)?.length - 1 &&
                                  <span className="inline-block w-2 h-5 bg-primary ml-1 cursor-blink align-middle"></span>
                               }
                            </li>
@@ -144,15 +148,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   <nav className="flex flex-col gap-1 font-body text-sm uppercase">
                      <a className="text-gray-600 dark:text-gray-300 flex items-center gap-3 p-2 hover:border-b-2 hover:border-primary hover:glow-lg transition-shadow duration-200"
                         href="#resume">
-                        <span className="text-primary material-symbols-outlined">article</span> Quest
+                        <span className="text-primary material-symbols-outlined">article</span> {t(lang, 'quests.section.quest')}
                      </a>
                      <a className="text-gray-600 dark:text-gray-300 flex items-center gap-3 p-2 hover:border-b-2 hover:border-primary hover:glow-lg transition-shadow duration-200"
                         href="#skills-gears">
-                        <span className="text-primary material-symbols-outlined">memory</span> Skills & Gears
+                        <span className="text-primary material-symbols-outlined">memory</span> {t(lang, 'quests.section.skills')}
                      </a>
                      <a className="text-gray-600 dark:text-gray-300 flex items-center gap-3 p-2 hover:border-b-2 hover:border-primary hover:glow-lg transition-shadow duration-200"
                         href="#achievements">
-                        <span className="text-primary material-symbols-outlined">star</span> Achievements
+                        <span className="text-primary material-symbols-outlined">star</span> {t(lang, 'quests.section.achievements')}
                      </a>
                      {/* <a className="text-primary flex items-center gap-3 p-2 border-l-4 border-transparent hover:bg-[#0a0f0d] hover:glow-lg transition-shadow duration-200"
                         href="#solutions">

@@ -33,7 +33,7 @@ export default function QuestPanel() {
             </span>
             {!quest.active && (
               <span className="border-2 border-hp-red/50 bg-hp-red/10 px-2 py-1 font-display text-[8px] tracking-widest text-hp-red">
-                Archivée
+                {t('quests.archived')}
               </span>
             )}
           </div>
@@ -42,11 +42,11 @@ export default function QuestPanel() {
             <Image src={quest.image} alt="" fill sizes="(max-width: 768px) 100vw, 768px" className="object-cover" />
           </div>
 
-          <p className="mb-4 font-mono text-2xl leading-snug text-gray-200">{quest.description}</p>
+          <p className="mb-4 font-mono text-2xl leading-snug text-gray-200">{tr(quest.description)}</p>
 
-          {quest.features.length > 0 && (
+          {tr(quest.features).length > 0 && (
             <ul className="mb-4 space-y-1">
-              {quest.features.map((feature) => (
+              {tr(quest.features).map((feature) => (
                 <li key={feature} className="flex gap-2 font-mono text-xl leading-snug text-gray-300">
                   <span className="shrink-0 text-primary">▸</span>
                   {feature}
@@ -61,7 +61,7 @@ export default function QuestPanel() {
             rel="noreferrer noopener"
             className="pixel-border-primary inline-block bg-primary px-4 py-3 font-display text-[10px] text-black"
           >
-            Voir le projet ↗
+            {t('quests.visit')} ↗
           </a>
         </div>
       </GameWindow>

@@ -836,6 +836,83 @@ un travail d'ingénierie mais d'écriture, et ces paragraphes-là parlent au nom
 de Cédrick : ils lui reviennent, ou me reviennent en relecture. Le mécanisme
 est prêt (`Translated`, resolvers), il ne manque que le texte.
 
+### Phase 7 — Recensement de bugs · v1
+
+Demandé par Cédrick, en même temps que le mobile : passer le site au crible.
+
+**Bug corrigé — `ThreejsIcon.tsx` en attributs SVG kebab-case.** `stroke-width`,
+`stroke-linecap`, `stroke-linejoin`, `stroke-miterlimit`, `fill-rule` écrits
+tels quels au lieu de leur forme camelCase JSX (`strokeWidth`, …). React ne
+reconnaît pas ces noms comme des props DOM valides : cinq avertissements
+console à chaque montage de l'icône. Le rendu survivait par chance — le
+navigateur applique quand même l'attribut brut — mais c'est fragile et bruyant.
+Corrigé ; seule icône du dossier concernée (vérifié sur les dix autres).
+
+**Trouvé, signalé, laissé tel quel sur confirmation de Cédrick — le bouton de
+langue est désactivé.** Commenté dans `Navbar.tsx` (bureau et mobile) dans son
+propre commit « Ajout de threejs dans les technos », donc une décision de sa
+part, pas une régression du travail précédent. Je ne l'ai pas réactivé.
+
+**Trouvé, à signaler — le formulaire de contact du site est mort.** Toute la
+mise en scène façon combat Pokémon dans `Contact.tsx` (Identity/Frequency/
+Attack Strategy, `<form>`, statuts d'envoi) est commentée depuis avant cette
+session ; la page `/contacts` réellement servie est une carte minimale avec
+juste un numéro et un `mailto:`. Ce que j'ai traduit dans ce bloc pendant la
+phase 6 est donc **inerte** — ça ne casse rien, mais ça ne sert à rien non
+plus tant que ce bloc reste mort. Le formulaire du jeu (`ContactPanel`), lui,
+est bien vivant et branché sur `/api/contact`. Netteté : un recruteur qui
+visite le site classique (pas le jeu) n'a aucun moyen d'envoyer un message
+sans ouvrir son propre client mail. Décision à prendre : réactiver le
+formulaire du site, ou assumer que le mail/téléphone suffit.
+
+**Vérifié, pas un bug — les commandes tactiles.** `pointer: coarse` déclenche
+bien `.game-touch`, les sept boutons (D-pad, ▲/▼/◀/▶, menu, A, B) sont présents
+et visibles sous émulation tactile réelle. Mon premier passage, qui ne
+redimensionnait que le viewport sans émuler un pointeur tactile, ne voyait
+rien — faux négatif de méthode de test, pas un défect du produit. Confirmé
+séparément que `<meta name="viewport">` est posé par défaut (Next.js App
+Router).
+
+**Non concluant — appui tactile sans effet mesuré.** Un `pointerdown` +
+`pointerup` synthétiques sur le bouton ▲ n'ont pas déplacé le joueur dans le
+test automatisé, mais `document.hidden` valait `true` à ce moment : l'onglet
+du bac à sable n'était pas composé à l'écran, donc `requestAnimationFrame` ne
+tournait pas — la boucle de jeu entière était en pause, pas seulement le
+tactile. Un test au clavier aurait échoué pour la même raison. Ce point
+demande une vraie confirmation sur téléphone, pas une simulation.
+
+### Phase 6 (suite) — traduction des données · fait
+
+Cédrick a délégué la traduction elle-même : c'était le seul morceau qui restait
+anglais dans les deux langues.
+
+Traduits en français : les 12 fiches `TECH_DATA` (type + description, y
+compris la marque « Special Move » extraite par `techFacts`), les 9 projets
+`QUESTS` (description, tags de stack, points forts), et les 3 expériences
+`EXPERIENCE_DATA` (intitulé de poste, description, réalisations).
+
+**Piège rencontré, deux fois de suite : chercher la première occurrence d'une
+clé qui existe aussi dans le bloc `TECH_DATA` commenté en haut du fichier.**
+`str.index('export const TECH_DATA')` trouvait la ligne `// export const
+TECH_DATA: …` avant la vraie déclaration, et une recherche de `key: 'vue',`
+dans la zone qui en résultait retombait dans ce même bloc mort. La traduction
+s'écrivait dans du code déjà désactivé, sans qu'aucune erreur ne le signale —
+TypeScript ne compile pas les commentaires. Corrigé en ancrant sur la
+signature de type complète (`export const TECH_DATA: Record<TechKey`), unique
+dans le fichier. Ce n'est pas un problème d'i18n : c'est un rappel que chercher
+un texte par sous-chaîne dans un fichier qui contient sa propre histoire
+commentée est fragile, quel que soit le refactor en cours.
+
+`techFacts` gagne un paramètre de langue : la regex qui isole l'« attaque
+spéciale » de la description doit reconnaître `Special Move:` **et**
+`Attaque spéciale :`. Son calcul d'années d'expérience, lui, ne dépend
+d'aucune langue — il en a été extrait (`techYears`) pour que `yearsScale`
+n'ait pas besoin d'en recevoir une.
+
+Vérifié à l'écran dans les deux langues : cartes de projets, page de détail
+d'un projet, StackDex (site et jeu), fiche & CV du jeu, journal de quêtes,
+stèles du hall. `next build` propre, 81 assertions vertes.
+
 ### Réglage — voir le corps suivre le regard · fait
 
 Précision de Cédrick : **« si je regarde à gauche, le corps du perso doit

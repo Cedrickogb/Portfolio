@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { QUESTS, TECH_LIST } from '@/data/constants';
 import { getMap } from '@/data/maps';
-import { useT } from '@/i18n/LangProvider';
+import { useLang, useT } from '@/i18n/LangProvider';
 import { PHASE_KEY, TRAVEL_KEY } from './labels';
 import { useGameStore } from '@/game/store/useGameStore';
 import GameWindow from './GameWindow';
@@ -43,6 +43,7 @@ export default function ListMenu() {
   const phaseAuto = useGameStore((s) => s.phaseAuto);
 
   const t = useT();
+  const { lang } = useLang();
   const quests = useMemo(() => QUESTS.filter((q) => q.active), []);
   const techs = TECH_LIST;
   const scale = useMemo(() => yearsScale(techs), [techs]);
@@ -163,7 +164,7 @@ export default function ListMenu() {
             style={{ gridTemplateColumns: `repeat(${menuColumns('stacks')}, minmax(0, 1fr))` }}
           >
             {techs.map((tech, i) => {
-              const facts = techFacts(tech);
+              const facts = techFacts(tech, lang);
               const selected = i === cursor;
               return (
                 <li key={tech.key}>

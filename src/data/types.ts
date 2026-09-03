@@ -1,4 +1,5 @@
 import type { ComponentType, SVGProps } from 'react';
+import type { Translated } from '@/i18n/lang';
 
 export type TechKey =
   | 'vue'
@@ -31,10 +32,13 @@ export type TechIconSpec =
 export interface TechItem {
   key: TechKey;
   name: string;
-  type: string;
+  /* Prose, donc bilingue. Le nom de la techno et ses métriques (années,
+     projets) restent des chaînes simples : ils ne changent pas de sens d'une
+     langue à l'autre. */
+  type: Translated<string>;
   color: string;
   borderColor: string;
-  description: string;
+  description: Translated<string>;
   progressColor?: string;
   icon: TechIconSpec;
   stats: {
@@ -47,12 +51,12 @@ export interface QuestItem {
   id: string;
   active: boolean;
   title: string;
-  description: string;
+  description: Translated<string>;
   image: any;
   level: number;
   levelColor: string;
-  tags: string[];
-  features: string[];
+  tags: Translated<string[]>;
+  features: Translated<string[]>;
   date?: string;
   year: string;
   isWeb?: boolean;
@@ -61,13 +65,13 @@ export interface QuestItem {
 
 export interface ExperienceItem {
   id: string;
-  role: string;
+  role: Translated<string>;
   company: string;
   period: string;
   /** Optionnel : non renseigné tant que Cédrick ne l'a pas fourni. */
   location?: string;
-  description: string;
-  achievements: string[];
+  description: Translated<string>;
+  achievements: Translated<string[]>;
   icon: string; // Material Symbol name
   highlightColor: string; // e.g. 'primary', 'xp-blue', 'hp-red'
 }

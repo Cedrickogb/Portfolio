@@ -1,4 +1,5 @@
 import type { TechItem } from '@/data/types';
+import type { Lang } from '@/i18n/lang';
 
 /**
  * Lecture des chiffres et de l'« attaque spéciale » cachés dans `TECH_DATA`.
@@ -16,20 +17,30 @@ export interface TechFacts {
   move: string | null;
 }
 
-const MOVE = /special move\s*:\s*([^.]+)\.?/i;
+/* La marque de l'attaque spéciale est bilingue elle aussi, puisque les
+   descriptions le sont : « Special Move: » côté anglais, « Attaque
+   spéciale : » côté français. */
+const MOVE: Record<Lang, RegExp> = {
+  en: /special move\s*:\s*([^.]+)\.?/i,
+  fr: /attaque sp[ée]ciale\s*:\s*([^.]+)\.?/i,
+};
 
-export function techFacts(tech: TechItem): TechFacts {
+/** Années de pratique. Indépendant de la langue : les chiffres ne se traduisent pas. */
+export function techYears(tech: TechItem): number {
   const numbers = tech.stats.experience.match(/\d+/g)?.map(Number) ?? [];
-  const years = numbers.length ? Math.max(...numbers) : 0;
+  return numbers.length ? Math.max(...numbers) : 0;
+}
 
-  const found = MOVE.exec(tech.description);
+export function techFacts(tech: TechItem, lang: Lang): TechFacts {
+  const description = tech.description[lang];
+  const found = MOVE[lang].exec(description);
   return {
-    years,
-    description: found ? tech.description.replace(found[0], '').trim() : tech.description,
+    years: techYears(tech),
+    description: found ? description.replace(found[0], '').trim() : description,
     move: found ? found[1].trim() : null,
   };
 }
 
 /** Échelle des jauges : la plus longue expérience du portfolio fait le maximum. */
 export const yearsScale = (techs: TechItem[]): number =>
-  Math.max(1, ...techs.map((t) => techFacts(t).years));
+  Math.max(1, ...techs.map(techYears));

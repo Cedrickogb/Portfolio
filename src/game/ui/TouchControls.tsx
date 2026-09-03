@@ -32,14 +32,29 @@ function DirButton({ dir, label, className }: { dir: Direction; label: string; c
   );
 }
 
-/** Superposition tactile. Masquée sur pointeur fin (voir .game-touch dans globals.css). */
+/**
+ * Superposition tactile. Masquée sur pointeur fin (voir .game-touch dans globals.css).
+ *
+ * z-[55] : au-dessus de **tous** les panneaux du jeu (menus z-40, fiches
+ * détail z-50), en-dessous seulement de l'écran titre (z-60) — qui de toute
+ * façon ne coexiste jamais avec elle, puisqu'elle rend `null` tant que la
+ * partie n'a pas commencé.
+ *
+ * Signalé par Cédrick : ouvrir le journal de quêtes ou le StackDex sur mobile
+ * faisait disparaître les boutons A/B/Menu. Ce n'était pas qu'un problème
+ * d'affichage — la fenêtre modale (z-40 ou z-50) était *au-dessus* du D-pad
+ * (z-20 à l'époque), donc elle interceptait aussi les appuis : impossible de
+ * refermer un panneau autrement qu'en revenant au clavier. Le tactile doit
+ * rester la couche la plus haute joignable pendant la partie, sinon on peut
+ * ouvrir un menu sans jamais pouvoir le quitter.
+ */
 export default function TouchControls() {
   const started = useGameStore((s) => s.started);
   // Les commandes n'ont rien à faire par-dessus l'écran titre.
   if (!started) return null;
 
   return (
-    <div className="game-touch pointer-events-none absolute inset-0 z-20">
+    <div className="game-touch pointer-events-none absolute inset-0 z-[55]">
       <div className="pointer-events-auto absolute bottom-4 left-4 grid grid-cols-3 grid-rows-3 gap-1 w-36 h-36">
         <DirButton dir="up" label="▲" className="col-start-2 row-start-1" />
         <DirButton dir="left" label="◀" className="col-start-1 row-start-2" />

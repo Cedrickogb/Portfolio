@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { TECH_LIST, techByKey } from '@/data/constants';
 import { useGameStore } from '@/game/store/useGameStore';
-import { useT, useTr } from '@/i18n/LangProvider';
+import { useLang, useT, useTr } from '@/i18n/LangProvider';
 import GameWindow from './GameWindow';
 import StatBar from './StatBar';
 import TechIcon from '@/app/components/tech/TechIcon';
@@ -13,12 +13,13 @@ import { techFacts, yearsScale } from './techFacts';
 export default function TechPanel() {
   const t = useT();
   const tr = useTr();
+  const { lang } = useLang();
   const techKey = useGameStore((s) => s.techKey);
   const tech = techKey ? techByKey(techKey) : undefined;
   const scale = useMemo(() => yearsScale(TECH_LIST), []);
 
   if (!tech) return null;
-  const facts = techFacts(tech);
+  const facts = techFacts(tech, lang);
 
   return (
     <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/85 p-3 sm:p-8">
@@ -29,12 +30,12 @@ export default function TechPanel() {
           </span>
           <div className="flex-1 space-y-2">
             <span className="inline-block border-2 border-battle-border-dark bg-battle-panel-dark px-2 py-1 font-display text-[8px] tracking-widest text-gray-300">
-              {tech.type}
+              {tr(tech.type)}
             </span>
             <StatBar label="EXP" value={facts.years} max={scale} />
             <div className="flex items-center gap-3">
               <span className="w-16 shrink-0 font-display text-[8px] tracking-widest text-gray-400">
-                PROJETS
+                {t('panel.tech.projects')}
               </span>
               <span className="font-mono text-xl text-hp-red">{tech.stats.projects}</span>
             </div>
@@ -47,7 +48,7 @@ export default function TechPanel() {
         {facts.move && (
           <div className="border-2 border-primary/40 bg-primary/10 px-3 py-2">
             <span className="font-display text-[8px] tracking-widest text-primary">
-              SPECIAL ATTACK
+              {t('stacks.special')}
             </span>
             <p className="font-mono text-xl leading-none text-gray-200">{facts.move}</p>
           </div>

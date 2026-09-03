@@ -97,7 +97,7 @@ const Experience: React.FC = () => {
               )}
               
               <header className="mb-4">
-                <h3 className="font-display text-lg md:text-xl text-gray-900 dark:text-white mb-1">{job.role}</h3>
+                <h3 className="font-display text-lg md:text-xl text-gray-900 dark:text-white mb-1">{tr(job.role)}</h3>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-sm text-gray-500 dark:text-gray-400">
                   <span className={`flex items-center gap-1 ${job.highlightColor === 'primary' ? 'text-primary-dark' : 'text-xp-blue'}`}>
                     <span className="material-symbols-outlined text-base">apartment</span>
@@ -117,7 +117,7 @@ const Experience: React.FC = () => {
               </header>
 
               <div className="font-body text-gray-700 dark:text-gray-300 mb-4 space-y-2 leading-relaxed">
-                <p>{job.description}</p>
+                <p>{tr(job.description)}</p>
               </div>
 
               <div className="bg-gray-50 dark:bg-black/40 p-3 rounded border border-gray-200 dark:border-gray-800">
@@ -125,7 +125,7 @@ const Experience: React.FC = () => {
                   <span className="material-symbols-outlined text-sm">trophy</span> Loot & Achievements
                 </h4>
                 <ul className="space-y-2">
-                  {job.achievements.map((achievement, idx) => (
+                  {tr(job.achievements).map((achievement, idx) => (
                     <li key={idx} className="flex items-start gap-2 font-mono text-sm text-gray-600 dark:text-gray-400">
                       <span className="text-primary mt-1">►</span>
                       <span>{achievement}</span>
