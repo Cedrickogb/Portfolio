@@ -19,6 +19,7 @@ import { sfx } from '@/game/audio/sfx';
 import { decide } from '@/game/engine/movement';
 import type { ParsedMap } from '@/game/engine/grid';
 import { playerVisual } from '@/game/engine/runtime';
+import { AMBIENCE } from '@/game/world/dayNight';
 import { getMap } from '@/data/maps';
 import { useGameStore } from '@/game/store/useGameStore';
 
@@ -44,6 +45,7 @@ export default function Player({ map }: { map: ParsedMap }) {
      sprite, c'est un autre dessin — sinon les jambes passeraient devant le
      cadre. Deux atlas de 64x64, la mémoire s'en moque. */
   const travel = useGameStore((s) => s.travel);
+  const shadowDim = useGameStore((s) => AMBIENCE[s.phase].shadow);
   const atlas = useMemo(
     () => textureFromRaster(heroAtlas(LOOKS.player, travel === 'foot' ? 'none' : travel)),
     [travel],
@@ -139,7 +141,7 @@ export default function Player({ map }: { map: ParsedMap }) {
           map={shadow}
           color={PALETTE.shadow}
           transparent
-          opacity={SHADOW_OPACITY}
+          opacity={SHADOW_OPACITY * shadowDim}
           depthWrite={false}
         />
       </mesh>

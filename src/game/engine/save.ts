@@ -1,4 +1,5 @@
 import type { Direction } from './direction';
+import { PHASES, type Phase } from '../world/dayNight';
 
 /**
  * Sauvegarde locale de la partie.
@@ -20,6 +21,14 @@ export interface SaveData {
   techsSeen: string[];
   /** Son coupé : un réglage qu'on ne veut pas réactiver à chaque visite. */
   muted: boolean;
+  /**
+   * Phase forcée depuis le menu, ou `null` si l'ambiance suit l'horloge.
+   *
+   * Facultative, comme la sourdine : une sauvegarde qui l'ignore reste
+   * valide et repart sur l'heure réelle. Bousculer `SAVE_VERSION` pour un
+   * réglage de confort jetterait la progression de tout le monde.
+   */
+  phase: Phase | null;
   savedAt: number;
 }
 
@@ -61,6 +70,7 @@ export function parseSave(raw: string | null, isKnownMap: (id: string) => boolea
       questsSeen: data.questsSeen,
       techsSeen: data.techsSeen,
       muted: data.muted === true,
+      phase: PHASES.includes(data.phase as Phase) ? (data.phase as Phase) : null,
       savedAt: typeof data.savedAt === 'number' ? data.savedAt : 0,
     };
   } catch {

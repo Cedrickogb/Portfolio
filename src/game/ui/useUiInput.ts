@@ -5,6 +5,7 @@ import { consumeA, consumeB, consumeDirTap } from '@/game/engine/input';
 import { useGameStore } from '@/game/store/useGameStore';
 import { menuColumns, menuEntryId, menuLength } from './menuEntries';
 import { DEFAULT_MAP, getMap } from '@/data/maps';
+import { nextPhase, phaseAt } from '@/game/world/dayNight';
 
 /** Couches d'interface, de la plus haute à la plus basse. */
 export type UiLayer = 'detail' | 'menu' | 'dialogue' | 'world';
@@ -92,6 +93,16 @@ export function useUiInput() {
              couloir de six cases ne se fait pas à vélo. */
           if (s.travel === 'boat' || getMap(s.mapId).interior) return;
           return s.setTravel(s.travel === 'bike' ? 'foot' : 'bike');
+        case 'view':
+          // Sans salle en volume, il n'y a pas de point de vue à choisir.
+          if (!getMap(s.mapId).spatial) return;
+          return s.setView(s.view === 'first' ? 'third' : 'first');
+        case 'ambience':
+          /* Première pression : on quitte l'horloge pour la phase suivante.
+             Un cinquième cran « auto » reboucle sur l'heure réelle — sinon on
+             ne peut plus jamais revenir au comportement par défaut. */
+          if (!s.phaseAuto && s.phase === 'night') return s.setPhase(phaseAt(new Date()), true);
+          return s.setPhase(nextPhase(s.phase), false);
         case 'sound':
           return s.setMutedState(!s.muted);
         case 'classic':

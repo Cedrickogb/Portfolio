@@ -59,6 +59,40 @@ const GLYPHS: Record<string, string[]> = {
   "'": ['.#.', '.#.', '...', '...', '...'],
 };
 
+/**
+ * Ramène un texte quelconque dans le répertoire de la police.
+ *
+ * La police est volontairement stricte : un caractère inconnu lève une erreur,
+ * ce qui attrape les enseignes mal écrites au chargement. Mais les cartels du
+ * hall sont gravés à partir de **données de parcours** — noms d'entreprises,
+ * périodes — qui contiennent des accents et des tirets cadratins. Refuser de
+ * les afficher n'aurait aucun sens : on les translittère.
+ */
+const FOLD: Record<string, string> = {
+  'À': 'A', 'Â': 'A', 'Ä': 'A', 'Á': 'A', 'Ã': 'A',
+  'É': 'E', 'È': 'E', 'Ê': 'E', 'Ë': 'E',
+  'Î': 'I', 'Ï': 'I', 'Í': 'I',
+  'Ô': 'O', 'Ö': 'O', 'Ó': 'O', 'Õ': 'O',
+  'Ù': 'U', 'Û': 'U', 'Ü': 'U', 'Ú': 'U',
+  'Ç': 'C', 'Ñ': 'N', 'Œ': 'OE', 'Æ': 'AE',
+  '—': '-', '–': '-', '·': '-', '_': '-', '/': '-',
+  '’': "'", '‘': "'", '«': '', '»': '', '"': '',
+  ',': '.', ':': '.', ';': '.',
+};
+
+export function fontSafe(text: string): string {
+  let out = '';
+  for (const ch of text.toUpperCase()) {
+    const folded = FOLD[ch] ?? ch;
+    for (const c of folded) if (hasGlyph(c)) out += c;
+  }
+  return out;
+}
+
+/** Vrai si la police sait dessiner ce caractère. */
+export const hasGlyph = (ch: string): boolean =>
+  Object.prototype.hasOwnProperty.call(GLYPHS, ch);
+
 /** Largeur d'un texte rendu, en pixels. */
 export const textWidth = (text: string): number =>
   text.length === 0 ? 0 : text.length * (GLYPH_W + GLYPH_GAP) - GLYPH_GAP;

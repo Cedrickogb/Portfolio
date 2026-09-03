@@ -35,6 +35,7 @@ import {
 import { ellipseRaster } from '@/game/assets/raster';
 import { postSignRaster } from '@/game/assets/sign';
 import type { ParsedMap, Tile } from '@/game/engine/grid';
+import Ambience from './Ambience';
 import Building from './Building';
 import ShadowInstances from './Shadow';
 
@@ -340,6 +341,8 @@ export default function TestWorld({ map }: { map: ParsedMap }) {
       <Instanced positions={map.positions.sign} geometry={geometries.sign} y={0}>
         <meshBasicMaterial vertexColors />
       </Instanced>
+      <Ambience lamps={props.L ?? []} outdoor={!map.interior} />
+
       <Instanced positions={map.positions.sign} geometry={geometries.signFace} y={0}>
         <meshBasicMaterial map={textures.signFace} />
       </Instanced>

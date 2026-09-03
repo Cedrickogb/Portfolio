@@ -138,6 +138,13 @@ export interface GameMap {
   interior?: boolean;
   /** Style d'intérieur : sol, mur et couleur d'accent du pôle. */
   interiorStyle?: string;
+  /**
+   * Salle à visiter en volume, caméra en perspective et éclairage calculé.
+   *
+   * Porté par la carte et non déduit de son identifiant : le rendu ne doit pas
+   * connaître le nom du hall pour savoir comment le dessiner.
+   */
+  spatial?: boolean;
 }
 
 export interface ParsedMap {
@@ -146,6 +153,7 @@ export interface ParsedMap {
   height: number;
   interior: boolean;
   interiorStyle: string;
+  spatial: boolean;
   kinds: TileKind[][];
   spawn: Tile;
   positions: {
@@ -346,6 +354,7 @@ export function parseMap(map: GameMap): ParsedMap {
     height,
     interior: map.interior ?? false,
     interiorStyle: map.interiorStyle ?? 'quests',
+    spatial: map.spatial ?? false,
     kinds,
     spawn,
     positions,

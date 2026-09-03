@@ -35,13 +35,27 @@ export type Intent =
  * sortie, aucun accès au store ni à three.js. C'est ce qui les rend testables
  * hors navigateur — la boucle de rendu ne fait plus qu'appliquer le résultat.
  */
+/**
+ * Règle du dialogue, isolée pour être partagée.
+ *
+ * A termine d'abord la ligne en cours (effet machine à écrire), puis enchaîne.
+ * Extraite de `decide` parce que le hall en 3D ne passe pas par les règles de
+ * déplacement — il n'a ni case ni pas — mais doit obéir *exactement* aux mêmes
+ * règles de dialogue. Dupliquée là-bas, elle y avait été oubliée : le panneau
+ * s'ouvrait et rien ne pouvait plus le fermer.
+ */
+export function dialogueIntent(
+  a: boolean,
+  dialogue: NonNullable<Snapshot['dialogue']>,
+): Intent {
+  if (!a) return { kind: 'idle' };
+  const full = dialogue.lines[dialogue.index].length;
+  return dialogue.revealed < full ? { kind: 'reveal-line' } : { kind: 'advance-dialogue' };
+}
+
 export function decide(input: Input, s: Snapshot, map: ParsedMap): Intent {
-  // Un dialogue ouvert gèle le déplacement. A termine la ligne, puis enchaîne.
-  if (s.dialogue) {
-    if (!input.a) return { kind: 'idle' };
-    const full = s.dialogue.lines[s.dialogue.index].length;
-    return s.dialogue.revealed < full ? { kind: 'reveal-line' } : { kind: 'advance-dialogue' };
-  }
+  // Un dialogue ouvert gèle le déplacement.
+  if (s.dialogue) return dialogueIntent(input.a, s.dialogue);
 
   // Un pas engagé va toujours jusqu'à la case suivante : pas d'arrêt à mi-chemin.
   if (s.stepping) return { kind: 'idle' };

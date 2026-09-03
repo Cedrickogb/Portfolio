@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { Tile, Travel } from '@/game/engine/grid';
 import type { Direction } from '@/game/engine/direction';
+import { phaseAt, type Phase } from '@/game/world/dayNight';
 
 
 /** Menu ouvert à la fin d'un dialogue. */
@@ -50,6 +51,17 @@ interface GameState {
   travel: Travel;
   /** Territoire courant, pour la musique et le bandeau d'entrée. */
   territory: string | null;
+  /** Moment de la journée. */
+  phase: Phase;
+  /**
+   * Point de vue dans les salles en 3D.
+   *
+   * Sans effet sur les cartes en vue de dessus : là, la caméra est fixe par
+   * construction. C'est un réglage du hall.
+   */
+  view: 'first' | 'third';
+  /** Vrai tant que la phase suit l'horloge du visiteur. */
+  phaseAuto: boolean;
 
   spawnAt: (tile: Tile) => void;
   face: (dir: Direction) => void;
@@ -64,6 +76,8 @@ interface GameState {
   setMutedState: (muted: boolean) => void;
   setTravel: (travel: Travel) => void;
   setTerritory: (id: string | null) => void;
+  setPhase: (phase: Phase, auto: boolean) => void;
+  setView: (view: 'first' | 'third') => void;
   resetProgress: (mapId: string, tile: Tile) => void;
   openQuest: (id: string) => void;
   closeQuest: () => void;
@@ -94,6 +108,11 @@ export const useGameStore = create<GameState>((set, get) => ({
   muted: false,
   travel: 'foot',
   territory: null,
+  /* Première valeur lue à la construction du store : le monde s'affiche du bon
+     ton dès la première image, sans un éclair de plein jour au chargement. */
+  phase: phaseAt(new Date()),
+  phaseAuto: true,
+  view: 'third',
 
   spawnAt: (tile) => set({ tile, step: null, dialogue: null, questId: null, techKey: null, menu: null }),
 
@@ -160,6 +179,10 @@ export const useGameStore = create<GameState>((set, get) => ({
   setTravel: (travel) => set({ travel }),
 
   setTerritory: (territory) => set({ territory }),
+
+  setPhase: (phase, auto) => set({ phase, phaseAuto: auto }),
+
+  setView: (view) => set({ view }),
 
   /* Nouvelle partie : on efface la progression et on renvoie au point de
      départ, sans recharger la page — le monde est déjà en mémoire. */

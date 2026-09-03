@@ -200,6 +200,8 @@ export const HALL_INTERIOR: GameMap = {
   name: 'Hall des trophees',
   interior: true,
   interiorStyle: 'hall',
+  /* La seule salle qui se visite en volume. Voir `HallScene`. */
+  spatial: true,
   rows: [
     '###################',
     '###################',

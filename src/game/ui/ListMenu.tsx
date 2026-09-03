@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { QUESTS, TECH_LIST } from '@/data/constants';
 import { getMap } from '@/data/maps';
+import { AMBIENCE } from '@/game/world/dayNight';
 import { useGameStore } from '@/game/store/useGameStore';
 import GameWindow from './GameWindow';
 import TechIcon from '@/app/components/tech/TechIcon';
@@ -35,6 +36,10 @@ export default function ListMenu() {
      La masquer déplacerait toutes les suivantes d'un cran, et le joueur
      chercherait ensuite « Son » à la place du vélo. */
   const indoors = useGameStore((s) => getMap(s.mapId).interior);
+  const phase = useGameStore((s) => s.phase);
+  const spatial = useGameStore((s) => getMap(s.mapId).spatial);
+  const viewMode = useGameStore((s) => s.view);
+  const phaseAuto = useGameStore((s) => s.phaseAuto);
 
   const quests = useMemo(() => QUESTS.filter((q) => q.active), []);
   const techs = TECH_LIST;
@@ -69,7 +74,9 @@ export default function ListMenu() {
                     </span>
                     <span
                       className={`font-mono text-2xl leading-none ${
-                        entry.id === 'bike' && indoors ? 'text-gray-500' : 'text-gray-100'
+                        (entry.id === 'bike' && indoors) || (entry.id === 'view' && !spatial)
+                          ? 'text-gray-500'
+                          : 'text-gray-100'
                       }`}
                     >
                       {entry.label}
@@ -78,6 +85,20 @@ export default function ListMenu() {
                           d'écran. */}
                       {entry.id === 'sound' && (
                         <span className="ml-2 text-primary">{muted ? ' coupé' : ' activé'}</span>
+                      )}
+                      {entry.id === 'view' && (
+                        <span className={`ml-2 ${spatial ? 'text-primary' : 'text-gray-500'}`}>
+                          {spatial
+                            ? viewMode === 'first'
+                              ? ' 1re personne'
+                              : ' 3e personne'
+                            : ' salles en 3D'}
+                        </span>
+                      )}
+                      {entry.id === 'ambience' && (
+                        <span className="ml-2 text-primary">
+                          {` ${AMBIENCE[phase].label}${phaseAuto ? ' (heure reelle)' : ''}`}
+                        </span>
                       )}
                       {entry.id === 'bike' && (
                         <span className={`ml-2 ${indoors ? 'text-gray-500' : 'text-primary'}`}>

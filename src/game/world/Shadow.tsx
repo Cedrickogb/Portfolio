@@ -5,6 +5,8 @@ import { Matrix4, PlaneGeometry, type InstancedMesh, type Texture } from 'three'
 import { PALETTE } from '@/game/assets/palette';
 import { SHADOW_OPACITY, SHADOW_Y, shadowOffset } from '@/game/config';
 import type { Tile } from '@/game/engine/grid';
+import { AMBIENCE } from './dayNight';
+import { useGameStore } from '@/game/store/useGameStore';
 
 /**
  * Ombres portées, projetées au sol.
@@ -41,6 +43,10 @@ interface Props {
 
 export default function ShadowInstances({ positions, height, size, mask }: Props) {
   const ref = useRef<InstancedMesh>(null);
+  /* L'ombre portée vient du soleil : elle s'efface au crépuscule et disparaît
+     la nuit. La garder pleine sous la lune donnerait un éclairage impossible,
+     et c'est le genre de détail qui trahit une ambiance plaquée. */
+  const dim = useGameStore((s) => AMBIENCE[s.phase].shadow);
 
   const geometry = useMemo(() => {
     const g = new PlaneGeometry(size[0], size[1]);
@@ -62,7 +68,7 @@ export default function ShadowInstances({ positions, height, size, mask }: Props
     return () => geometry.dispose();
   }, [positions, height, geometry]);
 
-  if (positions.length === 0) return null;
+  if (positions.length === 0 || dim === 0) return null;
 
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, positions.length]} renderOrder={1}>
@@ -70,7 +76,7 @@ export default function ShadowInstances({ positions, height, size, mask }: Props
       <meshBasicMaterial
         color={PALETTE.shadow}
         transparent
-        opacity={SHADOW_OPACITY}
+        opacity={SHADOW_OPACITY * dim}
         depthWrite={false}
         map={mask ?? null}
       />

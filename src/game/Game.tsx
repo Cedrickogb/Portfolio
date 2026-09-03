@@ -1,16 +1,18 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
 import { TILE_TEXELS, bufferRatio, pixelsPerTileFor, texelScaleFor } from '@/game/config';
-import { useKeyboard } from '@/game/engine/input';
+import { flushInput, useKeyboard } from '@/game/engine/input';
 import { useSaveGame } from '@/game/engine/useSaveGame';
 import { useGameAudio } from '@/game/audio/useGameAudio';
+import { useDayNight } from '@/game/world/useDayNight';
 import { useUiInput } from '@/game/ui/useUiInput';
 import FollowCamera from '@/game/engine/FollowCamera';
 import Player from '@/game/entities/Player';
 import TestWorld from '@/game/world/TestWorld';
+import HallScene from '@/game/world/hall/HallScene';
 import DialogueBox from '@/game/ui/DialogueBox';
 import QuestPanel from '@/game/ui/QuestPanel';
 import ListMenu from '@/game/ui/ListMenu';
@@ -34,11 +36,26 @@ export default function Game() {
   // La cohérence du réseau de téléportations est vérifiée une fois, au montage.
   useMemo(() => validateWarps(), []);
   const map = useMemo(() => getMap(mapId), [mapId]);
+  /* Le hall se visite en 3D. La carte le déclare, le composant n'a rien à
+     savoir de son nom — un deuxième lieu en volume ne demandera qu'un drapeau
+     de plus dans la donnée. */
+  const spatial = map.spatial;
 
   useKeyboard();
+
+  /* Changer de mode de rendu change le *sens* des touches : en vue de dessus,
+     ↑ va vers le nord ; dans une salle en volume, ↑ avance dans la direction du
+     regard. Une touche encore enfoncée au moment du basculement se retrouve
+     donc réinterprétée — en sortant du hall vers le sud, la même touche
+     signifiait « nord » et ramenait aussitôt le visiteur à l'intérieur. On vide
+     la file : le premier pas dans le nouveau mode demande une vraie pression. */
+  useEffect(() => {
+    flushInput();
+  }, [spatial]);
   useUiInput();
   useSaveGame();
   useGameAudio();
+  useDayNight();
 
   useLayoutEffect(() => {
     const el = shell.current;
@@ -79,11 +96,26 @@ export default function Game() {
           monter le canvas qu'une fois le conteneur dimensionné. */}
       {size.width > 0 && (
         <Canvas flat dpr={dpr} gl={{ antialias: false }}>
-          {/* Aucune lumière dans la scène : toutes les couleurs sont cuites, soit
-              dans les textures, soit dans l'attribut `color` des géométries. */}
-          <FollowCamera dpr={dpr} pixelsPerTile={pixelsPerTile} bounds={{ width: map.width, height: map.height }} />
-          <TestWorld map={map} />
-          <Player map={map} />
+          {/* Deux rendus, un seul monde.
+              En vue de dessus, aucune lumière dans la scène : toutes les
+              couleurs sont cuites, dans les textures ou dans l'attribut
+              `color` des géométries — c'est ce qui garde les pixels exacts.
+              Le hall, lui, est une salle en perspective réellement éclairée.
+              Le contraste est le propos : on pousse une porte et le jeu change
+              de nature. */}
+          {spatial ? (
+            <HallScene map={map} />
+          ) : (
+            <>
+              <FollowCamera
+                dpr={dpr}
+                pixelsPerTile={pixelsPerTile}
+                bounds={{ width: map.width, height: map.height }}
+              />
+              <TestWorld map={map} />
+              <Player map={map} />
+            </>
+          )}
         </Canvas>
       )}
 
@@ -112,9 +144,22 @@ export default function Game() {
         >
           ← Site
         </Link>
+        {/* Les commandes changent avec le lieu : dans une salle en volume, les
+            flèches latérales font pivoter au lieu de translater. Afficher la
+            notice de la vue de dessus y serait un contresens. */}
         <p className="hidden sm:block font-mono text-sm text-gray-400 bg-black/50 px-2 py-1 text-right">
-          Flèches / ZQSD / WASD : marcher<br />
-          A, Entrée ou Espace : parler
+          {spatial ? (
+            <>
+              ↑↓ : avancer · ←→ : pivoter<br />
+              souris glissée : regarder autour<br />
+              B puis « Vue » : 1re / 3e personne
+            </>
+          ) : (
+            <>
+              Flèches / ZQSD / WASD : marcher<br />
+              A, Entrée ou Espace : parler
+            </>
+          )}
         </p>
       </div>
     </div>

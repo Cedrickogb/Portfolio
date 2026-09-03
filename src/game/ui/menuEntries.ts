@@ -25,6 +25,8 @@ export const START_ENTRIES = [
   { id: 'cv', label: 'Fiche & CV' },
   { id: 'map', label: 'Carte du monde' },
   { id: 'bike', label: 'Vélo' },
+  { id: 'view', label: 'Vue' },
+  { id: 'ambience', label: 'Ambiance' },
   { id: 'sound', label: 'Son' },
   { id: 'classic', label: 'Mode classique' },
   { id: 'reset', label: 'Nouvelle partie' },

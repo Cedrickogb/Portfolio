@@ -786,6 +786,234 @@ d'entrées et actionnait la première entrée du menu dès son ouverture — app
 sur B après « PRESS START » ouvrait le menu *et* le Journal de quêtes dans la
 foulée. Un changement de contexte repart désormais d'une file vide.
 
+### Réglage — voir le corps suivre le regard · fait
+
+Précision de Cédrick : **« si je regarde à gauche, le corps du perso doit
+proportionnellement se tourner dans le même sens ».**
+
+Le corps suivait déjà le regard. Ce qui manquait, c'était de le *voir* : la
+caméra était vissée derrière lui, exactement dans son axe. Corps et caméra
+pivotaient donc du même angle au même instant, la silhouette ne changeait pas
+d'un pixel, et seule la salle semblait tourner autour d'un personnage immobile.
+
+Le remède n'est pas de tourner le corps davantage mais de **désaccoupler
+l'orbite de la caméra du cap du regard** : le corps rattrape vite (18/s),
+l'orbite traîne (4,2/s). C'est l'écart entre les deux qui rend la rotation
+lisible — on voit l'épaule partir dans le sens du regard, puis la caméra se
+replacer derrière. Le rapport entre les deux souplesses *est* le réglage.
+
+Mesuré, un quart de tour à gauche :
+
+| instant | regard | corps | orbite |
+|---|---|---|---|
+| repos | 0,00 | 0,00 | 0,00 |
+| 150 ms | −0,34 | −0,24 | −0,10 |
+| 350 ms | −0,80 | −0,70 | −0,40 |
+| touche lâchée | −0,80 | −0,79 | −0,56 |
+| +1 s | −0,80 | −0,80 | −0,80 |
+
+Le corps tient 70 à 90 % de l'angle du regard pendant le mouvement, l'orbite 12
+à 50 % : c'est cette différence qui s'affiche. Tout converge ensuite. La visée
+suit l'orbite et non le regard, sinon le personnage filerait au bord du cadre à
+chaque coup d'œil.
+
+### Correctif — le corps tournait à l'envers · fait
+
+Signalé par Cédrick : **tourner à gauche devrait faire pivoter le corps avec le
+regard, pas seulement la caméra.**
+
+Le corps *suivait* déjà le cap — mais le modèle était bâti **face à +z** (nuque
+en -z, mains et pointes de pieds en +z) alors que « devant » vaut **-z** dans
+tout le moteur : `forwardOf(0)` rend (0, -1), et une case au nord a un z plus
+petit. Conséquence : 180° d'écart permanent entre le corps et sa marche. Le
+visiteur avançait à reculons, on voyait son visage alors qu'on le suivait de
+dos, et un virage à gauche faisait pivoter le corps à l'opposé du regard.
+
+Une erreur de convention ne se voit pas sur une silhouette symétrique : un cube
+de peau surmonté d'une calotte se lit aussi bien de face que de dos. C'est
+pourquoi elle a survécu à deux relectures — et pourquoi le personnage a
+maintenant **deux yeux**. Ils ne sont pas décoratifs : ils rendent l'avant du
+corps visible, donc l'erreur constatable.
+
+Tout ce qui est asymétrique en z se lit désormais à un seul endroit, via deux
+constantes `FRONT` / `BACK`, et le sens de la foulée s'en déduit au lieu d'être
+recopié.
+
+### Correctif — la mobilité ne suivait pas la caméra · fait
+
+Signalé par Cédrick : **« la mobilité du personnage ne suit pas vraiment
+l'angle de vue caméra et le positionnement ».** Diagnostic dans le code, pas à
+l'œil — quatre défauts, dont un vrai bug de lecture des entrées.
+
+1. **Une seule touche était entendue.** `heldDir()` rend la *dernière*
+   direction pressée : c'est le bon choix en vue de dessus, où deux touches
+   simultanées produiraient une diagonale que la grille n'a pas. Dans une salle
+   en volume, c'est exactement l'inverse — presser ← en marchant remplaçait
+   « avance » par « pivote », le visiteur s'arrêtait net et tournait sur place.
+   **Aucune trajectoire courbe n'était possible**, et c'est ça qui donnait la
+   sensation que le personnage ne suivait pas la caméra. Les deux axes sont
+   maintenant lus ensemble (`heldDirs`), donc on avance en tournant.
+2. **La caméra traversait les murs.** Elle était posée à 3,1 cases derrière,
+   sans aucun test : dos à une cloison, on regardait la salle depuis
+   l'extérieur, à travers la maçonnerie. Le bras se mesure désormais pas à pas
+   et se replie avant l'obstacle (`boomLength`, pure et testée), avec
+   compensation de hauteur — replié sans elle, l'écran n'est plus qu'une touffe
+   de cheveux.
+3. **La caméra était soudée au cap.** Elle pivotait au même instant que le
+   personnage, ce qui se lit comme « la salle tourne autour de moi » et non
+   « je tourne ». Elle rejoint sa place avec un lissage exponentiel — donc
+   identique à 30 ou 60 images par seconde — et le corps rattrape le cap au
+   lieu d'y être collé. L'arrivée, elle, ne se lisse pas : une caméra qui
+   *rejoint* sa place depuis l'origine du monde ferait entrer le visiteur par
+   un vol plané à travers la façade.
+4. **On ne pouvait pas lever les yeux.** Le bandeau gravé est à 2,35 de haut,
+   les cartels à 0,62 : sans regard vertical, la moitié de la salle était hors
+   champ. La souris glissée donne le cap *et* l'inclinaison, bornée à ±0,5 rad,
+   et le déplacement reste horizontal — viser le plafond ne fait pas décoller.
+
+### Phase 5 — Le hall en volume · fait
+
+Demandé par Cédrick : **en entrant dans le hall, le jeu passe de la 2D à la 3D
+— on voit la salle, les décors et les piédestaux devant soi, à la 1re ou à la
+3e personne.**
+
+Le moteur reposait sur trois règles fondatrices : caméra orthographique calée
+au pixel, aucune lumière (toutes les couleurs cuites), déplacement case par
+case. Cette salle rompt les trois **et c'est le propos** : on pousse une porte
+dans un jeu à la Game Boy et on se retrouve dans une salle d'exposition où l'on
+marche. La rupture est locale, déclarée par la donnée (`spatial: true` sur la
+carte) et non par le nom du lieu — un deuxième lieu en volume ne demandera
+qu'un drapeau de plus.
+
+Ce qui **ne** change pas, et qui fait que la salle appartient encore au même
+monde : c'est la même grille de caractères, les stèles sont les mêmes cases
+`'X'`, les cartels sont gravés à la même fonte 3x5 que les enseignes du bourg,
+et les textures sortent de la même palette, filtrées au plus proche voisin.
+
+- [x] **Déplacement libre** : ↑↓ avancent et reculent dans la direction du
+      regard, ←→ pivotent, la souris balaie. Le personnage est un carré de 0,6
+      case et la collision se teste **un axe à la fois** — c'est cette
+      séparation, et non une optimisation, qui produit le glissement le long
+      des murs. Testée d'un bloc, la moindre friction contre un mur arrêterait
+      net. `slide()` est pur, donc testé dans node (5 assertions).
+- [x] **1re et 3e personne**, réglage « Vue » du menu (éteint hors salle en
+      volume). En 3e personne, l'avatar est **le sprite du jeu** en billboard
+      face à la caméra : un modèle 3D ferait deux personnages différents.
+- [x] **Éclairage réel** : ambiante qui suit la phase du jour, un projecteur
+      par stèle, lanterneau visible au plafond — une salle éclairée sans source
+      visible a l'air d'un défaut de rendu.
+- [x] **Cartels et fiches** : le cartel gravé sur la stèle, la fiche complète
+      qui s'affiche à l'approche — le même `trophyNear` que la version 2D, qui
+      ne lit que la case entière.
+
+Quatre défauts, dont un signalé par Cédrick après coup :
+
+0. **Le panneau d'accueil s'ouvrait et rien ne pouvait le fermer.** Les règles
+   de dialogue vivaient au début de `decide`, la fonction de *déplacement* —
+   or le hall n'a ni case ni pas, il n'appelle donc pas `decide`. Une règle
+   rangée au mauvais endroit n'est pas dupliquée par accident : elle est
+   *oubliée*. Elle est désormais isolée dans `dialogueIntent`, appelée par les
+   deux rendus, et un test vérifie que `decide` s'appuie bien dessus au lieu
+   d'en garder une copie.
+
+0 bis. **Deux défauts signalés ensuite : pas de porte, et un joueur resté
+   plat.**
+
+   *La porte.* Le mur du fond était continu : rien ne disait par où l'on
+   repart, dans une salle dont on sait pourtant qu'on est entré quelque part.
+   La porte n'est pas placée en dur — on prend la **case de mur qui touche la
+   case de téléportation**, donc l'embrasure est toujours là où la carte dit
+   qu'on sort, et une salle à deux sorties en aurait deux sans une ligne de
+   plus. Chambranle, seuil de cuivre, jour qui entre, plaque « SORTIE » gravée
+   à la fonte du jeu. Piège au passage : un plan regarde vers +z par défaut, et
+   posé du mauvais côté il ne montrait à la salle que son dos — l'embrasure
+   s'ouvrait sur le vide noir derrière le mur.
+
+   *Le personnage.* La première version réutilisait le sprite en billboard, au
+   motif qu'un modèle 3D ferait « deux personnages différents ». À l'écran,
+   l'argument s'est retourné : un carton plat au milieu d'une salle en
+   perspective ne lit pas comme un choix de style, il lit comme un décor pas
+   fini. Le visiteur est donc en boîtes, **à la palette et aux proportions
+   exactes du sprite** (tête 50 %, torse 29 %, jambes 21 %), membres qui
+   pivotent à la hanche et à l'épaule en opposition — c'est le balancement,
+   plus que la silhouette, qui fait qu'on se reconnaît de dos. La foulée passe
+   par une *référence* et non une prop : en valeur, elle se figeait entre deux
+   rendus et le visiteur marchait une jambe en l'air.
+
+Trois autres, trouvés en pilotant la salle :
+
+1. **La fonte a refusé les données.** Elle lève une erreur sur un caractère
+   inconnu — utile pour attraper une enseigne mal écrite au chargement, fatal
+   pour un cartel gravé depuis `EXPERIENCE_DATA`, où « ANIP — Agence… » et les
+   accents sont normaux. D'où `fontSafe()`, qui translittère au lieu de
+   refuser. La sévérité reste où elle sert.
+2. **La scène ignorait la sauvegarde.** Elle démarrait la visite au spawn de la
+   carte alors que le store pouvait dire « devant la deuxième stèle » : la case
+   affichée et la position réelle se contredisaient. Même famille que le bug de
+   sortie de bâtiment — deux sources pour une seule vérité.
+3. **Sortir ramenait aussitôt dedans.** Dans la salle, ↑ veut dire « avance » ;
+   dehors, ↑ veut dire « nord ». Une touche encore enfoncée au moment du
+   basculement change donc de sens en vol : le visiteur sortait vers le sud et
+   la même touche le renvoyait aussitôt sur le paillasson. La file d'entrées se
+   vide désormais à chaque changement de mode de rendu — c'est le même remède
+   que pour la touche qui quittait l'écran titre.
+
+Reste ouvert : une deuxième salle en volume si l'envie vient, et le son de pas
+en réverbération dans le hall.
+
+### Phase 5 — Cycle jour / nuit · fait
+
+Demandé par Cédrick : **un cycle jour/nuit, l'ambiance qui change, et des
+lampadaires quand la nuit tombe.**
+
+**L'heure vient de l'horloge du visiteur**, pas d'un temps de jeu accéléré : un
+recruteur qui ouvre le portfolio à 22 h arrive de nuit. Un cycle accéléré
+aurait produit l'effet inverse de celui recherché — au bout de trente secondes
+de visite, l'ambiance clignoterait. Bornes : aube 6-8, jour 8-18, crépuscule
+18-20, nuit 20-6.
+
+Corollaire assumé, et c'est le point produit : **la moitié des visiteurs ne
+verraient jamais la nuit.** D'où l'entrée « Ambiance » du menu, qui force la
+phase et reboucle sur l'heure réelle. Sans elle, le travail resterait invisible
+pour la plupart des gens. Le choix est enregistré comme la sourdine — champ
+facultatif de la sauvegarde, pas de version à bousculer.
+
+**Deux calques, pas un.** Une multiplication assombrit mais ne déplace pas la
+teinte : du vert multiplié reste vert, et la première nuit avait des airs de
+sous-bois. Un voile translucide, lui, déplace la teinte mais délave le pixel
+art dès qu'il est assez opaque pour assombrir. Les deux ensemble donnent une
+nuit bleue et sombre qui garde son piqué — c'est très exactement ce que
+faisaient les palettes de nuit des consoles portables.
+
+- [x] **Lampadaires allumés** : nappe de lumière au sol et tête allumée, en
+      fondu additif. 31 lampadaires posés par le générateur en bord de voie —
+      la nuit, ils dessinent le tracé des routes.
+- [x] **Fenêtres allumées** sur les façades, même principe.
+- [x] **Plus d'ombres portées la nuit** : l'ombre vient du soleil. La garder
+      sous la lune donnerait un éclairage impossible, et c'est le genre de
+      détail qui trahit une ambiance plaquée.
+- [x] Les intérieurs ne sont pas teintés : une salle n'a pas de ciel. La
+      teinter en bleu la nuit donnerait une panne d'électricité.
+
+Deux pièges rencontrés, tous deux dans l'ordre de rendu :
+
+1. **Le héros se promenait en plein jour dans une ville de nuit.** Le voile
+   était un matériau *opaque* : il partait donc dans la passe opaque, alors que
+   les sprites (joueur, touffes d'herbe) sont transparents et passent après.
+   Marqué `transparent`, le voile rejoint la même passe, où `renderOrder`
+   tranche. Les halos, eux, passent *après* le voile — un halo multiplié par le
+   bleu de la nuit n'éclaire plus rien.
+2. **Les halos disparaissaient par intermittence.** La sphère englobante d'un
+   `InstancedMesh` est calculée une seule fois, à la première image, puis mise
+   en cache. Peuplées dans un `useEffect`, les matrices arrivaient parfois trop
+   tard : la sphère se réduisait à l'origine du monde et tout le tas passait à
+   la trappe dès que la caméra s'en éloignait. `useLayoutEffect` +
+   `computeBoundingSphere()` explicite. Un défaut intermittent est pire qu'une
+   panne franche : on l'attribue à autre chose.
+
+Reste ouvert : une variante nocturne des musiques (les pistes sont déjà par
+territoire, il n'y a qu'un jeu de hauteurs à décaler).
+
 ### Correctif — la plaque du hall, ou l'erreur qui attendait son bâtiment · fait
 
 Signalé par Cédrick : **la plaque du hall est cachée à moitié par le toit.**

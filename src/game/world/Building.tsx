@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo } from 'react';
+import { AdditiveBlending } from 'three';
 import { assemble, coloredBox } from '@/game/assets/geometry';
 import { BUILDING_STYLES, roofArt, wallArt } from '@/game/assets/buildings';
 import { PALETTE as P } from '@/game/assets/palette';
@@ -9,6 +10,8 @@ import { SIGN_H, SIGN_W, signRaster } from '@/game/assets/sign';
 import { textureFromRaster } from '@/game/assets/texture';
 import { SHADOW_OPACITY, SHADOW_Y, eaveOcclusion, shadowOffset } from '@/game/config';
 import type { BuildingRect } from '@/game/engine/grid';
+import { AMBIENCE } from './dayNight';
+import { useGameStore } from '@/game/store/useGameStore';
 
 /** Taille monde de l'enseigne, déduite de sa texture : 2 tuiles sur une demi. */
 const SIGN_WORLD_W = SIGN_W / 16;
@@ -30,6 +33,8 @@ const DOOR_H = 1.1;
  */
 export default function Building({ rect }: { rect: BuildingRect }) {
   const style = BUILDING_STYLES[rect.style];
+  const phase = useGameStore((s) => s.phase);
+  const ambience = AMBIENCE[phase];
   const { w, h } = { w: rect.w, h: rect.h };
 
   // Les tuiles sont centrées sur les entiers : d'où le décalage d'une demi-unité.
@@ -144,10 +149,17 @@ export default function Building({ rect }: { rect: BuildingRect }) {
     <group position={[cx, 0, cz]}>
       {/* Ombre portée : l'emprise du toit, décalée à l'opposé du soleil.
           C'est elle qui donne au bâtiment son assise au sol. */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[sx, SHADOW_Y, sz]}>
-        <planeGeometry args={[roofW, roofD]} />
-        <meshBasicMaterial color={P.shadow} transparent opacity={SHADOW_OPACITY} depthWrite={false} />
-      </mesh>
+      {ambience.shadow > 0 && (
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[sx, SHADOW_Y, sz]}>
+          <planeGeometry args={[roofW, roofD]} />
+          <meshBasicMaterial
+            color={P.shadow}
+            transparent
+            opacity={SHADOW_OPACITY * ambience.shadow}
+            depthWrite={false}
+          />
+        </mesh>
+      )}
 
       <mesh geometry={geometry}>
         <meshBasicMaterial vertexColors />
@@ -166,6 +178,25 @@ export default function Building({ rect }: { rect: BuildingRect }) {
           <meshBasicMaterial map={signMap} />
         </mesh>
       )}
+
+      {/* Fenêtres allumées. Dessinées après le voile de nuit (même ordre que
+          les halos de lampadaire) : une fenêtre teintée en bleu ne s'allume
+          pas, elle s'éteint. */}
+      {ambience.lamps &&
+        windowXs.map((x) => (
+          <mesh key={x} position={[x, windowY, front + 0.06]} renderOrder={910}>
+            <planeGeometry args={[0.56, 0.56]} />
+            <meshBasicMaterial
+              color="#ffdf91"
+              blending={AdditiveBlending}
+              depthTest={false}
+              depthWrite={false}
+              transparent
+              opacity={0.55}
+              toneMapped={false}
+            />
+          </mesh>
+        ))}
 
       {/* Dessus du toit : le quadrillage clair. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, bodyH + roofH + 0.01, 0]}>

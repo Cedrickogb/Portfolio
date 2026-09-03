@@ -55,6 +55,21 @@ export function heldDir(): Direction | null {
   return held.length ? held[held.length - 1] : null;
 }
 
+/**
+ * **Toutes** les directions tenues.
+ *
+ * En vue de dessus, une seule compte : on avance case par case, et deux
+ * touches à la fois devraient produire une diagonale que la grille n'a pas.
+ * Dans une salle en volume, c'est l'inverse — avancer *et* pivoter en même
+ * temps est le geste de base, et `heldDir` ne rendant que la dernière touche,
+ * presser ← en marchant remplaçait « avance » par « pivote » : le visiteur
+ * s'arrêtait net et tournait sur place. Aucune trajectoire courbe n'était
+ * possible.
+ */
+export function heldDirs(): readonly Direction[] {
+  return held;
+}
+
 export const pressA = () => { aQueued = true; };
 export const pressB = () => { bQueued = true; };
 

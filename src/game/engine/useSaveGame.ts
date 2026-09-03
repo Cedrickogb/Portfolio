@@ -34,6 +34,9 @@ export function useSaveGame() {
         questsSeen: saved.questsSeen,
         techsSeen: saved.techsSeen,
         muted: saved.muted,
+        /* Une phase enregistrée est forcément un choix explicite : on rend la
+           main à l'horloge seulement s'il n'y en a pas. */
+        ...(saved.phase ? { phase: saved.phase, phaseAuto: false } : {}),
       });
     } else {
       store.hydrate({ mapId: DEFAULT_MAP, tile: getMap(DEFAULT_MAP).spawn, facing: 'down' });
@@ -48,6 +51,7 @@ export function useSaveGame() {
         questsSeen: s.questsSeen,
         techsSeen: s.techsSeen,
         muted: s.muted,
+        phase: s.phaseAuto ? null : s.phase,
       });
     });
   }, []);

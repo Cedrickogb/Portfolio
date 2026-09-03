@@ -7,9 +7,11 @@
  */
 import assert from 'node:assert/strict';
 import { isWalkable, parseMap, signDialogueAt, tileKey, type ParsedMap } from './grid';
-import { decide, type Snapshot } from './movement';
+import { decide, dialogueIntent, type Snapshot } from './movement';
+import { BODY_RADIUS, boomLength, fits, slide } from './walk';
 import { tileAhead, type Direction } from './direction';
 import { CAMERA_OFFSET, eaveOcclusion } from '../../game/config';
+import { AMBIENCE, PHASES, nextPhase, phaseAt, type Phase } from '../../game/world/dayNight';
 import { BUILDING_STYLES } from '../../game/assets/buildings';
 import { SIGN_H } from '../../game/assets/sign';
 import { WORLD_MAP } from '../../data/maps/world-map';
@@ -271,6 +273,104 @@ check('A dans le vide ne declenche rien', () => {
   assert.deepEqual(decide({ a: true, dir: null }, snap({ facing: 'up' }), map), { kind: 'idle' });
 });
 
+console.log('\nmarche libre (hall en 3D)');
+
+const hall = parseMap(HALL_INTERIOR);
+
+check('un mur arrete le deplacement sur cet axe', () => {
+  // Colle au mur du haut de la salle : la rangee y=1 est du '#'.
+  const p = { x: 9, y: 2 };
+  assert.ok(fits(hall, p.x, p.y), 'la position de depart devrait etre libre');
+  const r = slide(hall, p, 0, -1);
+  assert.equal(r.y, p.y, 'on a traverse le mur');
+  assert.equal(r.x, p.x);
+});
+
+check('longer un mur conserve la composante libre', () => {
+  /* C'est tout l'interet du test axe par axe : en poussant vers le mur *et*
+     vers la droite, le pas lateral doit passer. Teste d'un bloc, il serait
+     annule avec l'autre et le personnage resterait collé. */
+  const r = slide(hall, { x: 9, y: 2 }, 0.4, -1);
+  assert.ok(r.x > 9, 'le pas lateral a ete annule avec le pas bloque');
+  assert.equal(r.y, 2);
+});
+
+check('le corps a une largeur : pas de passage en diagonale dans un angle', () => {
+  // Angle interieur haut-gauche de la salle : (1,1) et (0,2) sont des murs.
+  const r = slide(hall, { x: 1 + BODY_RADIUS, y: 2 }, -0.5, -0.5);
+  assert.ok(fits(hall, r.x, r.y), 'position finale dans un mur');
+});
+
+check('en terrain libre le deplacement est intact', () => {
+  const r = slide(hall, { x: 9, y: 8 }, 0.25, -0.25);
+  assert.equal(r.x, 9.25);
+  assert.equal(r.y, 7.75);
+});
+
+check('le bras de camera se raccourcit devant un mur', () => {
+  /* Colle au mur du bas (rangee y=14) en regardant vers le nord : la camera,
+     posee derriere, tomberait dans la maconnerie. */
+  const plein = boomLength(hall, 9, 8, 0, 1, 3.1);
+  assert.ok(plein > 3, `en salle degagee le bras doit rester long, vu ${plein}`);
+
+  const contre = boomLength(hall, 9, 12.4, 0, 1, 3.1);
+  assert.ok(contre < 1, `contre le mur le bras doit se replier, vu ${contre}`);
+
+  // Et il ne franchit jamais le mur : la position finale reste praticable.
+  const d = boomLength(hall, 9, 12.4, 0, 1, 3.1);
+  assert.ok(fits(hall, 9, 12.4 + d, 0.22), 'la camera a traverse le mur');
+});
+
+check('chaque piedestal du hall a sa donnee', () => {
+  // Le rendu 3D lit les memes cases que le rendu 2D : une stele orpheline
+  // serait un socle vide au milieu de la salle.
+  assert.equal(hall.positions.trophy.length, Object.keys(hall.trophies).length);
+  for (const t of hall.positions.trophy) {
+    assert.ok(hall.trophies[tileKey(t.x, t.y)], `stele sans donnee en ${t.x},${t.y}`);
+  }
+});
+
+console.log('\ncycle jour/nuit');
+
+const aHeure = (h: number): Phase => phaseAt(new Date(2026, 0, 15, h, 30));
+
+check('l heure locale donne la phase', () => {
+  assert.equal(aHeure(0), 'night');
+  assert.equal(aHeure(5), 'night');
+  assert.equal(aHeure(6), 'dawn');
+  assert.equal(aHeure(7), 'dawn');
+  assert.equal(aHeure(8), 'day');
+  assert.equal(aHeure(13), 'day');
+  assert.equal(aHeure(17), 'day');
+  assert.equal(aHeure(18), 'dusk');
+  assert.equal(aHeure(19), 'dusk');
+  assert.equal(aHeure(20), 'night');
+  assert.equal(aHeure(23), 'night');
+});
+
+check('chaque phase a son ambiance', () => {
+  assert.deepEqual([...PHASES].sort(), Object.keys(AMBIENCE).sort());
+  // Le plein jour ne dessine aucun voile : c'est la reference, pas une teinte.
+  assert.equal(AMBIENCE.day.tint, null);
+  assert.equal(AMBIENCE.day.lamps, false);
+  // Sans soleil, pas d'ombre portee.
+  assert.equal(AMBIENCE.night.shadow, 0);
+  for (const p of PHASES) {
+    if (p === 'day') continue;
+    assert.ok(AMBIENCE[p].lamps, `${p} : lampadaires eteints`);
+    assert.match(AMBIENCE[p].tint ?? '', /^#[0-9a-f]{6}$/, `${p} : teinte invalide`);
+  }
+});
+
+check('la bascule manuelle parcourt tout le cycle', () => {
+  // Sans quoi une phase deviendrait inatteignable depuis le menu.
+  const vues = new Set<Phase>();
+  let p: Phase = 'day';
+  for (let i = 0; i < PHASES.length; i++) { vues.add(p); p = nextPhase(p); }
+  assert.equal(vues.size, PHASES.length);
+  assert.equal(p, 'day', 'le cycle ne reboucle pas');
+});
+
 console.log('\nenseignes');
 
 /* Une plaque de facade doit rester entierement sous l'ombre du debord.
@@ -344,6 +444,17 @@ check('A revele d abord la fin de la ligne', () => {
 check('A sur une ligne complete fait avancer', () => {
   const s = snap({ dialogue: dlg(6) });
   assert.deepEqual(decide({ a: true, dir: null }, s, map), { kind: 'advance-dialogue' });
+});
+
+check('la regle de dialogue est partagee avec les salles en 3D', () => {
+  /* Le hall n'a ni case ni pas : il n'appelle pas `decide`. Il doit pourtant
+     obeir aux memes regles de dialogue, d'ou la fonction commune. */
+  const d = dlg(3);
+  assert.deepEqual(dialogueIntent(false, d), { kind: 'idle' });
+  assert.deepEqual(dialogueIntent(true, d), { kind: 'reveal-line' });
+  assert.deepEqual(dialogueIntent(true, dlg(6)), { kind: 'advance-dialogue' });
+  // Et `decide` s'appuie bien dessus, sans regle parallele.
+  assert.deepEqual(decide({ a: true, dir: null }, snap({ dialogue: d }), map), dialogueIntent(true, d));
 });
 
 check('un dialogue ouvert gele le deplacement', () => {

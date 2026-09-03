@@ -185,6 +185,32 @@ export function outline(src: Raster, color: string): Raster {
  * Générée plutôt que dessinée à la main : la taille de l'ombre suit celle du
  * décor, et une ellipse écrite en dur serait à refaire à chaque ajustement.
  */
+/**
+ * Tache lumineuse à décroissance douce, pour les halos de lampadaire.
+ *
+ * Seul endroit du jeu où un dégradé est légitime : ce n'est pas du décor mais
+ * de la lumière, et une lumière à bord franc se lirait comme un disque de
+ * peinture. La décroissance est quadratique — plus proche de l'œil que la
+ * linéaire, qui laisse un cerne visible au bord.
+ */
+export function glowRaster(width: number, height: number): Raster {
+  const out = createRaster(width, height);
+  const rx = width / 2;
+  const ry = height / 2;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const nx = (x + 0.5 - rx) / rx;
+      const ny = (y + 0.5 - ry) / ry;
+      const d = Math.sqrt(nx * nx + ny * ny);
+      if (d >= 1) continue;
+      const a = (1 - d) * (1 - d);
+      setPixel(out, x, y, [255, 255, 255, Math.round(a * 255)]);
+    }
+  }
+  return out;
+}
+
 export function ellipseRaster(width: number, height: number, color: string): Raster {
   const out = createRaster(width, height);
   const rgba = parseColor(color);

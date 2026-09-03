@@ -20,10 +20,12 @@
   },
   "files": [
     "src/game/config.ts",
+    "src/game/world/dayNight.ts",
     "src/game/engine/direction.ts",
     "src/game/assets/buildings.ts",
     "src/game/engine/grid.ts",
     "src/game/engine/movement.ts",
+    "src/game/engine/walk.ts",
     "src/game/engine/movement.test.ts",
     "src/data/maps/world-map.ts",
     "src/data/maps/interiors.ts",

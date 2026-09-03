@@ -77,4 +77,11 @@ check('la sourdine absente vaut « son actif »', () => {
   assert.equal(s.muted, false);
 });
 
+check('une phase forcee est relue, une phase inconnue est ignoree', () => {
+  assert.equal(parseSave(JSON.stringify({ ...valid, phase: 'night' }), known)?.phase, 'night');
+  assert.equal(parseSave(JSON.stringify({ ...valid, phase: 'midi' }), known)?.phase, null);
+  // Absente : la sauvegarde reste valide et l'ambiance suit l'horloge.
+  assert.equal(parseSave(JSON.stringify(valid), known)?.phase, null);
+});
+
 console.log(`\n${passed} assertions passees\n`);
