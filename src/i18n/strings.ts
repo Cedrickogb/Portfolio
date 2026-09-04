@@ -104,7 +104,7 @@ const en = {
 
   /* --- écran titre et menu du jeu ---------------------------------------- */
   'game.loading': 'LOADING…',
-  'game.press': '▶ PRESS START',
+  'game.press': '► PRESS START',
   'game.continue': 'Continue',
   'game.new': 'New game',
   'game.title.hint': 'Arrows or WASD to walk · A to talk · B for the menu',
@@ -282,7 +282,7 @@ const fr: Record<StringKey, string> = {
   'contact.failed': 'Le serveur n’a pas pu transmettre. Réessaie plus tard.',
 
   'game.loading': 'CHARGEMENT…',
-  'game.press': '▶ PRESS START',
+  'game.press': '► PRESS START',
   'game.continue': 'Continuer',
   'game.new': 'Nouvelle partie',
   'game.title.hint': 'Flèches ou ZQSD pour marcher · A pour parler · B pour le menu',
