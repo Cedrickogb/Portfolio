@@ -123,9 +123,10 @@ export default function QuestPanel() {
           href={quest.link}
           target="_blank"
           rel="noreferrer noopener"
-          className="pixel-border-primary inline-block bg-primary px-6 py-4 font-display text-xs text-black transition-transform hover:-translate-y-1"
+          className="group pixel-border-primary inline-block bg-primary px-6 py-4 font-display text-xs text-black transition-transform hover:-translate-y-1"
         >
-          {t('quests.visit')} ↗
+          {t('quests.visit')} 
+          <i className="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
         </a>
       </div>
     </div>
