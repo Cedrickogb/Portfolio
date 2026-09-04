@@ -22,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     { name: 'Skills', href: '/stacks' },
     { name: 'Quests', href: '/projects' },
     { name: t('nav.contacts'), href: '/contacts' },
-    { name: '▶ Play', href: '/game' },
+    { name: 'Play', href: '/game' },
   ];
 
   return (

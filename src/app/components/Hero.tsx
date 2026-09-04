@@ -92,7 +92,7 @@ const Hero: React.FC = () => {
             pressé, et sortirait le texte de la page indexée. */}
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <a href="/game" className="group relative inline-flex items-center justify-center px-8 py-4 font-display text-sm text-black transition-all duration-200 bg-primary font-bold pixel-border-primary hover:translate-y-[-4px] active:translate-y-[0px]">
-            ▶ Play
+            ► Play
             <span className="ml-3 font-mono text-lg font-normal opacity-70">{t(lang, 'hero.game')}</span>
           </a>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import type { PointerEvent as ReactPointerEvent } from 'react';
+import type { PointerEvent as ReactPointerEvent, ReactNode } from 'react';
 import { pressA, pressB, pressDir, releaseDir } from '@/game/engine/input';
 import { useGameStore } from '@/game/store/useGameStore';
 import type { Direction } from '@/game/engine/direction';
@@ -8,7 +8,30 @@ import type { Direction } from '@/game/engine/direction';
 const PAD_BTN =
   'flex items-center justify-center bg-gray-900/70 border-2 border-gray-500 text-gray-200 font-display text-xs select-none active:bg-primary active:text-black';
 
-function DirButton({ dir, label, className }: { dir: Direction; label: string; className: string }) {
+/**
+ * Chevron directionnel : un seul triangle, tourné par direction.
+ *
+ * `fill="currentColor"` plutôt qu'une couleur en dur : la flèche suit alors
+ * le `text-gray-200` / `active:text-black` du bouton, comme les libellés A/B.
+ * Un hex fixe (noir) se serait fondu dans le fond sombre du D-pad au repos.
+ */
+function DirIcon({ rotate }: { rotate: number }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4" style={{ transform: `rotate(${rotate}deg)` }}>
+      <path d="M21,21H3L12,3Z" />
+    </svg>
+  );
+}
+
+/** Une icône par direction, dérivée du même triangle — pas quatre SVG à maintenir en double. */
+const DIR_ICON: Record<Direction, ReactNode> = {
+  up: <DirIcon rotate={0} />,
+  right: <DirIcon rotate={90} />,
+  down: <DirIcon rotate={180} />,
+  left: <DirIcon rotate={270} />,
+};
+
+function DirButton({ dir, className }: { dir: Direction; className: string }) {
   // On relâche aussi sur cancel et leave : sans ça, glisser hors du bouton
   // laisse la direction bloquée et le joueur part en marche forcée.
   const down = (e: ReactPointerEvent) => {
@@ -27,7 +50,7 @@ function DirButton({ dir, label, className }: { dir: Direction; label: string; c
       onPointerCancel={up}
       onPointerLeave={up}
     >
-      {label}
+      {DIR_ICON[dir]}
     </button>
   );
 }
@@ -56,10 +79,10 @@ export default function TouchControls() {
   return (
     <div className="game-touch pointer-events-none absolute inset-0 z-[55]">
       <div className="pointer-events-auto absolute bottom-4 left-4 grid grid-cols-3 grid-rows-3 gap-1 w-36 h-36">
-        <DirButton dir="up" label="▲" className="col-start-2 row-start-1" />
-        <DirButton dir="left" label="◀" className="col-start-1 row-start-2" />
-        <DirButton dir="right" label="▶" className="col-start-3 row-start-2" />
-        <DirButton dir="down" label="▼" className="col-start-2 row-start-3" />
+        <DirButton dir="up" className="col-start-2 row-start-1" />
+        <DirButton dir="left" className="col-start-1 row-start-2" />
+        <DirButton dir="right" className="col-start-3 row-start-2" />
+        <DirButton dir="down" className="col-start-2 row-start-3" />
       </div>
 
       {/* START : sur écran tactile il n'y a pas de touche Échap, et le menu
