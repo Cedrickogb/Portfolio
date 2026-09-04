@@ -138,6 +138,56 @@ export const buildBush = (): BufferGeometry =>
   ]);
 
 /**
+ * Accents de toiture, un par bâtiment.
+ *
+ * Quatre bâtiments ne se distinguaient jusqu'ici que par la couleur — même
+ * gabarit, même silhouette. Un accent posé sur le toit change la ligne
+ * d'horizon du bâtiment, pas seulement son crépi : c'est ce qui se repère
+ * avant même d'être assez proche pour lire l'enseigne. Chacun reprend un motif
+ * lié à la fonction du bâtiment plutôt qu'un ornement arbitraire.
+ */
+
+/** Une seule teinte sur les six faces : ces accents sont trop petits pour
+ *  que la lumière cuite y distingue vraiment dessus et côtés. */
+const solid = (hex: string): FaceColors => ({ top: hex, side: hex, front: hex });
+
+/** Labo : mât et parabole, la R&D qui capte du signal. */
+export const buildRoofAntenna = (): BufferGeometry => {
+  const dish = coloredBox([0.4, 0.06, 0.32], [0, 0.48, 0.08], solid(P.stoneLight));
+  dish.rotateX(-0.5);
+  return assemble([
+    coloredBox([0.07, 0.5, 0.07], [0, 0.25, 0], solid(P.stoneDark)),
+    dish,
+  ]);
+};
+
+/** Quêtes : fanion sur mât, le tableau de quêtes d'une guilde. */
+export const buildRoofBanner = (): BufferGeometry =>
+  assemble([
+    coloredBox([0.06, 0.46, 0.06], [0, 0.23, 0], solid(P.woodDark)),
+    coloredBox([0.3, 0.2, 0.03], [0.16, 0.36, 0], solid(P.primary)),
+  ]);
+
+/** Stacks : trois conduits de hauteurs différentes, la pile qui donne son nom. */
+export const buildRoofStackPipes = (): BufferGeometry =>
+  assemble([
+    coloredBox([0.16, 0.3, 0.16], [-0.22, 0.15, 0], solid(P.stoneDark)),
+    coloredBox([0.16, 0.44, 0.16], [0, 0.22, 0], solid(P.stone)),
+    coloredBox([0.16, 0.36, 0.16], [0.22, 0.18, 0], solid(P.stoneDark)),
+  ]);
+
+/** Contact : mât et double barre, l'antenne qui diffuse plutôt qu'elle ne capte.
+ *  En pierre claire plutôt qu'en nuances de toit : sur le turquoise, une barre
+ *  presque de la même teinte que le toit disparaissait dedans. */
+export const buildRoofSignal = (): BufferGeometry =>
+  assemble([
+    coloredBox([0.08, 0.56, 0.08], [0, 0.28, 0], solid(P.stoneDark)),
+    coloredBox([0.46, 0.08, 0.08], [0, 0.46, 0], solid(P.stoneLight)),
+    coloredBox([0.3, 0.08, 0.08], [0, 0.32, 0], solid(P.stoneLight)),
+  ]);
+
+
+/**
  * Arbre : tronc élancé sous une canopée en trois gradins.
  *
  * La version précédente empilait deux grosses boîtes et lisait comme une haie

@@ -61,6 +61,10 @@ fill(45, 24, 3, 17, '=', ROUTE)
 fill(16, 29, 30, 2, '=', ROUTE)
 fill(48, 36, 22, 2, '=', ROUTE)
 put(70, 36, 'Q', ROUTE)
+# Panneau au bord du quai continental : la mention « appuie sur A » n'est
+# nulle part ailleurs dans le jeu, parce que nulle part ailleurs l'action
+# a besoin d'être devinee — ici, si.
+put(69, 35, '7', '~')
 put(52, 44, '3', SOL)
 # Panneau d'accueil pose juste sous le spawn : c'est la premiere chose que le
 # joueur a dans sa ligne de regard, donc la seule qu'on soit sur qu'il lise.

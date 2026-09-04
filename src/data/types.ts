@@ -10,6 +10,7 @@ export type TechKey =
   | 'fabricjs'
   | 'threejs'
   | 'konvajs'
+  // | 'electron'
   | 'html'
   | 'js'
   | 'ts'
@@ -57,6 +58,15 @@ export interface QuestItem {
   levelColor: string;
   tags: Translated<string[]>;
   features: Translated<string[]>;
+  /**
+   * Technos de `TECH_DATA` réellement mobilisées par ce projet.
+   *
+   * Distinct de `tags`, qui est du texte libre écrit pour se lire ("Frontend:
+   * Next.js 14 + React 18 avec…") : cette liste sert à retrouver les projets
+   * *depuis* une fiche technologie. Sans elle, le StackDex ne serait qu'un
+   * catalogue de compétences déclarées — jamais reliées à une preuve.
+   */
+  techKeys?: TechKey[];
   date?: string;
   year: string;
   isWeb?: boolean;

@@ -53,7 +53,7 @@ export const WORLD_MAP: GameMap = {
   '#.....................b......................===L........s~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#',
   '#......................T..T..T..T..T..T..T..T===..T..T...s~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#',
   '#......................T..T..T..T..T..T..T..T===..T..T...s~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#',
-  '#............................................===.........s~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#',
+  '#............................................===.........s~~~~~~~~~~~7~~~~~~~~~~~~~~~~~~~~~~~~~#',
   '#.....T...................TT.................====L====================Qssssssssssssssssssssssss#',
   '#.........................T.T................=========================////////////////////////.#',
   '#.........T.................................L===..L...../.r..rLr.r..r.r.r..r.r.rB.r.r.r.Tr.r.r.#',
@@ -146,6 +146,16 @@ export const WORLD_MAP: GameMap = {
       fr: [
         "Île des trophées. Le parcours professionnel,",
         "une stèle par étape. Approche-toi pour lire.",
+      ],
+    },
+    '7': {
+      en: [
+        "The dock. Face the water and press A to board.",
+        "Once aboard, the same key steps you back ashore.",
+      ],
+      fr: [
+        "Le ponton. Fais face à l'eau et appuie sur A pour embarquer.",
+        "Une fois à bord, la même touche te ramène à terre.",
       ],
     },
   },

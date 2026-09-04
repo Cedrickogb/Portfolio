@@ -29,6 +29,12 @@ export interface BuildingStyle {
   windows: boolean;
   /** Colonnade en façade : réservée aux édifices publics. */
   columns: boolean;
+  /**
+   * Accent posé sur le toit, ou aucun pour le hall — sa colonnade et son
+   * gabarit hors norme suffisent déjà à le distinguer des quatre maisons, qui
+   * elles ne différaient jusqu'ici que par la couleur.
+   */
+  roofProp?: 'antenna' | 'banner' | 'stackPipes' | 'signal';
 }
 
 const P = PALETTE;
@@ -45,6 +51,7 @@ export const BUILDING_STYLES = {
     overhang: 0.3,
     windows: true,
     columns: false,
+    roofProp: 'antenna',
   },
   /** Le quartier des quêtes : toit de tuiles rouges, crépi chaud, plus haut. */
   quests: {
@@ -57,6 +64,7 @@ export const BUILDING_STYLES = {
     overhang: 0.36,
     windows: true,
     columns: false,
+    roofProp: 'banner',
   },
   /** Le magasin : toit bleu, façade grise, large débord façon auvent. */
   stacks: {
@@ -72,6 +80,7 @@ export const BUILDING_STYLES = {
     overhang: 0.38,
     windows: true,
     columns: false,
+    roofProp: 'stackPipes',
   },
   /** Le centre de contact : toit turquoise, crépi clair, toit épais. */
   contact: {
@@ -84,6 +93,7 @@ export const BUILDING_STYLES = {
     overhang: 0.32,
     windows: false,
     columns: false,
+    roofProp: 'signal',
   },
   /**
    * Le hall des trophées : pierre claire, toit cuivré, colonnade.

@@ -21,9 +21,9 @@ export const techEntries = () => TECH_LIST;
  * toujours sélectionnable.
  */
 export const START_ENTRIES = [
-  { id: 'quests', label: 'menu.quests' },
-  { id: 'stacks', label: 'menu.stacks' },
-  { id: 'cv', label: 'menu.cv' },
+  // { id: 'quests', label: 'menu.quests' },
+  // { id: 'stacks', label: 'menu.stacks' },
+  // { id: 'cv', label: 'menu.cv' },
   { id: 'map', label: 'menu.map' },
   { id: 'bike', label: 'menu.bike' },
   { id: 'view', label: 'menu.view' },

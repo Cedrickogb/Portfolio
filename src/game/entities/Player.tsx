@@ -14,7 +14,7 @@ import {
 import { HERO, HERO_HEIGHT, HERO_ROW, HERO_SHADOW_H, HERO_SHADOW_W, LOOKS, heroAtlas, heroShadowRaster } from '@/game/assets/hero';
 import { PALETTE } from '@/game/assets/palette';
 import { textureFromRaster } from '@/game/assets/texture';
-import { consumeA, heldDir } from '@/game/engine/input';
+import { consumeA, consumeB, heldDir } from '@/game/engine/input';
 import { sfx } from '@/game/audio/sfx';
 import { decide } from '@/game/engine/movement';
 import type { ParsedMap } from '@/game/engine/grid';
@@ -79,8 +79,12 @@ export default function Player({ map }: { map: ParsedMap }) {
        avaler ici rendrait B inopérant dans les panneaux. */
     if (s.questId || s.techKey || s.menu) return;
 
+    /* B n'est drainé ici que s'il y a un dialogue à qui le donner : sans
+       cette garde, Player.tsx viderait la même file que `useUiInput`, qui ne
+       la lit elle-même que lorsqu'aucun dialogue n'est ouvert (mêmes lignes,
+       plus bas). Les deux se partagent la file sans jamais se la voler. */
     const intent = decide(
-      { a: consumeA(), dir: heldDir() },
+      { a: consumeA(), b: s.dialogue ? consumeB() : false, dir: heldDir() },
       {
         tile: s.tile,
         facing: s.facing,

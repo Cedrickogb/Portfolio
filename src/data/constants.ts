@@ -543,11 +543,23 @@ export const techByKey = (key: string): TechItem | undefined =>
 /** Toutes les technos, dans l'ordre de déclaration. */
 export const TECH_LIST: TechItem[] = Object.values(TECH_DATA);
 
+/**
+ * Projets qui mobilisent une technologie donnée, dans l'ordre de `QUESTS`.
+ *
+ * C'est la réciproque de `QuestItem.techKeys` : un StackDex qui ne fait que
+ * lister des compétences déclarées ne prouve rien. Celui-ci répond à la
+ * question qu'un recruteur se pose vraiment — « il dit qu'il sait, où l'a-t-il
+ * fait ? » — en pointant vers les projets réels du portfolio.
+ */
+export const questsUsing = (key: TechKey): QuestItem[] =>
+  QUESTS.filter((q) => q.techKeys?.includes(key));
+
 export const QUESTS: QuestItem[] = [
   {
     id: 'trust-flow',
     active: true,
     title: 'TrustFlow',
+    techKeys: ['next', 'react', 'supabase', 'tailwind'],
     description: {
       en: 'A modern B2B SaaS platform designed to enhance the online reputation of local businesses, it enables the collection and management of customer feedback via personalized QR codes',
       fr: 'Une plateforme SaaS B2B moderne conçue pour renforcer la réputation en ligne des commerces locaux ; elle permet de collecter et gérer les avis clients via des QR codes personnalisés',
@@ -595,6 +607,7 @@ export const QUESTS: QuestItem[] = [
     id: 'collab-draw',
     active: true,
     title: 'CollabDraw',
+    techKeys: ['react', 'konvajs', 'tailwind'],
     description: {
       en: 'Built with React + Liveblocks for conflict-free real-time sync across multiple users. Implemented a guest/owner permission model with Clerk auth. Handled canvas state with Konva.js for high-performance rendering.',
       fr: 'Construit avec React + Liveblocks pour une synchronisation temps réel sans conflit entre plusieurs utilisateurs. Modèle de permissions invité/propriétaire avec l’authentification Clerk. État du canvas géré avec Konva.js pour un rendu haute performance.',
@@ -640,6 +653,7 @@ export const QUESTS: QuestItem[] = [
     id: 'music-hopper',
     active: true,
     title: 'MusicHopper',
+    techKeys: ['vue', 'tailwind', 'html'],
     description: {
       en: "MusicHopper is a modern desktop music player. It is specifically designed to provide a seamless user experience for managing local music libraries and creating persistent playlists. Its standout feature is the integration of real-time synchronized lyrics that automatically scroll during playback for locally stored songs. Only the Windows version is available at this time; the rest will be available soon",
       fr: "MusicHopper est un lecteur de musique de bureau moderne. Il est conçu pour offrir une expérience fluide de gestion des bibliothèques musicales locales et de création de playlists persistantes. Sa particularité : des paroles synchronisées en temps réel qui défilent automatiquement pendant la lecture des morceaux stockés localement. Seule la version Windows est disponible pour l’instant ; le reste arrivera bientôt",
@@ -688,6 +702,7 @@ export const QUESTS: QuestItem[] = [
     id: 'mr-streaming',
     active: false,
     title: 'Mr Streaming',
+    techKeys: ['vue', 'tailwind'],
     description: {
       en: 'Streaming subscription profile sales site',
       fr: 'Site de vente de profils d’abonnement streaming',
@@ -707,6 +722,7 @@ export const QUESTS: QuestItem[] = [
     id: 'aso',
     active: true,
     title: 'ASO',
+    techKeys: ['vue', 'tailwind', 'fabricjs'],
     description: {
       en: 'Together with the team at Vertim Coders, where I served as lead front-end developer, we developed ASO (All Signs Options), a powerful product configurator designed for general signage (banners, acrylic/wood signs, stickers). It transforms a simple product page into a full-fledged visual design studio integrated directly into the browser',
       fr: 'Avec l’équipe de Vertim Coders, où j’étais développeur frontend référent, nous avons développé ASO (All Signs Options), un configurateur de produit puissant conçu pour la signalétique générale (banderoles, enseignes acrylique/bois, autocollants). Il transforme une simple page produit en véritable studio de conception visuelle intégré au navigateur',
@@ -745,6 +761,7 @@ export const QUESTS: QuestItem[] = [
     id: 'ncpc',
     active: true,
     title: 'NCPC',
+    techKeys: ['vue', 'tailwind', 'konvajs'],
     description: {
       en: 'Together with the team at Vertim Coders, where I served as lead front-end developer, we developed NCPC (Neon Channel Product Customizer), a highly specialized solution designed for manufacturers of illuminated signs. It allows customers to design neon or LED lettering by simulating a realistic visual rendering before making a purchase',
       fr: 'Avec l’équipe de Vertim Coders, où j’étais développeur frontend référent, nous avons développé NCPC (Neon Channel Product Customizer), une solution très spécialisée destinée aux fabricants d’enseignes lumineuses. Elle permet aux clients de concevoir des lettrages néon ou LED en simulant un rendu visuel réaliste avant l’achat',
@@ -783,6 +800,7 @@ export const QUESTS: QuestItem[] = [
     id: 'twitter-clone',
     active: false,
     title: 'Twitter Clone',
+    techKeys: ['next', 'js', 'tailwind'],
     description: {
       en: 'A pixel-perfect replication of the social giant using React and Node.js. Features real-time updates.',
       fr: 'Une réplique fidèle au pixel du géant social avec React et Node.js. Avec des mises à jour en temps réel.',

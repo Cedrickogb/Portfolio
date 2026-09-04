@@ -6,6 +6,11 @@ import type { Lang } from '../../i18n/lang';
 export interface Input {
   /** Bouton A pressé depuis la frame précédente. */
   a: boolean;
+  /** Bouton B pressé depuis la frame précédente. Ignoré hors dialogue : le
+   *  monde et les menus le lisent eux-mêmes, par une file séparée.
+   *  Optionnel : toute la suite de tests antérieure à ce champ construit
+   *  encore des `Input` sans lui, et son absence vaut « non pressé ». */
+  b?: boolean;
   /** Direction maintenue, ou null. */
   dir: Direction | null;
 }
@@ -53,15 +58,22 @@ export type Intent =
 export function dialogueIntent(
   a: boolean,
   dialogue: NonNullable<Snapshot['dialogue']>,
+  b = false,
 ): Intent {
-  if (!a) return { kind: 'idle' };
+  /* B avance un dialogue exactement comme A.
+     Une réplique de congé apparaît *en réponse* à un appui sur B (fermer un
+     comptoir sans un mot rejoue la formule de départ du personnage) — si B ne
+     savait alors plus rien faire, le joueur se retrouvait avec le bouton que
+     l'écran venait de lui faire presser qui ne répondait plus à rien. B reste
+     un « retour » qui ne tombe jamais dans le vide, même pendant un dialogue. */
+  if (!a && !b) return { kind: 'idle' };
   const full = dialogue.lines[dialogue.index].length;
   return dialogue.revealed < full ? { kind: 'reveal-line' } : { kind: 'advance-dialogue' };
 }
 
 export function decide(input: Input, s: Snapshot, map: ParsedMap): Intent {
   // Un dialogue ouvert gèle le déplacement.
-  if (s.dialogue) return dialogueIntent(input.a, s.dialogue);
+  if (s.dialogue) return dialogueIntent(input.a, s.dialogue, input.b ?? false);
 
   // Un pas engagé va toujours jusqu'à la case suivante : pas d'arrêt à mi-chemin.
   if (s.stepping) return { kind: 'idle' };

@@ -49,6 +49,8 @@ const en = {
   'exp.download': 'Download',
   'stacks.ready': 'SYSTEM READY',
   'stacks.special': 'SPECIAL ATTACK',
+  'stacks.usedIn': 'Used in',
+  'stacks.select': 'Select a technology cartridge from the collection to analyze its data.',
 
   /* --- expérience -------------------------------------------------------- */
   'exp.title': 'Player Stats',
@@ -161,6 +163,7 @@ const en = {
   'panel.quest.stack': 'STACK',
   'panel.quest.features': 'FEATURES',
   'panel.quest.platform': 'PLATFORM',
+  'quests.close': 'B or Esc: back to the log',
   'panel.tech.type': 'TYPE',
   'panel.tech.projects': 'PROJECTS',
 
@@ -228,6 +231,8 @@ const fr: Record<StringKey, string> = {
   'exp.download': 'Télécharger',
   'stacks.ready': 'SYSTÈME PRÊT',
   'stacks.special': 'ATTAQUE SPÉCIALE',
+  'stacks.usedIn': 'Utilisé dans',
+  'stacks.select': 'Sélectionne une cartouche de technologie dans la collection pour analyser ses données.',
 
   'exp.title': 'Statistiques',
   'exp.class': 'Classe : ingénieur',
@@ -335,6 +340,7 @@ const fr: Record<StringKey, string> = {
   'panel.quest.stack': 'STACK',
   'panel.quest.features': 'FONCTIONS',
   'panel.quest.platform': 'PLATEFORME',
+  'quests.close': 'B ou Échap : retour au journal',
   'panel.tech.type': 'TYPE',
   'panel.tech.projects': 'PROJETS',
 

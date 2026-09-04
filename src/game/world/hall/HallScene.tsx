@@ -19,7 +19,7 @@ import { PALETTE as P } from '@/game/assets/palette';
 import { rasterFromPixelArt } from '@/game/assets/pixel';
 import { textureFromRaster } from '@/game/assets/texture';
 import { EXPERIENCE_DATA } from '@/data/constants';
-import { consumeA, heldDirs } from '@/game/engine/input';
+import { consumeA, consumeB, heldDirs } from '@/game/engine/input';
 import { signDialogueAt, tileKey, warpAt, type ParsedMap } from '@/game/engine/grid';
 import { dialogueIntent } from '@/game/engine/movement';
 import { boomLength, fits, slide } from '@/game/engine/walk';
@@ -293,7 +293,7 @@ export default function HallScene({ map }: { map: ParsedMap }) {
        mêmes qu'applique la vue de dessus — les réécrire ici, c'était les
        oublier ici. */
     if (!busy && s.dialogue) {
-      const intent = dialogueIntent(consumeA(), s.dialogue);
+      const intent = dialogueIntent(consumeA(), s.dialogue, consumeB());
       if (intent.kind === 'reveal-line') s.revealLine();
       else if (intent.kind === 'advance-dialogue') s.advanceDialogue();
     }

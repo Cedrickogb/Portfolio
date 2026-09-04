@@ -66,6 +66,7 @@ export default function ListMenu() {
                 <li key={entry.id}>
                   <button
                     type="button"
+                    id={entry.id}
                     onMouseEnter={() => setCursor(i)}
                     onClick={() => setCursor(i)}
                     className={`flex w-full items-center gap-3 border-2 px-3 py-2 text-left transition-colors ${

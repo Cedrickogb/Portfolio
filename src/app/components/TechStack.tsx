@@ -2,7 +2,7 @@
 
 import { useT, useTr } from '@/i18n/LangProvider';
 import React, { useState } from 'react';
-import { TECH_DATA, techByKey } from '@/data/constants';
+import { TECH_DATA, questsUsing, techByKey } from '@/data/constants';
 import { TechItem } from '@/data/types';
 import TechIcon from './tech/TechIcon';
 
@@ -342,7 +342,7 @@ const TechStack: React.FC = () => {
                                 <p className="text-green-300 text-[15px] leading-relaxed mb-4">
                                   {tr(selectedTech.description)}
                                 </p>
-                                <div className="grid grid-cols-2 gap-2 text-[13px]">
+                                <div className="grid grid-cols-2 gap-2 text-[13px] mb-2">
                                   <div className="bg-green-900/30 p-1 rounded border border-green-800/50">
                                     <span className="block text-green-600">EXP</span>
                                     <span className="text-green-300">{selectedTech.stats.experience}</span>
@@ -352,6 +352,26 @@ const TechStack: React.FC = () => {
                                     <span className="text-green-300">{selectedTech.stats.projects}</span>
                                   </div>
                                 </div>
+
+                                {/* La preuve, pas seulement la déclaration : sans ce lien, le
+                                    StackDex n'était qu'une liste de compétences qu'on demande
+                                    de croire sur parole. */}
+                                {questsUsing(selectedTech.key).length > 0 && (
+                                  <div className="text-[13px]">
+                                    <span className="block text-green-600 mb-1">{t('stacks.usedIn')}</span>
+                                    <div className="flex flex-wrap gap-1">
+                                      {questsUsing(selectedTech.key).map((quest) => (
+                                        <a
+                                          key={quest.id}
+                                          href={`/projects/${quest.id}`}
+                                          className="bg-green-900/30 px-1.5 py-0.5 rounded border border-green-800/50 text-green-300 hover:border-green-500 hover:text-green-200 transition-colors"
+                                        >
+                                          {quest.title}
+                                        </a>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
                             </div>
                         </div>
                     ) : (
@@ -359,7 +379,7 @@ const TechStack: React.FC = () => {
                             <i className="fas fa-microchip text-4xl text-green-500 mb-4 animate-bounce"></i>
                             <h3 className="font-display text-green-500 text-sm mb-2">{t('stacks.ready')}</h3>
                             <p className="font-mono text-green-400 text-xs leading-relaxed">
-                                Select a technology cartridge from the collection to analyze its data.
+                                {t('stacks.select')}
                             </p>
                         </div>
                     )}

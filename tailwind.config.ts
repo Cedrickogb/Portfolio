@@ -70,6 +70,8 @@ const config: Config = {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float-up': 'floatUp linear infinite',
         'fade-in': 'fadeIn 0.5s ease-out',
+        // Traversée de l'écran de chargement par le héros : cf. `HeroWalkLoader`.
+        'walk-across': 'walkAcross 3.4s linear infinite',
       },
       keyframes: {
         floatUp: {
@@ -81,7 +83,11 @@ const config: Config = {
         fadeIn: {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
-        }
+        },
+        walkAcross: {
+          '0%': { left: '-15%' },
+          '100%': { left: '100%' },
+        },
       }
     },
   },

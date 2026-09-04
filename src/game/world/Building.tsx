@@ -2,8 +2,15 @@
 
 import { useEffect, useMemo } from 'react';
 import { AdditiveBlending } from 'three';
-import { assemble, coloredBox } from '@/game/assets/geometry';
-import { BUILDING_STYLES, roofArt, wallArt } from '@/game/assets/buildings';
+import {
+  assemble,
+  buildRoofAntenna,
+  buildRoofBanner,
+  buildRoofSignal,
+  buildRoofStackPipes,
+  coloredBox,
+} from '@/game/assets/geometry';
+import { BUILDING_STYLES, roofArt, wallArt, type BuildingStyle } from '@/game/assets/buildings';
 import { PALETTE as P } from '@/game/assets/palette';
 import { rasterFromPixelArt } from '@/game/assets/pixel';
 import { SIGN_H, SIGN_W, signRaster } from '@/game/assets/sign';
@@ -32,7 +39,10 @@ const DOOR_H = 1.1;
  * Le gabarit et les couleurs viennent du style : voir `assets/buildings.ts`.
  */
 export default function Building({ rect }: { rect: BuildingRect }) {
-  const style = BUILDING_STYLES[rect.style];
+  // Annoté par l'interface partagée, pas la réunion des littéraux : sans quoi
+  // lire un champ optionnel absent d'UN SEUL style (`roofProp` pour le hall)
+  // échoue à la compilation pour tous les autres, qui l'ont.
+  const style: BuildingStyle = BUILDING_STYLES[rect.style];
   const phase = useGameStore((s) => s.phase);
   const ambience = AMBIENCE[phase];
   const { w, h } = { w: rect.w, h: rect.h };
@@ -133,14 +143,28 @@ export default function Building({ rect }: { rect: BuildingRect }) {
     [rect.label],
   );
 
+  /* Accent de toiture : construit une fois par style, pas par bâtiment — deux
+     maisons « quests » partageraient la même géométrie si la carte en posait
+     un jour deux, sans qu'il faille la reconstruire. */
+  const roofPropGeometry = useMemo(() => {
+    switch (style.roofProp) {
+      case 'antenna': return buildRoofAntenna();
+      case 'banner': return buildRoofBanner();
+      case 'stackPipes': return buildRoofStackPipes();
+      case 'signal': return buildRoofSignal();
+      default: return null;
+    }
+  }, [style.roofProp]);
+
   useEffect(
     () => () => {
       geometry.dispose();
       wallMap.dispose();
       roofMap.dispose();
       signMap?.dispose();
+      roofPropGeometry?.dispose();
     },
-    [geometry, wallMap, roofMap, signMap],
+    [geometry, wallMap, roofMap, signMap, roofPropGeometry],
   );
 
   const [sx, sz] = shadowOffset(bodyH + roofH);
@@ -203,6 +227,21 @@ export default function Building({ rect }: { rect: BuildingRect }) {
         <planeGeometry args={[roofW, roofD]} />
         <meshBasicMaterial map={roofMap} />
       </mesh>
+
+      {/* Accent de toiture : change la ligne d'horizon du bâtiment, pas
+          seulement son crépi — ce qui se repère avant d'être assez près pour
+          lire l'enseigne.
+
+          Posé côté façade (+z), pas côté arrière : à la première tentative,
+          côté arrière, la caméra — inclinée et déjà au ras de la crête sur un
+          bâtiment de cette hauteur — le laissait hors cadre. Il reste sous
+          l'enseigne malgré tout : l'enseigne est plaquée sur le mur, l'accent
+          est posé sur le toit, un plan entier plus haut. */}
+      {roofPropGeometry && (
+        <mesh geometry={roofPropGeometry} position={[0, bodyH + roofH, h / 4]}>
+          <meshBasicMaterial vertexColors />
+        </mesh>
+      )}
     </group>
   );
 }

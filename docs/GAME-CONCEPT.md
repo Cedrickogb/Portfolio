@@ -836,6 +836,62 @@ un travail d'ingénierie mais d'écriture, et ces paragraphes-là parlent au nom
 de Cédrick : ils lui reviennent, ou me reviennent en relecture. Le mécanisme
 est prêt (`Translated`, resolvers), il ne manque que le texte.
 
+### Phase 8 — Retours d'un ami développeur · v1
+
+Sept remarques, toutes traitées ou tranchées avec Cédrick.
+
+**Bug — B mort après avoir fermé un panneau.** Fermer la fiche CV rejoue la
+formule de départ du personnage (une réplique de congé, pour ne pas donner
+l'impression d'avoir coupé la conversation). Cette réplique n'écoutait que A ;
+B, la touche que l'écran vient de demander de presser pour fermer, ne faisait
+plus rien. Root cause : `dialogueIntent` ne regardait que `a`. B avance
+désormais un dialogue exactement comme A — testé en pur (`decide({b:true}, …)`
+donne le même résultat que `decide({a:true}, …)`) et vérifié en conditions
+réelles (B(1) ferme le CV et ouvre la réplique, B(2) la révèle, B(3) la ferme).
+
+**« Bug de navigation » dans le Trophy Hall — non reproduit.** Virages,
+diagonale, mur, sortie, ré-entrée immédiate : rien à signaler après un test
+poussé. Hypothèse retenue avec Cédrick : la salle bascule en contrôles tank
+(↑↓ relatifs au regard) sans prévenir, alors que le reste du jeu est en
+directions absolues — un changement de mécanique qui se lit comme un bug.
+Même famille que la remarque sur la barque ; réponse commune : mieux signaler,
+pas réécrire.
+
+**Loader générique.** Avant que `Game` (three.js compris) ne soit téléchargé,
+un point clignotant sur fond noir précédait l'écran titre — deux écrans de
+chargement qui ne se ressemblaient pas. `GameLoading` reprend l'habillage de
+l'écran titre (logo, fiche, teinte) : un seul écran, pas deux qui se
+succèdent sans lien.
+
+**StackDex sans preuve.** Une liste de compétences déclarées ne prouve rien.
+`QuestItem.techKeys` (nouveau) relie chaque projet à ses technos réelles ;
+`questsUsing(key)` en tire la réciproque. Chaque fiche technologie — jeu et
+site — affiche désormais les projets qui l'utilisent, cliquables : dans le
+jeu, cliquer un projet referme la fiche techno et ouvre directement la
+vitrine du projet, sans fenêtre par-dessus une autre.
+
+**Barque : gardée, mieux signalée.** Le chemin déjà écrit (« suis la route de
+l'est jusqu'au ponton ») restait silencieux une fois arrivé sur place —
+personne ne disait comment monter à bord. Un panneau posé juste avant le quai
+continental l'explicite : « fais face à l'eau et appuie sur A ». Placé hors de
+l'axe d'embarquement (sur la case voisine du quai, pas sur le quai lui-même)
+pour ne jamais entrer en conflit avec la logique de montée.
+
+**Vitrine de projet, plein écran.** Contenu le plus important du portfolio,
+elle avait le même cadre `GameWindow` qu'un réglage de son. `QuestPanel` est
+réécrit : bannière image plein écran avec dégradé, titre superposé, corps
+éditorial sans bordure de menu — volontairement en rupture avec le reste du
+jeu, parce que c'est le reste du jeu qui doit s'effacer devant elle, pas
+l'inverse. Stack affichée en jetons, plus seulement cachée dans les tags.
+
+**Les cinq bâtiments se ressemblaient trop.** Ils ne différaient que par la
+couleur — même gabarit, même silhouette. Chacun reçoit un accent de toiture
+propre à sa fonction : parabole pour le labo (R&D), fanion pour les quêtes
+(tableau de guilde), trois conduits empilés pour les stacks (jeu de mots
+assumé), mât-antenne pour le contact (diffuser plutôt que capter). Le hall
+n'en a pas besoin : sa colonnade et son gabarit hors norme le distinguaient
+déjà. Récompense de l'exploration : reportée, chantier à part.
+
 ### Phase 7 — Recensement de bugs · v1
 
 Demandé par Cédrick, en même temps que le mobile : passer le site au crible.

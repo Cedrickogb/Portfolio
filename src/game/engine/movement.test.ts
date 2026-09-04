@@ -490,6 +490,23 @@ check('la regle de dialogue est partagee avec les salles en 3D', () => {
   assert.deepEqual(decide({ a: true, dir: null }, snap({ dialogue: d }), map), dialogueIntent(true, d));
 });
 
+check('B avance un dialogue exactement comme A, jamais un bouton mort', () => {
+  /* Signale par un ami de Cedrick : fermer le CV (B) rejoue la formule de
+     conge du personnage, et sur cette replique B ne faisait plus rien — le
+     joueur restait bloque avec le bouton que l'ecran venait de lui faire
+     presser. B doit rester un « retour » qui ne tombe jamais dans le vide. */
+  assert.deepEqual(dialogueIntent(false, dlg(3), false), { kind: 'idle' });
+  assert.deepEqual(dialogueIntent(false, dlg(3), true), { kind: 'reveal-line' });
+  assert.deepEqual(dialogueIntent(false, dlg(6), true), { kind: 'advance-dialogue' });
+  // Ni A ni B : rien ne bouge, comme avant ce correctif.
+  assert.deepEqual(decide({ a: false, b: false, dir: null }, snap({ dialogue: dlg(6) }), map), { kind: 'idle' });
+  // B seul referme la replique de conge, exactement comme A l'aurait fait.
+  assert.deepEqual(
+    decide({ a: false, b: true, dir: null }, snap({ dialogue: dlg(6) }), map),
+    decide({ a: true, dir: null }, snap({ dialogue: dlg(6) }), map),
+  );
+});
+
 check('un dialogue ouvert gele le deplacement', () => {
   const s = snap({ dialogue: dlg(6) });
   assert.deepEqual(decide({ a: false, dir: 'down' }, s, map), { kind: 'idle' });
